@@ -1,5 +1,92 @@
 # OpenCode Plugins
 
+## Task Orchestrator (`orchestrator.ts`)
+
+Centralized task backlog with automatic dispatch — the brain that manages what gets worked on, when, and where.
+
+### The Problem
+
+Manually opening each session and pasting "continue with next priorities" is repetitive. You're acting as the scheduler when the machine should do it.
+
+### How It Works
+
+```
+/plan  →  Analyzes repos, creates prioritized task backlog
+           ↓
+orchestrator  →  Every 60s, picks next "ready" task
+           ↓
+         Creates new session for the task's project directory
+           ↓
+         Sends detailed prompt with task description
+           ↓
+         Monitors session → marks task "done" when idle + todos complete
+           ↓
+         Picks up next task automatically
+```
+
+### Commands
+
+| Command | What it does |
+|---------|-------------|
+| `/plan` | Analyze projects, create execution plan with prioritized tasks |
+| `/backlog` | Show current task status (in_progress, ready, backlog, done) |
+| `/next` | Manually trigger dispatch of next ready task |
+
+### Task Schema
+
+Tasks are stored in `~/.local/share/opencode/orchestrator/backlog.json`:
+
+```json
+{
+  "tasks": [
+    {
+      "id": "task_abc123",
+      "title": "Add rate limiting to API routes",
+      "description": "Detailed instructions for the agent...",
+      "directory": "/path/to/project",
+      "priority": "high",
+      "status": "ready",
+      "agent": "architect",
+      "tags": ["security", "api"]
+    }
+  ],
+  "version": 1
+}
+```
+
+### Task Lifecycle
+
+```
+backlog → ready → in_progress → done
+                       ↓
+                    blocked
+```
+
+- **backlog**: Planned but waiting for dependencies
+- **ready**: Can be dispatched immediately
+- **in_progress**: Assigned to a session, agent is working
+- **done**: Session went idle, all todos completed
+- **blocked**: Session errored or was deleted
+
+### Configuration
+
+```typescript
+const MAX_CONCURRENT = 2        // max sessions working at once
+const POLL_INTERVAL_MS = 60000  // check every 60s
+```
+
+### Plans (Sequential Tasks)
+
+Use `/plan` and the orchestrator supports parent-child task relationships. Child tasks start as "backlog" and get promoted to "ready" as their predecessors complete.
+
+### Install
+
+```bash
+cp opencode/plugin/orchestrator.ts ~/.config/opencode/plugin/
+```
+
+---
+
 ## Session Resume (`session-resume.ts`)
 
 Automatically resumes interrupted sessions after OpenCode restarts.
