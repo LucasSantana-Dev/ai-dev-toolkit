@@ -24,6 +24,7 @@ Battle-tested OpenCode configuration:
 - DCP (Dynamic Context Pruning) settings
 - Plugin recommendations
 - Per-project MCP server enablement patterns
+- **Session Manager plugin** — auto-cleans stale sessions, tags idle/WIP, keeps max 3 per project
 
 ### Skills (`skills/`)
 Reusable skill definitions for AI agents:
