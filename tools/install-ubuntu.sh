@@ -78,10 +78,15 @@ if command -v chezmoi &>/dev/null; then
 else
   echo "Installing chezmoi..."
   CHEZMOI_VERSION=$(curl -s "https://api.github.com/repos/twpayne/chezmoi/releases/latest" | jq -r '.tag_name' | tr -d 'v')
-  curl -sLo /tmp/chezmoi.deb "https://github.com/twpayne/chezmoi/releases/download/v${CHEZMOI_VERSION}/chezmoi_${CHEZMOI_VERSION}_linux_amd64.deb"
-  sudo dpkg -i /tmp/chezmoi.deb
-  rm /tmp/chezmoi.deb
-  INSTALLED+=("chezmoi")
+  if [[ ! "$CHEZMOI_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    echo "⚠️  Could not determine chezmoi version, skipping"
+    SKIPPED+=("chezmoi")
+  else
+    curl -sLo /tmp/chezmoi.deb "https://github.com/twpayne/chezmoi/releases/download/v${CHEZMOI_VERSION}/chezmoi_${CHEZMOI_VERSION}_linux_amd64.deb"
+    sudo dpkg -i /tmp/chezmoi.deb
+    rm /tmp/chezmoi.deb
+    INSTALLED+=("chezmoi")
+  fi
 fi
 
 # lazygit
@@ -91,11 +96,16 @@ if command -v lazygit &>/dev/null; then
 else
   echo "Installing lazygit..."
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | jq -r '.tag_name' | tr -d 'v')
-  curl -sLo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-  tar -xzf /tmp/lazygit.tar.gz -C /tmp lazygit
-  sudo install /tmp/lazygit /usr/local/bin/lazygit
-  rm /tmp/lazygit /tmp/lazygit.tar.gz
-  INSTALLED+=("lazygit")
+  if [[ ! "$LAZYGIT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    echo "⚠️  Could not determine lazygit version, skipping"
+    SKIPPED+=("lazygit")
+  else
+    curl -sLo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar -xzf /tmp/lazygit.tar.gz -C /tmp lazygit
+    sudo install /tmp/lazygit /usr/local/bin/lazygit
+    rm /tmp/lazygit /tmp/lazygit.tar.gz
+    INSTALLED+=("lazygit")
+  fi
 fi
 
 # eza (modern ls)
@@ -119,10 +129,15 @@ if command -v delta &>/dev/null; then
 else
   echo "Installing git-delta..."
   DELTA_VERSION=$(curl -s "https://api.github.com/repos/dandavison/delta/releases/latest" | jq -r '.tag_name')
-  curl -sLo /tmp/delta.deb "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb"
-  sudo dpkg -i /tmp/delta.deb
-  rm /tmp/delta.deb
-  INSTALLED+=("git-delta")
+  if [[ ! "$DELTA_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    echo "⚠️  Could not determine git-delta version, skipping"
+    SKIPPED+=("git-delta")
+  else
+    curl -sLo /tmp/delta.deb "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb"
+    sudo dpkg -i /tmp/delta.deb
+    rm /tmp/delta.deb
+    INSTALLED+=("git-delta")
+  fi
 fi
 
 # zoxide (smart cd)
@@ -152,10 +167,15 @@ if command -v yq &>/dev/null; then
 else
   echo "Installing yq..."
   YQ_VERSION=$(curl -s "https://api.github.com/repos/mikefarah/yq/releases/latest" | jq -r '.tag_name')
-  curl -sLo /tmp/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
-  sudo install /tmp/yq /usr/local/bin/yq
-  rm /tmp/yq
-  INSTALLED+=("yq")
+  if [[ ! "$YQ_VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    echo "⚠️  Could not determine yq version, skipping"
+    SKIPPED+=("yq")
+  else
+    curl -sLo /tmp/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+    sudo install /tmp/yq /usr/local/bin/yq
+    rm /tmp/yq
+    INSTALLED+=("yq")
+  fi
 fi
 
 echo ""
@@ -234,18 +254,10 @@ echo "=== Setting up atuin sync ==="
 echo "Run: atuin login"
 echo ""
 
-echo "=== Changing default shell to fish ==="
-FISH_PATH=$(which fish)
-if ! grep -q "$FISH_PATH" /etc/shells; then
-    echo "$FISH_PATH" | sudo tee -a /etc/shells
-fi
-
-if [ "$SHELL" != "$FISH_PATH" ]; then
-  chsh -s "$FISH_PATH"
-  echo "✓ Default shell changed to fish"
-else
-  echo "✓ Fish is already the default shell"
-fi
+echo "=== Shell Configuration ==="
+echo "To change your default shell to fish, run:"
+echo "  chsh -s \$(which fish)"
+echo ""
 
 # Summary
 echo ""

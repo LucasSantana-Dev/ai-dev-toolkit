@@ -8,17 +8,8 @@
 
 ## Project
 - [Project Decisions](project-decisions.md) - Architectural decisions and rationale
-- [Stack & Tools](stack-tools.md) - Tech stack, libraries, tooling choices
 - TypeScript + React + Node.js + PostgreSQL
 - Monorepo with Turborepo, pnpm workspaces
-
-## Feedback
-- [Common Mistakes](common-mistakes.md) - Patterns to avoid based on past feedback
-- [Quality Standards](quality-standards.md) - Code review criteria and expectations
-
-## References
-- [External APIs](external-apis.md) - Third-party service integration details
-- [Deployment](deployment.md) - CI/CD pipelines, environments, secrets
 
 ## Task Context
 - Current sprint: Authentication & API security (TASK-001, TASK-002)

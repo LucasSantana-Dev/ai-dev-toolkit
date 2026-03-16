@@ -19,6 +19,9 @@
 
 set -euo pipefail
 
+# Enable case-insensitive pattern matching for SQL detection
+shopt -s nocasematch
+
 # ============================================================================
 # DANGEROUS COMMAND BLOCKING
 # ============================================================================
@@ -49,11 +52,15 @@ fi
 
 if [[ "$TOOL_NAME" == "Bash" ]]; then
   # Warn on force push to main/master
-  if [[ "$COMMAND" =~ git[[:space:]]+push[[:space:]]+.*--force.*(main|master) ]]; then
+  if [[ "$COMMAND" =~ git[[:space:]]+push[[:space:]]+.*(--force|-f).*(main|master) ]]; then
     echo "⚠️  WARNING: Force-pushing to main/master branch"
     echo ""
     echo "This can overwrite team members' work and break CI/CD pipelines."
     echo ""
+    if [[ ! -t 0 ]]; then
+      echo "RESULT: block"
+      exit 0
+    fi
     read -p "Are you SURE you want to continue? (type 'yes' to confirm): " confirm
     if [[ "$confirm" != "yes" ]]; then
       echo "❌ Aborted by user"
@@ -67,6 +74,10 @@ if [[ "$TOOL_NAME" == "Bash" ]]; then
     echo ""
     echo "Command: $COMMAND"
     echo ""
+    if [[ ! -t 0 ]]; then
+      echo "RESULT: block"
+      exit 0
+    fi
     read -p "Continue? (y/N): " confirm
     if [[ "$confirm" != "y" ]]; then
       echo "❌ Aborted by user"
@@ -97,6 +108,10 @@ if [[ "$TOOL_NAME" == "Bash" ]]; then
     echo ""
     echo "Command: $COMMAND"
     echo ""
+    if [[ ! -t 0 ]]; then
+      echo "RESULT: block"
+      exit 0
+    fi
     read -p "Continue? (y/N): " confirm
     if [[ "$confirm" != "y" ]]; then
       echo "❌ Aborted by user"
@@ -130,6 +145,10 @@ if [[ "$TOOL_NAME" == "Bash" ]]; then
     echo ""
     echo "This will delete all data and re-run migrations."
     echo ""
+    if [[ ! -t 0 ]]; then
+      echo "RESULT: block"
+      exit 0
+    fi
     read -p "Continue? (y/N): " confirm
     if [[ "$confirm" != "y" ]]; then
       echo "❌ Aborted by user"
@@ -149,6 +168,10 @@ if [[ "$TOOL_NAME" == "Bash" ]]; then
     echo ""
     echo "This may require re-downloading gigabytes of images."
     echo ""
+    if [[ ! -t 0 ]]; then
+      echo "RESULT: block"
+      exit 0
+    fi
     read -p "Continue? (y/N): " confirm
     if [[ "$confirm" != "y" ]]; then
       echo "❌ Aborted by user"
@@ -183,6 +206,10 @@ if [[ "$TOOL_NAME" == "Write" ]] || [[ "$TOOL_NAME" == "Edit" ]]; then
     echo "  2. File is in .gitignore"
     echo "  3. Use .env.example for templates"
     echo ""
+    if [[ ! -t 0 ]]; then
+      echo "RESULT: block"
+      exit 0
+    fi
     read -p "Continue? (y/N): " confirm
     if [[ "$confirm" != "y" ]]; then
       echo "❌ Aborted by user"
@@ -208,6 +235,10 @@ if [[ "$TOOL_NAME" == "Bash" ]]; then
     echo "  - Installing locally in project"
     echo "  - Using package.json scripts"
     echo ""
+    if [[ ! -t 0 ]]; then
+      echo "RESULT: block"
+      exit 0
+    fi
     read -p "Continue with global install? (y/N): " confirm
     if [[ "$confirm" != "y" ]]; then
       echo "❌ Aborted by user"
