@@ -1,5 +1,5 @@
 import type { Plugin, PluginInput } from "@opencode-ai/plugin"
-import { mkdirSync, existsSync } from "fs"
+import { mkdirSync, existsSync, readFileSync, writeFileSync } from "fs"
 import { join } from "path"
 import { loadConfig, type AutopilotConfig } from "./config.js"
 import {
@@ -8,12 +8,10 @@ import {
   getNextTask,
   getActiveTasks,
   promoteNext,
+  expireStale,
   type Task,
 } from "./backlog.js"
-import {
-  recordMetric,
-  getDispatchedToday,
-} from "./metrics.js"
+import { recordMetric, getDispatchedToday } from "./metrics.js"
 
 const STATE_DIR = join(
   process.env.HOME || "~",
@@ -24,13 +22,31 @@ const STATE_DIR = join(
 )
 const BACKLOG_FILE = join(STATE_DIR, "backlog.json")
 const METRICS_FILE = join(STATE_DIR, "metrics.json")
+const CONTEXT_DIR = join(STATE_DIR, "context")
 
+// ── Context passing ─────────────────────────────────────────────
+function saveTaskContext(taskID: string, summary: string): void {
+  mkdirSync(CONTEXT_DIR, { recursive: true })
+  writeFileSync(join(CONTEXT_DIR, `${taskID}.md`), summary)
+}
+
+function loadPredecessorContext(task: Task): string {
+  if (!task.dependsOn) return ""
+  const file = join(CONTEXT_DIR, `${task.dependsOn}.md`)
+  if (!existsSync(file)) return ""
+  try {
+    return readFileSync(file, "utf-8")
+  } catch {
+    return ""
+  }
+}
+
+// ── Dispatch ────────────────────────────────────────────────────
 async function dispatchTask(
   client: any,
   task: Task,
   config: AutopilotConfig,
 ): Promise<void> {
-  // Guard: daily limit
   const today = getDispatchedToday(METRICS_FILE)
   if (today >= config.dailyTaskLimit) {
     recordMetric(METRICS_FILE, {
@@ -57,6 +73,7 @@ async function dispatchTask(
 
   t.status = "in_progress"
   t.sessionID = sessionID
+  t.dispatchedAt = Date.now()
   t.updatedAt = Date.now()
   saveBacklog(BACKLOG_FILE, backlog)
 
@@ -68,6 +85,7 @@ async function dispatchTask(
     priority: t.priority,
   })
 
+  // Build scope section
   const scopeLines: string[] = []
   if (t.scope) {
     if (t.scope.files?.length) {
@@ -100,13 +118,30 @@ async function dispatchTask(
     }
   }
 
+  // Build context from predecessor
+  const predecessorContext = loadPredecessorContext(t)
+  const contextLines =
+    predecessorContext || t.context
+      ? [
+          "### Context from Previous Task",
+          predecessorContext || t.context || "",
+          "",
+        ]
+      : []
+
+  // Time limit
+  const timeLimit = t.timeLimitMs || config.defaultTimeLimitMs
+  const timeLimitMin = Math.round(timeLimit / 60000)
+
   const prompt = [
     `## Task: ${t.title}`,
     "",
     t.description,
     "",
+    ...contextLines,
     ...scopeLines,
     "### Constraints",
+    `- Time limit: ${timeLimitMin} minutes. If you cannot finish within this, commit what you have and summarize remaining work`,
     "- Stay focused on THIS task only — do not expand scope",
     "- Only modify files listed in scope. If no scope is defined, limit changes to what the task description requires",
     "- Do not refactor surrounding code unless the task requires it",
@@ -114,7 +149,7 @@ async function dispatchTask(
     "- Do not scan for tech debt, TODOs, or improvements outside this task",
     "- Commit with conventional commits after each functional step",
     "- Run lint + tests before considering done",
-    "- When complete, summarize what you did in 2-3 sentences",
+    "- When complete, summarize what you did in 2-3 sentences (this summary is passed to the next task)",
     "",
     `Priority: ${t.priority} | Task ID: ${t.id}`,
   ].join("\n")
@@ -128,22 +163,60 @@ async function dispatchTask(
   })
 }
 
+// ── Completion checking ─────────────────────────────────────────
 async function checkCompletions(
   client: any,
   config: AutopilotConfig,
 ): Promise<void> {
   const backlog = loadBacklog(BACKLOG_FILE)
   const active = getActiveTasks(backlog)
+  const now = Date.now()
 
   for (const task of active) {
     if (!task.sessionID) continue
 
-    try {
-      const status = await client.session.status({
-        path: { id: task.sessionID },
+    // Time limit enforcement
+    const timeLimit = task.timeLimitMs || config.defaultTimeLimitMs
+    if (task.dispatchedAt && now - task.dispatchedAt > timeLimit) {
+      // Session exceeded time limit — interrupt and block
+      try {
+        await client.session.abort({ path: { id: task.sessionID } })
+      } catch {}
+
+      task.status = "blocked"
+      task.updatedAt = now
+      saveBacklog(BACKLOG_FILE, backlog)
+
+      recordMetric(METRICS_FILE, {
+        type: "time_limit_hit",
+        taskID: task.id,
+        taskTitle: task.title,
+        directory: task.directory,
+        priority: task.priority,
+        durationMs: now - task.dispatchedAt,
       })
 
-      if ((status.data as any)?.type === "idle") {
+      if (config.notifications.onTimeLimitHit) {
+        try {
+          const { execFileSync } = await import("child_process")
+          const msg = `Task timed out: ${task.title.replace(/"/g, "")}`
+          execFileSync("osascript", ["-e", `display notification "${msg}" with title "OpenCode Autopilot" sound name "Basso"`])
+        } catch {}
+      }
+
+      continue
+    }
+
+    try {
+      // Check if session exists and is idle by examining its update time
+      const session = await client.session.get({
+        path: { id: task.sessionID },
+      })
+      const sessionData = session.data as any
+      const lastUpdated = sessionData?.time?.updated || 0
+      const idleFor = now - lastUpdated
+      // Consider idle if no activity for 30+ seconds
+      if (idleFor > 30_000) {
         let allDone = true
         try {
           const todos = await client.session.todo({
@@ -157,10 +230,33 @@ async function checkCompletions(
         } catch {}
 
         if (allDone) {
+          // Extract completion summary for context passing
+          try {
+            const msgs = await client.session.messages({
+              path: { id: task.sessionID },
+            })
+            const assistantMsgs = ((msgs.data as any[]) || [])
+              .filter((m: any) => m.role === "assistant")
+            const lastMsg = assistantMsgs[assistantMsgs.length - 1]
+            if (lastMsg?.parts) {
+              const textParts = lastMsg.parts
+                .filter((p: any) => p.type === "text")
+                .map((p: any) => p.text)
+                .join("\n")
+              if (textParts) {
+                // Save last 500 chars as context for next task
+                saveTaskContext(
+                  task.id,
+                  textParts.slice(-500),
+                )
+              }
+            }
+          } catch {}
+
           task.status = "done"
-          task.completedAt = Date.now()
-          const startedAt = task.updatedAt
-          task.updatedAt = Date.now()
+          task.completedAt = now
+          const startedAt = task.dispatchedAt || task.updatedAt
+          task.updatedAt = now
           saveBacklog(BACKLOG_FILE, backlog)
 
           recordMetric(METRICS_FILE, {
@@ -169,7 +265,7 @@ async function checkCompletions(
             taskTitle: task.title,
             directory: task.directory,
             priority: task.priority,
-            durationMs: task.completedAt - startedAt,
+            durationMs: now - startedAt,
           })
 
           if (task.parentID) {
@@ -188,7 +284,7 @@ async function checkCompletions(
       }
     } catch {
       task.status = "blocked"
-      task.updatedAt = Date.now()
+      task.updatedAt = now
       saveBacklog(BACKLOG_FILE, backlog)
 
       recordMetric(METRICS_FILE, {
@@ -202,26 +298,41 @@ async function checkCompletions(
   }
 }
 
+// ── Orchestration loop ──────────────────────────────────────────
 async function orchestrate(
   client: any,
   config: AutopilotConfig,
 ): Promise<void> {
-  if (!config.autoDispatch) return
+  const backlog = loadBacklog(BACKLOG_FILE)
+
+  // Respect pause
+  if (backlog.paused || !config.autoDispatch) return
+
+  // Expire stale backlog items
+  expireStale(BACKLOG_FILE, config.staleBacklogExpiryMs)
 
   await checkCompletions(client, config)
 
-  const backlog = loadBacklog(BACKLOG_FILE)
-  const active = getActiveTasks(backlog)
+  const freshBacklog = loadBacklog(BACKLOG_FILE)
+  const active = getActiveTasks(freshBacklog)
 
   if (active.length < config.maxConcurrent) {
-    const next = getNextTask(backlog)
+    const next = getNextTask(freshBacklog)
     if (next) {
+      // Review gate: tasks with requiresReview skip auto-dispatch
+      if (next.requiresReview && next.status === "ready") {
+        // Move to review status — needs /approve to proceed
+        next.status = "review"
+        next.updatedAt = Date.now()
+        saveBacklog(BACKLOG_FILE, freshBacklog)
+        return
+      }
       await dispatchTask(client, next, config)
     }
   }
 }
 
-// ── Session lifecycle management ────────────────────────────────
+// ── Session lifecycle ───────────────────────────────────────────
 async function cleanSessions(
   client: any,
   config: AutopilotConfig,
@@ -236,7 +347,6 @@ async function cleanSessions(
       (a.time?.updated || a.time?.created || 0),
   )
 
-  // Delete stale empty sessions
   for (const s of items) {
     const age = now - (s.time?.updated || s.time?.created || 0)
     const hasChanges = s.summary?.files > 0
@@ -245,7 +355,6 @@ async function cleanSessions(
     }
   }
 
-  // Enforce per-project limit
   const remaining = await client.session.list()
   if (!remaining.data) return
   const sorted = (remaining.data as any[]).sort(
@@ -273,13 +382,13 @@ async function cleanSessions(
 // ── Plugin Export ────────────────────────────────────────────────
 export const Autopilot: Plugin = async ({ client }: PluginInput) => {
   mkdirSync(STATE_DIR, { recursive: true })
+  mkdirSync(CONTEXT_DIR, { recursive: true })
   const config = loadConfig(STATE_DIR)
 
   if (!existsSync(BACKLOG_FILE)) {
-    saveBacklog(BACKLOG_FILE, { tasks: [], version: 1 })
+    saveBacklog(BACKLOG_FILE, { tasks: [], paused: false, version: 1 })
   }
 
-  // Boot: orchestrate + clean
   setTimeout(async () => {
     try {
       await orchestrate(client, config)
@@ -287,14 +396,12 @@ export const Autopilot: Plugin = async ({ client }: PluginInput) => {
     } catch {}
   }, config.bootDelayMs)
 
-  // Poll loop
   setInterval(async () => {
     try {
       await orchestrate(client, config)
     } catch {}
   }, config.pollIntervalMs)
 
-  // Session cleanup every 30 min
   setInterval(async () => {
     try {
       await cleanSessions(client, config)
@@ -305,7 +412,6 @@ export const Autopilot: Plugin = async ({ client }: PluginInput) => {
     async event(input) {
       const event = input.event
 
-      // On idle: check completions, tag session
       if (event.type === "session.idle") {
         const props = (event as any).properties
         const sessionID = props?.sessionID
@@ -316,7 +422,6 @@ export const Autopilot: Plugin = async ({ client }: PluginInput) => {
           } catch {}
         }, 3000)
 
-        // Tag idle sessions
         if (sessionID) {
           try {
             const session = await client.session.get({
@@ -338,7 +443,6 @@ export const Autopilot: Plugin = async ({ client }: PluginInput) => {
               body: { title: `${prefix} ${title}` },
             })
 
-            // Auto-compact large sessions
             if (config.compactAfterMessages > 0) {
               const msgs = await client.session.messages({
                 path: { id: sessionID },
@@ -354,19 +458,8 @@ export const Autopilot: Plugin = async ({ client }: PluginInput) => {
             }
           } catch {}
         }
-
-        // Notify
-        if (config.notifications.onComplete) {
-          try {
-            const { $ } = input as any
-            if ($) {
-              await $`osascript -e 'display notification "Session idle — ready for next task" with title "OpenCode Autopilot"'`
-            }
-          } catch {}
-        }
       }
 
-      // Remove status tags on activity
       if (event.type === "message.updated") {
         const props = (event as any).properties
         const sessionID = props?.info?.sessionID
@@ -402,7 +495,9 @@ export {
   getNextTask,
   getActiveTasks,
   promoteNext,
+  expireStale,
   type Task,
+  type TaskScope,
   type Backlog,
 } from "./backlog.js"
 export {

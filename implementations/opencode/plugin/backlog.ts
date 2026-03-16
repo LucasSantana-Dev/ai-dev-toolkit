@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs"
+import { readFileSync, writeFileSync, existsSync } from "fs"
 
 export interface TaskScope {
   files?: string[]
@@ -13,8 +13,20 @@ export interface Task {
   description: string
   directory: string
   priority: "critical" | "high" | "medium" | "low"
-  status: "backlog" | "ready" | "in_progress" | "done" | "blocked"
+  status:
+    | "backlog"
+    | "ready"
+    | "review"
+    | "in_progress"
+    | "done"
+    | "blocked"
+    | "expired"
   scope?: TaskScope
+  requiresReview?: boolean
+  timeLimitMs?: number
+  dispatchedAt?: number
+  context?: string
+  dependsOn?: string
   sessionID?: string
   agent?: string
   createdAt: number
@@ -27,16 +39,19 @@ export interface Task {
 
 export interface Backlog {
   tasks: Task[]
+  paused: boolean
   lastPlanAt?: number
   version: number
 }
 
 export function loadBacklog(filePath: string): Backlog {
-  if (!existsSync(filePath)) return { tasks: [], version: 1 }
+  if (!existsSync(filePath)) return { tasks: [], paused: false, version: 1 }
   try {
-    return JSON.parse(readFileSync(filePath, "utf-8"))
+    const data = JSON.parse(readFileSync(filePath, "utf-8"))
+    if (data.paused === undefined) data.paused = false
+    return data
   } catch {
-    return { tasks: [], version: 1 }
+    return { tasks: [], paused: false, version: 1 }
   }
 }
 
@@ -53,6 +68,11 @@ const PRIORITY_ORDER = { critical: 0, high: 1, medium: 2, low: 3 }
 export function getNextTask(backlog: Backlog): Task | undefined {
   return backlog.tasks
     .filter((t) => t.status === "ready")
+    .filter((t) => {
+      if (!t.dependsOn) return true
+      const dep = backlog.tasks.find((d) => d.id === t.dependsOn)
+      return !dep || dep.status === "done"
+    })
     .sort(
       (a, b) =>
         PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority] ||
@@ -75,7 +95,7 @@ export function promoteNext(
   for (const subID of parent.subtasks) {
     const sub = backlog.tasks.find((t) => t.id === subID)
     if (sub && sub.status === "backlog") {
-      sub.status = "ready"
+      sub.status = sub.requiresReview ? "review" : "ready"
       sub.updatedAt = Date.now()
       saveBacklog(filePath, backlog)
       return true
@@ -87,4 +107,27 @@ export function promoteNext(
   parent.updatedAt = Date.now()
   saveBacklog(filePath, backlog)
   return false
+}
+
+export function expireStale(
+  filePath: string,
+  maxAgeMs: number,
+): number {
+  const backlog = loadBacklog(filePath)
+  const now = Date.now()
+  let expired = 0
+
+  for (const t of backlog.tasks) {
+    if (
+      t.status === "backlog" &&
+      now - t.createdAt > maxAgeMs
+    ) {
+      t.status = "expired"
+      t.updatedAt = now
+      expired++
+    }
+  }
+
+  if (expired > 0) saveBacklog(filePath, backlog)
+  return expired
 }

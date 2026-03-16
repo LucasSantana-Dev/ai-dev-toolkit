@@ -8,6 +8,8 @@ export interface MetricEvent {
     | "plan_created"
     | "auto_promoted"
     | "daily_limit_hit"
+    | "time_limit_hit"
+    | "expired"
   taskID: string
   taskTitle: string
   directory: string

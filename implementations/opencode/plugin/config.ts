@@ -7,6 +7,8 @@ export interface AutopilotConfig {
   bootDelayMs: number
   dailyTaskLimit: number
   maxTasksPerPlan: number
+  defaultTimeLimitMs: number
+  staleBacklogExpiryMs: number
   idleThresholdMs: number
   staleThresholdMs: number
   maxSessionsPerProject: number
@@ -15,6 +17,7 @@ export interface AutopilotConfig {
   notifications: {
     onComplete: boolean
     onBlocked: boolean
+    onTimeLimitHit: boolean
     onPush: boolean
     sound: boolean
   }
@@ -26,6 +29,8 @@ const DEFAULTS: AutopilotConfig = {
   bootDelayMs: 12_000,
   dailyTaskLimit: 10,
   maxTasksPerPlan: 15,
+  defaultTimeLimitMs: 30 * 60 * 1000, // 30 min
+  staleBacklogExpiryMs: 7 * 24 * 60 * 60 * 1000, // 7 days
   idleThresholdMs: 2 * 60 * 60 * 1000,
   staleThresholdMs: 24 * 60 * 60 * 1000,
   maxSessionsPerProject: 3,
@@ -34,6 +39,7 @@ const DEFAULTS: AutopilotConfig = {
   notifications: {
     onComplete: true,
     onBlocked: true,
+    onTimeLimitHit: true,
     onPush: false,
     sound: false,
   },
@@ -44,7 +50,11 @@ export function loadConfig(stateDir: string): AutopilotConfig {
   if (!existsSync(configFile)) return DEFAULTS
   try {
     const userConfig = JSON.parse(readFileSync(configFile, "utf-8"))
-    return { ...DEFAULTS, ...userConfig }
+    return {
+      ...DEFAULTS,
+      ...userConfig,
+      notifications: { ...DEFAULTS.notifications, ...userConfig.notifications },
+    }
   } catch {
     return DEFAULTS
   }
