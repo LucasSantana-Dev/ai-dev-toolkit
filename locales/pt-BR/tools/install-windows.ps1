@@ -11,6 +11,9 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "=== AI Dev Toolkit — Windows Setup ===" -ForegroundColor Cyan
 
+$Installed = @()
+$Skipped = @()
+
 # Check for winget
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
     Write-Host "winget not found. Install App Installer from the Microsoft Store." -ForegroundColor Red
@@ -25,31 +28,54 @@ if (-not $hasScoop) {
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
     # Refresh PATH
     $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "User") + ";" + $env:PATH
+    $Installed += "scoop"
+} else {
+    Write-Host "✓ Scoop already installed" -ForegroundColor Green
+    $Skipped += "scoop"
 }
 
 Write-Host "`n=== Installing tools via winget ===" -ForegroundColor Cyan
 
-$wingetPackages = @(
-    "JesseDuffield.lazygit",
-    "junegunn.fzf",
-    "dandavison.delta",
-    "sharkdp.bat",
-    "sharkdp.fd",
-    "BurntSushi.ripgrep",
-    "jqlang.jq",
-    "aristocratos.btop",
-    "ajeetdsouza.zoxide"
-)
+$wingetPackages = @{
+    "JesseDuffield.lazygit" = "lazygit"
+    "junegunn.fzf" = "fzf"
+    "dandavison.delta" = "delta"
+    "sharkdp.bat" = "bat"
+    "sharkdp.fd" = "fd"
+    "BurntSushi.ripgrep" = "ripgrep"
+    "jqlang.jq" = "jq"
+    "aristocratos.btop" = "btop"
+    "ajeetdsouza.zoxide" = "zoxide"
+    "twpayne.chezmoi" = "chezmoi"
+}
 
-foreach ($pkg in $wingetPackages) {
-    Write-Host "Installing $pkg..." -ForegroundColor Gray
-    winget install --id $pkg --accept-source-agreements --accept-package-agreements --silent 2>$null
+foreach ($pkg in $wingetPackages.GetEnumerator()) {
+    $wingetId = $pkg.Key
+    $toolName = $pkg.Value
+
+    # Check if already installed
+    $isInstalled = winget list --id $wingetId --accept-source-agreements 2>$null | Select-String $wingetId
+
+    if ($isInstalled) {
+        Write-Host "✓ $toolName already installed" -ForegroundColor Green
+        $Skipped += $toolName
+    } else {
+        Write-Host "Installing $toolName..." -ForegroundColor Gray
+        winget install --id $wingetId --accept-source-agreements --accept-package-agreements --silent 2>$null
+        $Installed += $toolName
+    }
 }
 
 Write-Host "`n=== Installing tools via scoop ===" -ForegroundColor Cyan
 
-scoop bucket add extras 2>$null
-scoop bucket add main 2>$null
+# Add buckets if not already added
+$buckets = scoop bucket list 2>$null
+if ($buckets -notcontains "extras") {
+    scoop bucket add extras 2>$null
+}
+if ($buckets -notcontains "main") {
+    scoop bucket add main 2>$null
+}
 
 $scoopPackages = @(
     "eza",
@@ -58,8 +84,22 @@ $scoopPackages = @(
 )
 
 foreach ($pkg in $scoopPackages) {
-    Write-Host "Installing $pkg..." -ForegroundColor Gray
-    scoop install $pkg 2>$null
+    # Check if already installed
+    $isInstalled = scoop list $pkg 2>$null | Select-String "^$pkg "
+
+    if ($isInstalled) {
+        Write-Host "✓ $pkg already installed" -ForegroundColor Green
+        $Skipped += $pkg
+    } else {
+        Write-Host "Installing $pkg..." -ForegroundColor Gray
+        scoop install $pkg 2>$null
+
+        # Scoop doesn't exit non-zero on failure, so check if it's now installed
+        $installed = scoop list $pkg 2>$null | Select-String "^$pkg "
+        if ($installed) {
+            $Installed += $pkg
+        }
+    }
 }
 
 Write-Host "`n=== Configuring git delta ===" -ForegroundColor Cyan
@@ -70,6 +110,8 @@ git config --global delta.navigate true
 git config --global delta.side-by-side true
 git config --global delta.line-numbers true
 git config --global merge.conflictstyle zdiff3
+
+Write-Host "✓ Git delta configured" -ForegroundColor Green
 
 Write-Host "`n=== Setting up atuin ===" -ForegroundColor Cyan
 Write-Host "Run 'atuin register' or 'atuin login' to set up history sync."
@@ -104,7 +146,10 @@ if (-not (Test-Path $PROFILE)) {
 Write-Host "`nAuto-configure PowerShell profile? (y/n)" -ForegroundColor Yellow
 $response = Read-Host
 if ($response -eq 'y') {
-    $profileContent = @'
+    # Check if already configured
+    $profileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
+    if ($profileContent -notmatch "AI Dev Toolkit") {
+        $newConfig = @'
 
 # === AI Dev Toolkit ===
 # zoxide (smart cd)
@@ -117,8 +162,29 @@ function lt { eza -la --tree --level=2 --git @args }
 Set-Alias -Name cat -Value bat -Option AllScope
 # === End AI Dev Toolkit ===
 '@
-    Add-Content -Path $PROFILE -Value $profileContent
-    Write-Host "Profile updated. Restart PowerShell to apply." -ForegroundColor Green
+        Add-Content -Path $PROFILE -Value $newConfig
+        Write-Host "✓ Profile updated. Restart PowerShell to apply." -ForegroundColor Green
+    } else {
+        Write-Host "✓ Profile already configured" -ForegroundColor Green
+    }
+}
+
+# Summary
+Write-Host "`n=== Installation Summary ===" -ForegroundColor Cyan
+Write-Host ""
+if ($Installed.Count -gt 0) {
+    Write-Host "Newly installed ($($Installed.Count)):" -ForegroundColor Green
+    foreach ($item in $Installed) {
+        Write-Host "  ✓ $item"
+    }
+}
+
+if ($Skipped.Count -gt 0) {
+    Write-Host ""
+    Write-Host "Already present ($($Skipped.Count)):" -ForegroundColor Yellow
+    foreach ($item in $Skipped) {
+        Write-Host "  • $item"
+    }
 }
 
 Write-Host "`n=== Done! ===" -ForegroundColor Green
