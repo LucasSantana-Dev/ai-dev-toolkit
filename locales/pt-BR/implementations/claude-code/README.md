@@ -213,8 +213,8 @@ Runs **after** tool execution. Use for:
 - For multi-file bulk edits, disable hooks temporarily or use Bash with inline python scripts
 
 **Mapping to toolkit patterns:**
-- PreToolUse = [Tool Safeguards](../../patterns/tool-safeguards.md)
-- PostToolUse = [Quality Gates (automated)](../../patterns/quality-gates.md)
+- PreToolUse = [Agent Gotchas](../../patterns/agent-gotchas.md)
+- PostToolUse = [Workflow Best Practices](../../best-practices/workflow.md)
 
 ## Skills
 
@@ -306,7 +306,7 @@ vercel rollback
 
 **Mapping to toolkit patterns:**
 - Skills = [Task Orchestration: Reusable Workflows](../../patterns/task-orchestration.md#reusable-workflows)
-- Skill triggers = [Autonomous Modes: Trigger Patterns](../../patterns/autonomous-modes.md#trigger-patterns)
+- Skill triggers = [Task Orchestration: Trigger Patterns](../../patterns/task-orchestration.md)
 
 ## MCP Server Strategy
 
@@ -364,8 +364,8 @@ Claude Code supports Model Context Protocol servers for extending capabilities.
 - Use project-local configs for environment-specific tools
 
 **Mapping to toolkit patterns:**
-- MCP servers = [Tool Integration](../../patterns/tool-integration.md)
-- Server configuration = [Environment Setup](../../patterns/environment-setup.md)
+- MCP servers = [Context Building](../../patterns/context-building.md)
+- Server configuration = [Context Building](../../patterns/context-building.md)
 
 ## Multi-Model Routing
 
@@ -401,8 +401,8 @@ Claude Code supports three model tiers:
 3. Use Haiku for batch operations (via programmatic API, not CLI)
 
 **Mapping to toolkit patterns:**
-- Model routing = [Multi-Model Strategy](../../patterns/multi-model-strategy.md)
-- Cost optimization = [Token Budget Management](../../patterns/token-budget-management.md)
+- Model routing = [Multi-Model Routing](../../patterns/multi-model-routing.md)
+- Cost optimization = [Context Management](../../best-practices/context-management.md)
 
 ## Session Workflow
 
@@ -476,7 +476,7 @@ claude
 
 **Mapping to toolkit patterns:**
 - Session workflow = [Session Management](../../patterns/session-management.md)
-- Commit workflow = [Quality Gates: Git Hooks](../../patterns/quality-gates.md#git-hooks)
+- Commit workflow = [Workflow Best Practices](../../best-practices/workflow.md)
 - Memory sync = [Memory Systems: Update Protocol](../../patterns/memory-systems.md#update-protocol)
 
 ## Task Orchestration
@@ -588,8 +588,8 @@ See [hooks/pre-tool-use.sh](./hooks/pre-tool-use.sh) for comprehensive examples:
 - Validate database migrations before applying
 
 **Mapping to toolkit patterns:**
-- Secret scanning = [Security Hardening: Secret Detection](../../patterns/security-hardening.md#secret-detection)
-- Safeguards = [Tool Safeguards](../../patterns/tool-safeguards.md)
+- Secret scanning = [Security Best Practices](../../best-practices/security.md)
+- Safeguards = [Agent Gotchas](../../patterns/agent-gotchas.md)
 
 ## Performance Optimization
 
@@ -636,8 +636,8 @@ Claude Code caches tool definitions and file contents between turns.
 - Minimize MCP server restarts (tools re-indexed on restart)
 
 **Mapping to toolkit patterns:**
-- Token management = [Token Budget Management](../../patterns/token-budget-management.md)
-- Caching = [Performance Optimization](../../patterns/performance-optimization.md)
+- Token management = [Context Management](../../best-practices/context-management.md)
+- Caching = [Context Management](../../best-practices/context-management.md)
 
 ## Testing Strategy
 
@@ -724,8 +724,8 @@ npm run build
 ```
 
 **Mapping to toolkit patterns:**
-- Test generation = [Testing Strategy: Test Generation](../../patterns/testing-strategy.md#test-generation)
-- Quality gates = [Quality Gates](../../patterns/quality-gates.md)
+- Test generation = [Testing](../../patterns/testing.md)
+- Quality gates = [Workflow Best Practices](../../best-practices/workflow.md)
 
 ## Troubleshooting
 

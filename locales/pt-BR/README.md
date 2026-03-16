@@ -108,7 +108,7 @@ Concrete implementations of the patterns above for specific tools:
 |------|----------------|
 | [Claude Code](implementations/claude-code/) | Hooks, skills, memory structure, example CLAUDE.md |
 | [OpenCode](implementations/opencode/) | Task orchestrator plugin, session manager, DCP config |
-| [Cursor](implementations/cursor/) | Scoped rules, multi-model setup, memory workarounds |
+| [Cursor](implementations/cursor/) | Setup guide, scoped rules, memory workarounds |
 
 ### Examples (`examples/`)
 

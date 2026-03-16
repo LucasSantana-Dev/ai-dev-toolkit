@@ -33,11 +33,23 @@ format_file() {
 
   # Check if file is already formatted (to avoid loops)
   # We'll use a marker file to track recent formats
-  local marker="/tmp/claude-code-formatted-$(echo "$file" | md5sum | cut -d' ' -f1)"
+  if command -v md5sum &>/dev/null; then
+    local hash=$(echo "$file" | md5sum | cut -d' ' -f1)
+  else
+    local hash=$(echo "$file" | md5 -q)
+  fi
+  local marker="/tmp/claude-code-formatted-$hash"
 
   # If formatted in last 5 seconds, skip
-  if [[ -f "$marker" ]] && [[ $(($(date +%s) - $(stat -c %Y "$marker" 2>/dev/null || stat -f %m "$marker" 2>/dev/null || echo 0))) -lt 5 ]]; then
-    return 0
+  if [[ -f "$marker" ]]; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      local marker_time=$(stat -f %m "$marker" 2>/dev/null || echo 0)
+    else
+      local marker_time=$(stat -c %Y "$marker" 2>/dev/null || echo 0)
+    fi
+    if [[ $(($(date +%s) - marker_time)) -lt 5 ]]; then
+      return 0
+    fi
   fi
 
   # Detect file type and format accordingly
@@ -226,8 +238,8 @@ type_check_file() {
       # Only run if tsconfig.json exists
       if [[ -f tsconfig.json ]] && command -v tsc &> /dev/null; then
         echo "🔍 Type-checking: $file"
-        # Use --noEmit to only check types, don't generate files
-        if ! tsc --noEmit "$file" 2>/dev/null; then
+        # Use --noEmit to check types (TypeScript checks the whole project, not single files)
+        if ! tsc --noEmit 2>/dev/null; then
           echo ""
           echo "⚠️  Type errors found (not blocking)"
           echo "Run 'npm run type-check' for full report"

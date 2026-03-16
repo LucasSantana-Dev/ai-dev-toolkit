@@ -5,6 +5,15 @@
     },
     {
       "pattern": "^https://localhost"
+    },
+    {
+      "pattern": "^mailto:"
+    },
+    {
+      "pattern": "https://github\\.com/.*/commit/"
+    },
+    {
+      "pattern": "https://github\\.com/.*/actions/"
     }
   ],
   "replacementPatterns": [],
