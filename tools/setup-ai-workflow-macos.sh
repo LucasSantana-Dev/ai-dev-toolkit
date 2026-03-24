@@ -74,7 +74,6 @@ install_pipx_package() {
 install_memory_stack() {
   local py_bin="python3.13"
   local venv_dir="$HOME/.local/share/ai-memory-venv"
-  local py_in_venv="$venv_dir/bin/python"
   local pip_in_venv="$venv_dir/bin/pip"
   local check_cmd="$HOME/.local/bin/ai-memory-check"
 
