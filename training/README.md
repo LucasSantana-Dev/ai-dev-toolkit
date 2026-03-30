@@ -44,7 +44,7 @@ The script deduplicates by file path hash — re-running after new sessions only
 
 ## Fine-Tuning (Optional)
 
-If you want to bake your captured patterns into a local model, use LoRA fine-tuning with [axolotl](https://github.com/axolotl-org/axolotl).
+If you want to bake your captured patterns into a local model, use LoRA fine-tuning with [axolotl](https://github.com/axolotl-ai-cloud/axolotl).
 
 ### Requirements
 

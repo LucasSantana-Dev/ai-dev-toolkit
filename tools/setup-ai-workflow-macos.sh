@@ -153,14 +153,14 @@ PY
   }
 }
 EOF
-    INSTALLED+=("~/.claude/.mcp.json (Tavily + Context7)")
-    echo "✓ Created ~/.claude/.mcp.json with Tavily and Context7 MCP servers"
+    INSTALLED+=("$HOME/.claude/.mcp.json (Tavily + Context7)")
+    echo "✓ Created $HOME/.claude/.mcp.json with Tavily and Context7 MCP servers"
     if [ "$tavily_key" = "your-tavily-api-key" ]; then
-      WARNINGS+=("Set TAVILY_API_KEY in ~/.claude/.mcp.json — get a free key at https://tavily.com")
+      WARNINGS+=("Set TAVILY_API_KEY in $HOME/.claude/.mcp.json — get a free key at https://tavily.com")
     fi
   else
-    echo "✓ ~/.claude/.mcp.json already exists"
-    SKIPPED+=("~/.claude/.mcp.json")
+    echo "✓ $HOME/.claude/.mcp.json already exists"
+    SKIPPED+=("$HOME/.claude/.mcp.json")
   fi
 }
 
