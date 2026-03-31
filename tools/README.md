@@ -56,7 +56,7 @@ These are high-signal tools from the shared X thread that fit this toolkit's wor
 ### Claude Code Skills
 
 Skills are `.md` files placed in `~/.claude/skills/` that teach Claude workflows and patterns.
-The community catalog has 60,000+ entries at [skillsmp.com](https://skillsmp.com). High-signal picks:
+High-signal picks from the community:
 
 | Skill | Stars | Why it matters |
 |-------|-------|---------------|
