@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ok() {
+	printf '✅ %s\n' "$1"
+}
+
+warn() {
+	printf '⚠️  %s\n' "$1"
+}
+
+check_cmd() {
+	local cmd="$1"
+	local label="$2"
+	if command -v "$cmd" >/dev/null 2>&1; then
+		ok "$label"
+	else
+		warn "$label not found"
+	fi
+}
+
+echo "ai-dev-toolkit doctor"
+echo
+
+check_cmd git "git"
+check_cmd gh "GitHub CLI"
+check_cmd node "Node.js"
+check_cmd python3 "Python 3"
+check_cmd jq "jq"
+check_cmd rg "ripgrep"
+check_cmd fd "fd"
+check_cmd fzf "fzf"
+check_cmd tmux "tmux"
+
+echo
+
+if gh auth status >/dev/null 2>&1; then
+	ok "GitHub authentication"
+else
+	warn "GitHub CLI not authenticated (run: gh auth login)"
+fi
+
+if [[ -f "$HOME/.config/ai-dev-toolkit/shell.sh" ]]; then
+	ok "portable shell config installed"
+else
+	warn "portable shell config missing"
+fi
+
+if [[ -f "$HOME/.config/tmux/sessionizer.sh" ]]; then
+	ok "tmux toolkit installed"
+else
+	warn "tmux toolkit missing"
+fi
+
+if [[ -f "$HOME/.config/iterm2/forge_terminal_stack.py" ]]; then
+	ok "iTerm2 support installed"
+else
+	warn "iTerm2 support not installed (optional)"
+fi
+
+echo
+echo "Next recommended commands:"
+echo "  source ~/.bashrc   # or source ~/.zshrc"
+echo "  gh auth login"
+echo "  repo-terminal-ready"

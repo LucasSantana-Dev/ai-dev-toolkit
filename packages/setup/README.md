@@ -20,6 +20,12 @@ cd ai-dev-toolkit-setup
 ./bootstrap.sh
 ```
 
+Depois, valide o ambiente automaticamente:
+
+```bash
+./scripts/doctor.sh
+```
+
 Com iTerm2 no macOS:
 
 ```bash

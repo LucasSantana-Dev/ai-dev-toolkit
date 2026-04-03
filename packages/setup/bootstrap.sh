@@ -46,6 +46,8 @@ if [[ "$OS" == "Darwin" && "$WITH_ITERM2" == "true" ]]; then
 	bash "$ROOT/scripts/setup-iterm2.sh" "$ROOT"
 fi
 
+bash "$ROOT/scripts/doctor.sh"
+
 cat <<'EOF'
 
 Bootstrap concluído.
