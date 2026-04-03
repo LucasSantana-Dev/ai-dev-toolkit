@@ -74,6 +74,7 @@ O bootstrap agora também prepara:
 - `~/.config/opencode/dcp.jsonc`
 - `~/.opencode/skills/agents`
 - `~/.opencode/skills/codex`
+- `~/.config/ai-dev-toolkit/local.env`
 
 Isso cobre a base de:
 
@@ -87,6 +88,12 @@ Ainda ficam manuais:
 - autenticação de provedores de IA
 - instalação de skills específicas de terceiros
 - secrets e tokens locais
+
+Mas o bootstrap agora já cria o arquivo base de ambiente local para você preencher:
+
+```bash
+~/.config/ai-dev-toolkit/local.env
+```
 
 ## Fluxo diário
 
@@ -135,6 +142,8 @@ Use um arquivo local fora do repo, por exemplo:
 ```
 
 Exemplo em `templates/local.env.example`.
+
+O bootstrap copia esse template automaticamente se o arquivo ainda não existir.
 
 ## Observação importante sobre AI Agents, MCP e Skills
 

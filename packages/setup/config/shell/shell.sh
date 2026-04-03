@@ -2,6 +2,8 @@ command_exists() {
 	command -v "$1" >/dev/null 2>&1
 }
 
+[ -f "$HOME/.config/ai-dev-toolkit/local.env" ] && source "$HOME/.config/ai-dev-toolkit/local.env"
+
 if [ -n "${ZSH_VERSION:-}" ]; then
 	__ai_shell="zsh"
 else

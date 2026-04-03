@@ -42,6 +42,7 @@ fi
 bash "$ROOT/scripts/setup-tmux.sh" "$ROOT"
 bash "$ROOT/scripts/setup-shell.sh" "$ROOT" "$SHELL_TARGET"
 bash "$ROOT/scripts/setup-ai-tools.sh" "$ROOT"
+bash "$ROOT/scripts/setup-local-env.sh" "$ROOT"
 
 if [[ "$OS" == "Darwin" && "$WITH_ITERM2" == "true" ]]; then
 	bash "$ROOT/scripts/setup-iterm2.sh" "$ROOT"

@@ -48,6 +48,12 @@ else
 	warn "portable shell config missing"
 fi
 
+if [[ -f "$HOME/.config/ai-dev-toolkit/local.env" ]]; then
+	ok "local AI env template installed"
+else
+	warn "local AI env template missing"
+fi
+
 if [[ -f "$HOME/.config/opencode/opencode.jsonc" ]]; then
 	ok "OpenCode config installed"
 else
@@ -66,6 +72,12 @@ else
 	warn "OpenCode skills directories missing"
 fi
 
+if [[ -n "${OPENAI_API_KEY:-}" || -n "${ANTHROPIC_API_KEY:-}" || -n "${GITHUB_TOKEN:-}" ]]; then
+	ok "at least one AI/provider token is loaded in environment"
+else
+	warn "no AI/provider tokens loaded yet (edit ~/.config/ai-dev-toolkit/local.env)"
+fi
+
 if [[ -f "$HOME/.config/tmux/sessionizer.sh" ]]; then
 	ok "tmux toolkit installed"
 else
@@ -82,5 +94,6 @@ echo
 echo "Next recommended commands:"
 echo "  source ~/.bashrc   # or source ~/.zshrc"
 echo "  gh auth login"
+echo "  edit ~/.config/ai-dev-toolkit/local.env"
 echo "  opencode --help    # verify CLI if installed"
 echo "  repo-terminal-ready"
