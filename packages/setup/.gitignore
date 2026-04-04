@@ -2,4 +2,5 @@
 *.bak
 *.bak.*
 *.tmp
+.serena/
 config/tmux/repo-preferences.json
