@@ -39,6 +39,8 @@ if ! $SKIP_PACKAGES; then
 	esac
 fi
 
+bash "$ROOT/scripts/install-ai-clis.sh"
+
 bash "$ROOT/scripts/setup-tmux.sh" "$ROOT"
 bash "$ROOT/scripts/setup-shell.sh" "$ROOT" "$SHELL_TARGET"
 bash "$ROOT/scripts/setup-ai-tools.sh" "$ROOT"
@@ -56,9 +58,10 @@ Bootstrap concluído.
 
 Próximos passos:
   1. Abra um novo terminal
-  2. Rode: source ~/.bashrc  (ou source ~/.zshrc)
-  3. Autentique o GitHub: gh auth login
-  4. Em um repositório, use: repo-terminal-ready
+	2. Rode: source ~/.bashrc  (ou source ~/.zshrc)
+	3. Autentique o GitHub: gh auth login
+	4. Opcional: bash ./scripts/auth-ai-tools.sh
+	5. Em um repositório, use: repo-terminal-ready
 
 Se quiser iTerm2 no macOS:
   ./bootstrap.sh --with-iterm2

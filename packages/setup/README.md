@@ -56,6 +56,8 @@ cd ai-dev-toolkit-setup
 - fd
 - fzf
 - tmux
+- OpenCode CLI
+- Claude Code CLI / app bridge (quando suportado pela plataforma)
 
 Em macOS, o bootstrap também instala extras úteis via Homebrew:
 - zoxide
@@ -64,6 +66,20 @@ Em macOS, o bootstrap também instala extras úteis via Homebrew:
 - bat
 - starship
 - direnv
+
+## Autenticação guiada
+
+Depois do bootstrap, você pode usar:
+
+```bash
+bash ./scripts/auth-ai-tools.sh
+```
+
+Isso ajuda com:
+
+- `gh auth login`
+- orientação para `opencode auth login`
+- orientação para login do Claude Code
 
 ## O que será configurado para AI tools
 

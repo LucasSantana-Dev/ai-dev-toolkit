@@ -12,6 +12,7 @@ $packages = @(
   "Microsoft.WindowsTerminal",
   "Git.Git",
   "GitHub.cli",
+  "Anthropic.ClaudeCode",
   "OpenJS.NodeJS.LTS",
   "Python.Python.3.12",
   "BurntSushi.ripgrep.MSVC",
@@ -21,6 +22,10 @@ $packages = @(
 
 foreach ($pkg in $packages) {
   winget install --id $pkg --accept-package-agreements --accept-source-agreements --silent
+}
+
+if (Get-Command npm -ErrorAction SilentlyContinue) {
+  npm install -g opencode-ai
 }
 
 if ($EnableWSL) {

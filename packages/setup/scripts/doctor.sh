@@ -106,6 +106,7 @@ echo
 echo "Next recommended commands:"
 echo "  source ~/.bashrc   # or source ~/.zshrc"
 echo "  gh auth login"
+echo "  bash ./scripts/auth-ai-tools.sh   # guided auth helper"
 echo "  edit ~/.config/ai-dev-toolkit/local.env"
 echo "  opencode --help    # verify CLI if installed"
 echo "  repo-terminal-ready"
