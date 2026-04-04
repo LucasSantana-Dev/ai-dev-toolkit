@@ -132,6 +132,7 @@ E instala um starter pack de skills compartilhadas, incluindo:
 
 - `ai-toolkit-repo-intake`
 - `ai-toolkit-ship-check`
+- `ai-toolkit-release`
 - `ai-toolkit-worktree-flow`
 - `ai-toolkit-mcp-readiness`
 

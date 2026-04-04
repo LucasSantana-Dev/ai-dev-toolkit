@@ -81,6 +81,7 @@ test -f "$HOME/.config/opencode/opencode.jsonc"
 test -f "$HOME/.config/opencode/dcp.jsonc"
 test -f "$HOME/.config/opencode/scripts/toggle-mcp.py"
 test -f "$HOME/.opencode/skills/agents/ai-toolkit-repo-intake/SKILL.md"
+test -f "$HOME/.opencode/skills/agents/ai-toolkit-release/SKILL.md"
 test -f "$HOME/.opencode/skills/codex/ai-toolkit-plan-change/SKILL.md"
 
 python3 "$HOME/.config/opencode/scripts/toggle-mcp.py" enable linear >/dev/null
