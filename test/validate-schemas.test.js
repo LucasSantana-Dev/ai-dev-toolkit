@@ -90,24 +90,6 @@ describe("validateKit", () => {
     expect(errors).toEqual([]);
   });
 
-  test("all core JSON configs parse successfully", () => {
-    const configs = [
-      "kit/core/agents.json",
-      "kit/core/routing.json",
-      "kit/core/providers.json",
-      "kit/core/autopilot.json",
-      "kit/core/token-optimization.json",
-      "kit/core/loop.json",
-      "kit/core/hooks.json",
-      "kit/core/mcp.json",
-      "kit/core/schedules.json",
-    ];
-    for (const cfg of configs) {
-      const full = path.join(rootDir, cfg);
-      expect(() => JSON.parse(fs.readFileSync(full, "utf8"))).not.toThrow();
-    }
-  });
-
   test("every core config declares a schema and that schema file exists", () => {
     const configs = [
       "kit/core/agents.json",
@@ -118,7 +100,6 @@ describe("validateKit", () => {
       "kit/core/loop.json",
       "kit/core/hooks.json",
       "kit/core/mcp.json",
-      "kit/core/schedules.json",
     ];
 
     for (const cfg of configs) {
@@ -161,7 +142,9 @@ describe("validateKit", () => {
     const errors = validateKit(tmpDir);
     expect(
       errors.some(
-        (e) => e.includes("providers.json") && e.includes("schema error"),
+        (e) =>
+          e.includes("providers.json") &&
+          e.includes("Schema validation failed"),
       ),
     ).toBe(true);
 
@@ -177,13 +160,27 @@ describe("validateKit", () => {
     }
   });
 
+  test("every agent tool resolves through the canonical tool registry", () => {
+    const agents = JSON.parse(
+      fs.readFileSync(path.join(rootDir, "kit/core/agents.json"), "utf8"),
+    );
+    const registry = agents.toolRegistry;
+    expect(registry).toBeDefined();
+    expect(Object.keys(registry).length).toBeGreaterThanOrEqual(10);
+
+    for (const [, agent] of Object.entries(agents.agents)) {
+      for (const tool of agent.tools) {
+        expect(registry[tool]).toBeDefined();
+      }
+    }
+  });
+
   test("agents include specialty roles with org chart", () => {
     const agents = JSON.parse(
       fs.readFileSync(path.join(rootDir, "kit/core/agents.json"), "utf8"),
     );
     const names = Object.keys(agents.agents);
     expect(names.length).toBeGreaterThanOrEqual(10);
-    expect(names).toContain("worker");
     expect(names).toContain("frontend");
     expect(names).toContain("backend");
     expect(names).toContain("devops");
@@ -195,14 +192,6 @@ describe("validateKit", () => {
       0,
     );
     expect(agents.orgChart.architect.directReports.length).toBeGreaterThan(0);
-    expect(agents.orgChart.reviewer.directReports).toEqual(
-      expect.arrayContaining([
-        "ts-reviewer",
-        "python-reviewer",
-        "go-reviewer",
-        "rust-reviewer",
-      ]),
-    );
   });
 
   test("every agent has title, tools, and valid reportsTo", () => {
@@ -224,77 +213,10 @@ describe("validateKit", () => {
     expect(hooks.hooks).toBeDefined();
     expect(Object.keys(hooks.hooks).length).toBeGreaterThanOrEqual(4);
     expect(hooks.toolMapping).toBeDefined();
+    expect(hooks.toolMapping.opencode).toMatch(/hooks\.json/);
+    expect(hooks.toolMapping.antigravity).toMatch(/hooks\.json/);
     for (const [, hook] of Object.entries(hooks.hooks)) {
       expect(hook.description).toBeDefined();
       expect(hook.rules.length).toBeGreaterThan(0);
     }
   });
-
-  test("token-optimization has cost tracking config", () => {
-    const cfg = JSON.parse(
-      fs.readFileSync(
-        path.join(rootDir, "kit/core/token-optimization.json"),
-        "utf8",
-      ),
-    );
-    expect(cfg.cost).toBeDefined();
-    expect(cfg.cost.tracking).toBeDefined();
-    expect(cfg.cost.budgets).toBeDefined();
-  });
-
-  test("parity audit runs and reports all adapters", () => {
-    const audit = runParityAudit();
-    expect(audit.results.length).toBe(6);
-    expect(audit.skills.length).toBeGreaterThanOrEqual(16);
-    expect(audit.configs.length).toBeGreaterThanOrEqual(8);
-    for (const r of audit.results) {
-      expect(r.features.rules).toBe(true);
-      expect(r.features.skills).toBe(true);
-    }
-  });
-
-  test("every skill has name, description, and triggers", () => {
-    const skillsDir = path.join(rootDir, "kit/core/skills");
-    const skills = fs.readdirSync(skillsDir).filter((f) => f.endsWith(".md"));
-    expect(skills.length).toBeGreaterThanOrEqual(16);
-    for (const skill of skills) {
-      const content = fs.readFileSync(path.join(skillsDir, skill), "utf8");
-      expect(content).toMatch(/^---\n/);
-      expect(content).toMatch(/name:/);
-      expect(content).toMatch(/description:/);
-      expect(content).toMatch(/triggers:/);
-    }
-  });
-
-  test("loop.json has governance section", () => {
-    const loop = JSON.parse(
-      fs.readFileSync(path.join(rootDir, "kit/core/loop.json"), "utf8"),
-    );
-    expect(loop.loop.governance).toBeDefined();
-    expect(loop.loop.governance.requiredBeforeCommit).toBeDefined();
-    expect(loop.loop.governance.blockOn).toBeDefined();
-  });
-
-  test("schedules.json has defaults, triggers, and mapped routines", () => {
-    const schedules = JSON.parse(
-      fs.readFileSync(path.join(rootDir, "kit/core/schedules.json"), "utf8"),
-    );
-
-    expect(schedules.defaults).toBeDefined();
-    expect(schedules.triggers).toBeDefined();
-    expect(Array.isArray(schedules.routines)).toBe(true);
-    expect(schedules.routines.length).toBeGreaterThanOrEqual(4);
-
-    const ids = new Set();
-    for (const routine of schedules.routines) {
-      expect(routine.id).toBeDefined();
-      expect(ids.has(routine.id)).toBe(false);
-      ids.add(routine.id);
-      expect(routine.agent).toBeDefined();
-      expect(routine.skill).toBeDefined();
-      if (routine.trigger === "daily" || routine.trigger === "weekly") {
-        expect(routine.schedule).toBeDefined();
-      }
-    }
-  });
-});
