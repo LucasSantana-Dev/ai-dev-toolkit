@@ -60,8 +60,7 @@ echo "== Python validation =="
 python3 -m py_compile \
 	scripts/*.py \
 	config/tmux/*.py \
-	config/iterm2/*.py \
-	config/opencode/scripts/*.py
+	config/iterm2/*.py
 
 echo
 echo "== Functionality smoke tests =="
@@ -82,10 +81,10 @@ test -f "$HOME/.config/opencode/dcp.jsonc"
 test -f "$HOME/.config/opencode/scripts/release.py"
 test -f "$HOME/.config/opencode/scripts/mcp-health.py"
 test -f "$HOME/.config/opencode/scripts/toggle-mcp.py"
-test -f "$HOME/.opencode/skills/agents/ai-toolkit-mcp-health/SKILL.md"
-test -f "$HOME/.opencode/skills/agents/ai-toolkit-repo-intake/SKILL.md"
-test -f "$HOME/.opencode/skills/agents/ai-toolkit-release/SKILL.md"
-test -f "$HOME/.opencode/skills/codex/ai-toolkit-plan-change/SKILL.md"
+test -f "$HOME/.opencode/skills/agents/mcp-health/SKILL.md"
+test -f "$HOME/.opencode/skills/agents/repo-intake/SKILL.md"
+test -f "$HOME/.opencode/skills/agents/release-flow/SKILL.md"
+test -f "$HOME/.opencode/skills/agents/plan-change/SKILL.md"
 bash -lc 'source "$HOME/.config/ai-dev-toolkit/shell.sh" && type mcp-health >/dev/null'
 bash -lc 'source "$HOME/.config/ai-dev-toolkit/shell.sh" && type release-plan >/dev/null && type release-plan-github >/dev/null && type release-tag >/dev/null && type release-tag-github >/dev/null'
 python3 "$HOME/.config/opencode/scripts/release.py" --help >/dev/null 2>&1
