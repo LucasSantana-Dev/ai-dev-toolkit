@@ -162,7 +162,9 @@ describe("validateKit", () => {
     const errors = validateKit(tmpDir);
     expect(
       errors.some(
-        (e) => e.includes("providers.json") && e.includes("schema error"),
+        (e) =>
+          e.includes("providers.json") &&
+          e.includes("Schema validation failed"),
       ),
     ).toBe(true);
 
