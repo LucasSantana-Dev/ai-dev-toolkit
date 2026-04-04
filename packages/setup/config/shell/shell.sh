@@ -55,6 +55,10 @@ alias ttemplate-apply='python3 ~/.config/tmux/generate-session-template.py apply
 alias ttemplate-update='python3 ~/.config/tmux/generate-session-template.py update'
 alias mcp-status='python3 ~/.config/opencode/scripts/toggle-mcp.py list'
 
+mcp-health() {
+	python3 "$HOME/.config/opencode/scripts/mcp-health.py" "$@"
+}
+
 mcp-enable() {
 	python3 "$HOME/.config/opencode/scripts/toggle-mcp.py" enable "$1"
 }

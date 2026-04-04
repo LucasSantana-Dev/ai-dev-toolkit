@@ -17,15 +17,15 @@ metadata:
 
 - OpenCode CLI.
 - Installed OpenCode config and MCP toggle helper if present.
+- Installed `mcp-health` helper from the shared setup.
 - The specific MCP server name when you want a targeted check.
 
 ## Workflow
 
-1. List enabled MCP servers from the local config or `opencode mcp ls`.
-2. Check live MCP auth state with `opencode mcp auth ls` when supported.
-3. For the target server, verify the smallest live signal that exists, such as listing status, auth state, or provider-specific MCP output.
-4. Classify the failure as config, missing auth, invalid auth, unreachable provider, or unknown CLI limitation.
-5. Report the smallest next fix, including whether to re-enable, re-authenticate, or inspect provider-specific credentials.
+1. Run `mcp-health` with no arguments or a target like `mcp-health linear`.
+2. Read the local enabled/disabled state plus the live `opencode mcp ls` and `opencode mcp auth ls` signals it aggregates.
+3. Classify the failure as config, missing auth, invalid auth, unreachable provider, or unknown CLI limitation.
+4. Report the smallest next fix, including whether to re-enable, re-authenticate, or inspect provider-specific credentials.
 
 ## Outputs / Evidence
 
