@@ -79,6 +79,7 @@ test -f "$HOME/.config/ai-dev-toolkit/shell.sh"
 test -f "$HOME/.config/ai-dev-toolkit/local.env"
 test -f "$HOME/.config/opencode/opencode.jsonc"
 test -f "$HOME/.config/opencode/dcp.jsonc"
+test -f "$HOME/.config/opencode/scripts/release.py"
 test -f "$HOME/.config/opencode/scripts/mcp-health.py"
 test -f "$HOME/.config/opencode/scripts/toggle-mcp.py"
 test -f "$HOME/.opencode/skills/agents/ai-toolkit-mcp-health/SKILL.md"
@@ -86,6 +87,8 @@ test -f "$HOME/.opencode/skills/agents/ai-toolkit-repo-intake/SKILL.md"
 test -f "$HOME/.opencode/skills/agents/ai-toolkit-release/SKILL.md"
 test -f "$HOME/.opencode/skills/codex/ai-toolkit-plan-change/SKILL.md"
 bash -lc 'source "$HOME/.config/ai-dev-toolkit/shell.sh" && type mcp-health >/dev/null'
+bash -lc 'source "$HOME/.config/ai-dev-toolkit/shell.sh" && type release-plan >/dev/null && type release-tag >/dev/null'
+python3 "$HOME/.config/opencode/scripts/release.py" --help >/dev/null 2>&1
 python3 "$HOME/.config/opencode/scripts/mcp-health.py" --help >/dev/null 2>&1
 
 python3 "$HOME/.config/opencode/scripts/toggle-mcp.py" enable linear >/dev/null
@@ -110,6 +113,14 @@ tmux kill-session -t ci_verify
 plain_repo="$tmpdir/plain-repo"
 mkdir -p "$plain_repo"
 git -C "$plain_repo" init -q
+git -C "$plain_repo" config user.name "CI"
+git -C "$plain_repo" config user.email "ci@example.com"
+printf '0.1.0\n' >"$plain_repo/VERSION"
+git -C "$plain_repo" add VERSION
+git -C "$plain_repo" commit -qm 'chore: seed version'
+python3 "$HOME/.config/opencode/scripts/release.py" --repo "$plain_repo" --level patch --dry-run >"$tmpdir/release-plan.txt"
+grep -q 'next version: 0.1.1' "$tmpdir/release-plan.txt"
+grep -q 'tag: v0.1.1' "$tmpdir/release-plan.txt"
 tmux kill-session -t ci_verify_plain 2>/dev/null || true
 tmux new-session -d -s ci_verify_plain -c "$plain_repo"
 "$HOME/.config/tmux/bootstrap-project-session.sh" ci_verify_plain "$plain_repo"

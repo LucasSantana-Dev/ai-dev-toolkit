@@ -114,6 +114,12 @@ else
 	warn "MCP health helper missing"
 fi
 
+if [[ -f "$HOME/.config/opencode/scripts/release.py" ]]; then
+	ok "release helper installed"
+else
+	warn "release helper missing"
+fi
+
 if [[ -n "${OPENAI_API_KEY:-}" || -n "${ANTHROPIC_API_KEY:-}" || -n "${GITHUB_TOKEN:-}" ]]; then
 	ok "at least one AI/provider token is loaded in environment"
 else
@@ -139,6 +145,8 @@ echo "  gh auth login"
 echo "  mcp-status        # list seeded MCP providers"
 echo "  mcp-enable linear # example: enable one hosted MCP"
 echo "  mcp-health linear # inspect live MCP/auth status"
+echo "  release-plan --repo /path/to/repo --level patch"
+echo "  release-tag --repo /path/to/repo --tag v1.2.3"
 echo "  bash ./scripts/auth-ai-tools.sh   # guided auth helper"
 echo "  bash ./scripts/auth-mcp-tools.sh  # guided MCP auth helper"
 echo "  edit ~/.config/ai-dev-toolkit/local.env"
