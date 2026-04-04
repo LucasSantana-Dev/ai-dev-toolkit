@@ -128,8 +128,11 @@ Para planejar ou executar releases em outros repositórios preparados pelo toolk
 
 ```bash
 release-plan --repo /path/to/repo --level patch
+release-plan-github --repo /path/to/repo --level patch
 release-patch --repo /path/to/repo
+release-patch-github --repo /path/to/repo
 release-tag --repo /path/to/repo --tag v1.2.3
+release-tag-github --repo /path/to/repo --tag v1.2.3
 ```
 
 ## O que será configurado para AI tools
