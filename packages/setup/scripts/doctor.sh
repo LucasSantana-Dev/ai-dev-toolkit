@@ -33,6 +33,19 @@ check_cmd fzf "fzf"
 check_cmd tmux "tmux"
 check_cmd opencode "OpenCode CLI"
 check_cmd claude "Claude CLI"
+check_cmd rtk "RTK token optimizer"
+
+if npm list -g oh-my-claude-sisyphus >/dev/null 2>&1; then
+	ok "oh-my-openagents (oh-my-claude-sisyphus)"
+else
+	warn "oh-my-openagents not installed (npm i -g oh-my-claude-sisyphus)"
+fi
+
+if npm list -g openclaw >/dev/null 2>&1; then
+	ok "openclaw"
+else
+	warn "openclaw not installed (npm i -g openclaw)"
+fi
 
 echo
 
@@ -136,6 +149,18 @@ if [[ -f "$HOME/.config/iterm2/forge_terminal_stack.py" ]]; then
 	ok "iTerm2 support installed"
 else
 	warn "iTerm2 support not installed (optional)"
+fi
+
+TOOLKIT_STAMP="$HOME/.config/ai-dev-toolkit/.toolkit-version"
+if [[ -f "$TOOLKIT_STAMP" ]]; then
+	STAMP_VAL="$(cat "$TOOLKIT_STAMP")"
+	if [[ "$STAMP_VAL" == "local-fallback" || "$STAMP_VAL" == "no-pin" ]]; then
+		warn "toolkit content source: $STAMP_VAL (not synced from ai-dev-toolkit)"
+	else
+		ok "toolkit content from ai-dev-toolkit v${STAMP_VAL}"
+	fi
+else
+	warn "toolkit version stamp missing (run bootstrap to sync from ai-dev-toolkit)"
 fi
 
 echo

@@ -49,5 +49,60 @@ install_claude() {
 	return 1
 }
 
+install_rtk() {
+	if command -v rtk >/dev/null 2>&1; then
+		return 0
+	fi
+
+	case "$OS" in
+	Darwin)
+		if command -v brew >/dev/null 2>&1; then
+			brew install rtk
+			return 0
+		fi
+		;;
+	Linux)
+		if command -v npm >/dev/null 2>&1; then
+			npm install -g openrtk
+			return 0
+		fi
+		;;
+	esac
+
+	echo "Could not auto-install rtk on this platform." >&2
+	return 1
+}
+
+install_oh_my_openagents() {
+	if npm list -g oh-my-claude-sisyphus >/dev/null 2>&1; then
+		return 0
+	fi
+
+	if command -v npm >/dev/null 2>&1; then
+		npm install -g oh-my-claude-sisyphus
+		return 0
+	fi
+
+	echo "Could not auto-install oh-my-openagents (npm required)." >&2
+	return 1
+}
+
+install_openclaw() {
+	if npm list -g openclaw >/dev/null 2>&1; then
+		return 0
+	fi
+
+	if command -v npm >/dev/null 2>&1; then
+		npm install -g openclaw
+		return 0
+	fi
+
+	echo "Could not auto-install openclaw (npm required)." >&2
+	return 1
+}
+
 install_opencode || true
 install_claude || true
+install_rtk || true
+install_oh_my_openagents || true
+install_openclaw || true
