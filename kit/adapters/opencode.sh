@@ -121,8 +121,12 @@ PYEOF
 	fi
 
 	if [ "${FORGE_DURABLE:-false}" = "true" ]; then
-		log_step "Adding durable execution config"
-		install_durable "$FORGE_KIT_DIR/core/rules.md" "$opencode_dir/system.md"
+		if [ -f "$opencode_dir/system.md" ]; then
+			log_step "Adding durable execution config"
+			install_durable "$FORGE_KIT_DIR/core/rules.md" "$opencode_dir/system.md"
+		else
+			log_warn "Skipping durable execution config: missing $opencode_dir/system.md"
+		fi
 	fi
 
 	if [ "${FORGE_OHMY_COMPAT:-false}" = "true" ]; then
@@ -163,6 +167,7 @@ adapter_status() {
 
 adapter_uninstall() {
 	opencode_dir="$(get_config_dir opencode)"
+	removed_hooks="false"
 
 	if [ -f "$opencode_dir/system.md" ]; then
 		if grep -q "^# forge-kit" "$opencode_dir/system.md" 2>/dev/null; then
@@ -177,15 +182,26 @@ adapter_uninstall() {
 
 	uninstall_skills "$opencode_dir/skills"
 
-	if [ -f "$opencode_dir/.forge-kit-hooks" ] && [ -f "$opencode_dir/hooks.json" ]; then
+	if [ -f "$opencode_dir/hooks.json" ]; then
 		if [ "${FORGE_DRY_RUN:-false}" = "true" ]; then
 			log_info "[DRY RUN] Would remove $opencode_dir/hooks.json"
-			log_info "[DRY RUN] Would remove $opencode_dir/.forge-kit-hooks"
 		else
 			rm "$opencode_dir/hooks.json"
-			rm "$opencode_dir/.forge-kit-hooks"
-			log_success "Removed hooks manifest"
 		fi
+		removed_hooks="true"
+	fi
+
+	if [ -f "$opencode_dir/.forge-kit-hooks" ]; then
+		if [ "${FORGE_DRY_RUN:-false}" = "true" ]; then
+			log_info "[DRY RUN] Would remove $opencode_dir/.forge-kit-hooks"
+		else
+			rm "$opencode_dir/.forge-kit-hooks"
+		fi
+		removed_hooks="true"
+	fi
+
+	if [ "$removed_hooks" = "true" ]; then
+		log_success "Removed hooks manifest"
 	fi
 
 	if [ -f "$opencode_dir/.forge-kit-oh-my-openagent" ] && [ -f "$opencode_dir/oh-my-opencode.jsonc" ]; then

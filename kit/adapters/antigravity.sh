@@ -142,18 +142,30 @@ adapter_status() {
 adapter_uninstall() {
 	ag_dir="$(get_config_dir antigravity)"
 	rules_file="$ag_dir/rules.md"
+	removed_hooks="false"
 
 	uninstall_skills "$ag_dir/skills"
 
-	if [ -f "$ag_dir/.forge-kit-hooks" ] && [ -f "$ag_dir/hooks.json" ]; then
+	if [ -f "$ag_dir/hooks.json" ]; then
 		if [ "${FORGE_DRY_RUN:-false}" = "true" ]; then
 			log_info "[DRY RUN] Would remove $ag_dir/hooks.json"
-			log_info "[DRY RUN] Would remove $ag_dir/.forge-kit-hooks"
 		else
 			rm "$ag_dir/hooks.json"
-			rm "$ag_dir/.forge-kit-hooks"
-			log_success "Removed hooks manifest"
 		fi
+		removed_hooks="true"
+	fi
+
+	if [ -f "$ag_dir/.forge-kit-hooks" ]; then
+		if [ "${FORGE_DRY_RUN:-false}" = "true" ]; then
+			log_info "[DRY RUN] Would remove $ag_dir/.forge-kit-hooks"
+		else
+			rm "$ag_dir/.forge-kit-hooks"
+		fi
+		removed_hooks="true"
+	fi
+
+	if [ "$removed_hooks" = "true" ]; then
+		log_success "Removed hooks manifest"
 	fi
 
 	if [ -f "$rules_file" ]; then
