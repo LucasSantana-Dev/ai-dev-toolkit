@@ -92,6 +92,13 @@ O bootstrap agora também prepara:
 - `~/.opencode/skills/codex`
 - `~/.config/ai-dev-toolkit/local.env`
 
+E instala um starter pack de skills compartilhadas, incluindo:
+
+- `ai-toolkit-repo-intake`
+- `ai-toolkit-ship-check`
+- `ai-toolkit-worktree-flow`
+- `ai-toolkit-mcp-readiness`
+
 Isso cobre a base de:
 
 - regras/guidance do OpenCode

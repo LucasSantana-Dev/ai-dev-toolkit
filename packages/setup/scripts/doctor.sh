@@ -78,6 +78,12 @@ else
 	warn "OpenCode skills directories missing"
 fi
 
+if [[ -f "$HOME/.opencode/skills/agents/ai-toolkit-repo-intake/SKILL.md" ]]; then
+	ok "starter shared skills installed"
+else
+	warn "starter shared skills missing"
+fi
+
 if [[ -f "$HOME/.config/opencode/opencode.jsonc" ]] && grep -q 'opencode-worktree' "$HOME/.config/opencode/opencode.jsonc"; then
 	ok "worktree workflow plugin configured"
 else
