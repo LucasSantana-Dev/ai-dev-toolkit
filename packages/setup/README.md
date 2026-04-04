@@ -127,8 +127,8 @@ mcp-health linear
 Para planejar ou executar releases em outros repositórios preparados pelo toolkit:
 
 ```bash
-release-plan --repo /path/to/repo --level patch --notes-file RELEASE_NOTES.md
-release-plan-github --repo /path/to/repo --level patch --notes-file RELEASE_NOTES.md
+release-plan --repo /path/to/repo --level patch --notes-file RELEASE_NOTES.md --changelog
+release-plan-github --repo /path/to/repo --level patch --notes-file RELEASE_NOTES.md --changelog
 release-patch --repo /path/to/repo
 release-patch-github --repo /path/to/repo
 release-tag --repo /path/to/repo --tag v1.2.3
