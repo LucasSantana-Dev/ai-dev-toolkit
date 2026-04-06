@@ -177,8 +177,11 @@ Para verificar se já existe um release novo do toolkit antes de fazer bump do p
 
 ```bash
 toolkit-version-check
+toolkit-version-prepare
 toolkit-version-sync
 ```
+
+Use `toolkit-version-prepare` para gerar um resumo pronto de PR sem alterar o `TOOLKIT_VERSION`. Só use `toolkit-version-sync` quando quiser aplicar o bump no arquivo local.
 
 ## O que será configurado para AI tools
 
