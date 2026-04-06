@@ -2,6 +2,8 @@
 
 **Language:** English | [Português](README.md)
 
+> **Repository role:** `ai-dev-toolkit-setup` is the optional bootstrap, installer, and distribution layer. The canonical source of truth for reusable patterns, skills, agents, and helper logic lives in `ai-dev-toolkit`.
+
 Portable setup for `ai-dev-toolkit` on new machines, without depending on personal dotfiles.
 
 Looking for the shareable guide with patterns, rule templates, and tool-specific implementations? See the companion repository [ai-dev-toolkit](https://github.com/LucasSantana-Dev/ai-dev-toolkit).
@@ -10,6 +12,10 @@ Looking for the shareable guide with patterns, rule templates, and tool-specific
 
 - Use **ai-dev-toolkit-setup** when you want to prepare a new machine with shell, tmux, OpenCode, MCP/release helpers, and a baseline agent-ready environment.
 - Use **ai-dev-toolkit** when you want reusable patterns, rule templates, and reference implementations to apply inside your own repositories.
+
+The ownership map for this migration phase lives in [OWNERSHIP.md](OWNERSHIP.md).
+
+When online, this repo consumes the pinned `ai-dev-toolkit` release and installs the canonical `mcp-health.py`, `toggle-mcp.py`, and `release.py` helpers into `~/.config/opencode/scripts/`.
 
 ## Table of Contents
 

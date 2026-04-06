@@ -2,6 +2,8 @@
 
 **Idioma:** Português | [English](README.en.md)
 
+> **Papel do repositório:** `ai-dev-toolkit-setup` é a camada opcional de bootstrap, instalação e distribuição. A fonte canônica de padrões, skills, agentes e lógica reutilizável fica em `ai-dev-toolkit`.
+
 Setup portátil do ai-dev-toolkit para máquinas novas, sem depender de dotfiles pessoais.
 
 Quer a versão compartilhável com padrões, regras e implementações por ferramenta? Veja o
@@ -12,6 +14,10 @@ repositório companheiro
 
 - Use **ai-dev-toolkit-setup** quando você quiser preparar uma máquina nova com shell, tmux, OpenCode, helpers de release/MCP e ambiente base para agentes.
 - Use **ai-dev-toolkit** quando você quiser padrões reutilizáveis, templates de regras e implementações de referência para aplicar dentro dos seus projetos.
+
+O mapa de ownership desta fase está em [OWNERSHIP.md](OWNERSHIP.md).
+
+Quando online, este repo consome o release pinado de `ai-dev-toolkit` e instala os helpers canônicos `mcp-health.py`, `toggle-mcp.py` e `release.py` em `~/.config/opencode/scripts/`.
 
 ## Índice
 
