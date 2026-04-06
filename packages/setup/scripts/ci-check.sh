@@ -79,6 +79,36 @@ test -f "$HOME/.config/ai-dev-toolkit/local.env"
 test -f "$HOME/.config/ai-dev-toolkit/.toolkit-version"
 bash -lc 'source "$HOME/.config/ai-dev-toolkit/shell.sh"'
 
+override_toolkit="$tmpdir/toolkit-override"
+mkdir -p "$override_toolkit/kit" "$override_toolkit/tools"
+cat >"$override_toolkit/kit/install.sh" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+mkdir -p "$HOME/.config/opencode"
+printf '{"name":"override"}\n' >"$HOME/.config/opencode/opencode.jsonc"
+EOF
+chmod +x "$override_toolkit/kit/install.sh"
+cat >"$override_toolkit/tools/mcp-health.py" <<'EOF'
+#!/usr/bin/env python3
+print("mcp health override")
+EOF
+cat >"$override_toolkit/tools/toggle-mcp.py" <<'EOF'
+#!/usr/bin/env python3
+print("toggle mcp override")
+EOF
+cat >"$override_toolkit/tools/release.py" <<'EOF'
+#!/usr/bin/env python3
+print("release override")
+EOF
+chmod +x "$override_toolkit/tools/"*.py
+TOOLKIT_DIR_OVERRIDE="$override_toolkit" bash scripts/setup-ai-tools.sh "$ROOT"
+test -f "$HOME/.config/opencode/scripts/mcp-health.py"
+test -f "$HOME/.config/opencode/scripts/toggle-mcp.py"
+test -f "$HOME/.config/opencode/scripts/release.py"
+python3 "$HOME/.config/opencode/scripts/mcp-health.py" >/dev/null
+python3 "$HOME/.config/opencode/scripts/toggle-mcp.py" >/dev/null
+python3 "$HOME/.config/opencode/scripts/release.py" >/dev/null
+
 node_repo="$tmpdir/node-repo"
 mkdir -p "$node_repo"
 git -C "$node_repo" init -q
