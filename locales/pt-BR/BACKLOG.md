@@ -1,44 +1,44 @@
-# ai-dev-toolkit Backlog Map
+# Mapa de Backlog do ai-dev-toolkit
 
-_Last updated: 2026-04-03_
+_Última atualização: 2026-04-03_
 
 ## Snapshot
 
-- Current branch inspected: `release/v0.11.0`
-- Default branch: `main`
-- Open PRs: `0`
-- Open issues: `0`
-- Primary backlog source: `backlog.json`
-- Strategic roadmap source: `.claude/plans/universal-toolkit-installer.md`
+- Branch inspecionada: `release/v0.11.0`
+- Branch padrão: `main`
+- PRs abertas: `0`
+- Issues abertas: `0`
+- Fonte principal do backlog: `backlog.json`
+- Fonte do roadmap estratégico: `.claude/plans/universal-toolkit-installer.md`
 
-## Evidence Summary
+## Resumo das Evidências
 
-### Confirmed urgent signals
+### Sinais urgentes confirmados
 
-- GitHub latest release is now **`v0.11.0`**.
-- The highest-value next work has moved from release execution to post-release governance hardening.
-- `backlog.json` is the primary operational queue and should stay aligned with merged PR and release state.
-- The strongest near-term quality gains come from schemas, adapter parity, and recurring backlog hygiene.
+- A release mais recente no GitHub agora é **`v0.11.0`**.
+- O trabalho de maior valor no curto prazo deixou de ser a execução da release e passou a ser o endurecimento da governança pós-release.
+- `backlog.json` é a fila operacional principal e precisa continuar alinhado com PRs mergeadas e com o estado das releases.
+- Os maiores ganhos de qualidade no curto prazo vêm de schemas, parity entre adapters e higiene recorrente de backlog.
 
-### Confirmed missing implementation surfaces
+### Superfícies de implementação ausentes confirmadas
 
-- `kit/core/schedules.json` is missing.
-- `kit/plugins/` is missing.
-- `implementations/antigravity/` is missing.
-- `implementations/windsurf/README.md` is missing.
+- `kit/core/schedules.json` está ausente.
+- `kit/plugins/` está ausente.
+- `implementations/antigravity/` está ausente.
+- `implementations/windsurf/README.md` está ausente.
 
-### Confirmed existing surfaces
+### Superfícies existentes confirmadas
 
-- `kit/core/mcp.json` exists.
-- `kit/core/agents.json` exists.
-- `kit/core/routing.json` exists.
-- `kit/schema/` exists with 9 JSON schemas.
-- `implementations/cursor/README.md` exists.
-- `companies/fullstack-forge/` exists, but no additional company templates were found.
+- `kit/core/mcp.json` existe.
+- `kit/core/agents.json` existe.
+- `kit/core/routing.json` existe.
+- `kit/schema/` existe com 9 JSON schemas.
+- `implementations/cursor/README.md` existe.
+- `companies/fullstack-forge/` existe, mas nenhum template adicional de company foi encontrado.
 
 ---
 
-## Now
+## Agora
 
 ### 1. Stabilize post-release backlog governance
 
@@ -102,7 +102,7 @@ _Last updated: 2026-04-03_
 
 ---
 
-## Next
+## Próximos
 
 ### 4. Fill missing implementation docs/adapters
 
@@ -156,7 +156,7 @@ _Last updated: 2026-04-03_
 
 ---
 
-## Later
+## Depois
 
 ### 7. Add schedule / heartbeat automation
 
@@ -206,44 +206,44 @@ _Last updated: 2026-04-03_
 
 ---
 
-## Cleanup / De-risking
+## Limpeza / Redução de Risco
 
-### A. Separate “missing by design” from “missing by omission”
+### A. Separar “ausente por design” de “ausente por omissão”
 
-For each missing path, add one disposition:
+Para cada caminho ausente, adicione uma classificação:
 
 - `required-now`
 - `planned-next`
 - `deferred`
 - `intentionally-out-of-scope`
 
-### B. Make release state impossible to drift silently
+### B. Tornar impossível o estado de release se desalinhar silenciosamente
 
-Add a release gate that fails if:
+Adicione um gate de release que falhe se:
 
-- branch name implies a higher version than `package.json`
-- `CHANGELOG.md` unreleased content exists for a tagged release branch
-- GitHub release/tag state does not match the intended version
+- o nome da branch implicar uma versão maior do que a de `package.json`
+- existir conteúdo em `CHANGELOG.md` na seção unreleased para uma branch de release já tagueada
+- o estado de release/tag no GitHub não corresponder à versão pretendida
 
-### C. Keep local install noise out of planning
+### C. Manter ruído de instalação local fora do planejamento
 
-If your checkout contains local workspace noise such as `node_modules/`, keep planning and backlog work in a clean worktree to avoid false backlog signals.
-
----
-
-## Recommended execution order
-
-1. Ship `v0.11.0`
-2. Add JSON schemas + validation enforcement
-3. Close adapter parity gaps
-4. Fill Antigravity/Windsurf implementation docs
-5. Expand company templates
-6. Add schedule layer
-7. Design plugin system
-8. Fold universal installer roadmap into long-term epics
+Se o seu checkout contiver ruído local de workspace, como `node_modules/`, mantenha o planejamento e o trabalho de backlog em um worktree limpo para evitar sinais falsos no backlog.
 
 ---
 
-## Immediate recommended next task
+## Ordem de execução recomendada
 
-**Ship the next post-release governance lane** with explicit checklist + verification gates.
+1. Entregar `v0.11.0`
+2. Adicionar JSON schemas + enforcement de validação
+3. Fechar gaps de parity entre adapters
+4. Preencher a documentação de implementação de Antigravity/Windsurf
+5. Expandir templates de companies
+6. Adicionar a camada de schedules
+7. Projetar o sistema de plugins
+8. Incorporar o roadmap do instalador universal aos épicos de longo prazo
+
+---
+
+## Próxima tarefa recomendada imediatamente
+
+**Entregar a próxima frente de governança pós-release** com checklist explícito e gates de verificação.

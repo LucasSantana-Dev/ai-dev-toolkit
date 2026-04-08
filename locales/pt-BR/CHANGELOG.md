@@ -1,17 +1,17 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+Todas as mudanças relevantes deste projeto serão documentadas neste arquivo.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+O formato é baseado em [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [Não lançado]
 
-### Added
+### Adicionado
 
 - ESLint CI job (`.github/workflows/validate.yml`) so `.mjs` lint errors are
   caught on every PR instead of only in local runs.
 
-### Fixed
+### Corrigido
 
 - `scripts/reconcile-backlog-state.mjs` no longer reports 8 `no-undef` errors
   for `process` and `console` — the ESLint config now covers `.mjs` files and

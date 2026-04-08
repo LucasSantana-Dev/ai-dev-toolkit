@@ -1,6 +1,9 @@
 # AI Dev Toolkit
 
-Toolkit reutilizável para desenvolvimento assistido por IA: patterns, regras, skills portáteis, configuração multi-ferramenta e implementações de referência para fazer agentes de código trabalharem com mais contexto, mais consistência e menos supervisão manual.
+Toolkit reutilizável para desenvolvimento assistido por IA: patterns, regras, skills
+portáteis, configuração multi-ferramenta e implementações de referência para
+fazer agentes de código trabalharem com mais contexto, mais consistência e menos
+supervisão manual.
 
 ## Comece Por Aqui
 
@@ -21,15 +24,15 @@ No começo, você pode ignorar `companies/`, `training/`, ecossistemas de plugin
 
 ## O Que O Repo Entrega
 
-- `rules/`: instrucoes prontas para Claude Code, Codex, GitHub Copilot, Gemini, Cursor, Windsurf e Antigravity
-- `patterns/`: playbooks tool-agnostic para contexto, memoria, testes, revisao, routing, permissoes e orquestracao
-- `best-practices/`: versao curta e operacional dos principios mais importantes
+- `rules/`: instruções prontas para Claude Code, Codex, GitHub Copilot, Gemini, Cursor, Windsurf e Antigravity
+- `patterns/`: playbooks tool-agnostic para contexto, memória, testes, revisão, routing, permissões e orquestração
+- `best-practices/`: versão curta e operacional dos princípios mais importantes
 - `kit/`: `forge-kit`, o instalador/configurador do toolkit
-- `kit/core/skills/`: 29 skills portateis
-- `implementations/`: guias especificos por ferramenta, incluindo GitHub Copilot, Gemini e Antigravity
-- `companies/`: organizacoes prontas de agentes especialistas
-- `examples/`: exemplos de memoria, contexto e superficies de instrucao
-- `tools/`: stack recomendada de CLIs, plugins e utilitarios
+- `kit/core/skills/`: 29 skills portáteis
+- `implementations/`: guias específicos por ferramenta, incluindo GitHub Copilot, Gemini e Antigravity
+- `companies/`: organizações prontas de agentes especialistas
+- `examples/`: exemplos de memória, contexto e superfícies de instrução
+- `tools/`: stack recomendada de CLIs, plugins e utilitários
 - `training/`: captura e fine-tuning opcional
 
 ## Modelo Mental do Repo
@@ -51,8 +54,8 @@ O repositório companheiro `ai-dev-toolkit-setup` existe para preparar uma máqu
 
 Use:
 
-- `ai-dev-toolkit` para guidance reutilizavel dentro de projetos
-- `ai-dev-toolkit-setup` para bootstrap da maquina
+- `ai-dev-toolkit` para guidance reutilizável dentro de projetos
+- `ai-dev-toolkit-setup` para bootstrap da máquina
 
 O setup consome uma release pinada do toolkit e instala os helpers canônicos quando está online.
 
@@ -76,6 +79,8 @@ Use este repositório quando você quer:
 - usar várias ferramentas de IA sem reescrever guidance toda hora
 - melhorar segurança, qualidade e continuidade entre sessões
 
-## Proximo Passo
+## Próximo Passo
 
-Se quiser a versão em inglês, use o [README original](./README.md).
+Se você quiser a superfície principal do espelho em português, use
+[README.md](./README.md). Este arquivo existe para quem prefere uma referência
+com o locale explícito no nome do arquivo.
