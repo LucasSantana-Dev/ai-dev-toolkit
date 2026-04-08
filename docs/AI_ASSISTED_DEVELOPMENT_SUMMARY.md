@@ -4,16 +4,25 @@ This repository is a toolkit for AI-assisted software development. It is not an 
 
 ## The Fastest Way to Get Value
 
-If you are new to this repository, start with one rule file:
+If you are new to this repository, do this first:
+
+1. Pick the instruction surface your agent already reads.
+2. Copy one baseline rules file into your project.
+3. Add context, review, and testing patterns only after the rules file is working.
+
+Then map that generic path to the tool you use:
 
 - `rules/CLAUDE.md` for Claude Code and compatible tools
 - `rules/AGENTS.md` for Codex CLI
 - `rules/COPILOT.md` for GitHub Copilot
+- `rules/GEMINI.md` for Gemini CLI and related Gemini surfaces
+- `rules/ANTIGRAVITY.md` for Antigravity
 - the tool-specific rule files for Cursor and Windsurf
 
 Copy the matching file into your project root. That gives your agent a basic identity, coding standards, workflow rules, testing expectations, security rules, and delivery guardrails before the first prompt.
 
 You do not need the full installer to benefit from this repository.
+You also do not need to care about companies, training, plugins, or machine bootstrap on day one.
 
 ## What This Repository Contains
 
@@ -136,6 +145,18 @@ Two supporting areas are useful but optional:
 
 Neither area is required to use the toolkit well.
 
+### 9. Examples
+
+The `examples/` directory is one of the easiest places to learn the repository by imitation instead of abstraction.
+
+Use it when you want to see:
+
+- example memory files
+- example instruction surfaces
+- example project context structure
+
+If the rules and patterns feel too abstract, check `examples/` before going deeper into advanced directories.
+
 ## The Core Mental Model
 
 This repository is easiest to use when you understand the difference between its layers:
@@ -148,6 +169,17 @@ This repository is easiest to use when you understand the difference between its
 - forge-kit installs and syncs the whole system.
 
 If you keep those six layers separate in your head, the repository becomes much easier to navigate.
+
+## One Piece of Jargon: MCP
+
+MCP means Model Context Protocol. In practice, it is a standard way for an AI tool to connect to external tools or data sources such as GitHub, filesystems, documentation servers, browsers, memory systems, or internal APIs.
+
+If you are a beginner, the only thing you need to remember is:
+
+- rules shape the agent's behavior
+- MCP extends what the agent can access and do
+
+You do not need MCP on day one, but you will see it across this repository because it matters once your workflow grows beyond basic prompting.
 
 ## Tool-Specific Instruction Surfaces Worth Knowing
 
@@ -201,6 +233,13 @@ If you want the shortest useful adoption path, follow this order:
 5. Add memory and session discipline with `patterns/memory-systems.md` and `best-practices/context-management.md`.
 6. Install `forge-kit` only after you know which tools you actually use.
 7. Explore agent organizations only when a single-agent workflow starts to break down.
+
+Minimum viable adoption:
+
+- copy one rules file
+- read two or three patterns
+- skip `forge-kit` for now
+- use `implementations/` only when you need tool-specific setup details
 
 ## What Is Optional and Advanced
 
