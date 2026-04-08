@@ -1,10 +1,10 @@
 # Solopreneur Studio
 
-> A starter company for one-person software businesses that need product shipping, user feedback, and lightweight growth execution.
+> Uma company inicial para negócios de software de uma pessoa só que precisam entregar produto, coletar feedback de usuários e tocar crescimento de forma leve.
 
-| Content | Count |
-| ------- | ----- |
-| Agents  | 3     |
-| Skills  | 3     |
+| Conteúdo | Quantidade |
+| ------- | ---------- |
+| Agents  | 3          |
+| Skills  | 3          |
 
-Best for solo SaaS founders, indie hackers, and consultant-product hybrids.
+Ideal para founders solo de SaaS, indie hackers e híbridos entre consultoria e produto.

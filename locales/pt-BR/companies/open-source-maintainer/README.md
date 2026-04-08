@@ -1,10 +1,10 @@
 # Open Source Maintainer Collective
 
-> A maintainer-focused company pack for issue triage, releases, contributor support, and documentation upkeep.
+> Um company pack focado em maintainers para triagem de issues, releases, suporte a contribuidores e manutenção de documentação.
 
-| Content | Count |
-| ------- | ----- |
-| Agents  | 5     |
-| Skills  | 4     |
+| Conteúdo | Quantidade |
+| ------- | ---------- |
+| Agents  | 5          |
+| Skills  | 4          |
 
-Best for maintainers of libraries, CLI tools, frameworks, and community-driven repos.
+Ideal para maintainers de bibliotecas, ferramentas CLI, frameworks e repositórios guiados pela comunidade.

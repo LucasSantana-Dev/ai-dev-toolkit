@@ -1,10 +1,10 @@
 # Startup MVP Lab
 
-> A startup-oriented company pack for building, validating, and launching MVPs quickly.
+> Um company pack orientado a startups para construir, validar e lançar MVPs com rapidez.
 
-| Content | Count |
-| ------- | ----- |
-| Agents  | 4     |
-| Skills  | 4     |
+| Conteúdo | Quantidade |
+| ------- | ---------- |
+| Agents  | 4          |
+| Skills  | 4          |
 
-Best for 2–10 person startups, founder-led MVPs, and pre-seed product teams.
+Ideal para startups de 2 a 10 pessoas, MVPs liderados por founders e times de produto em pré-seed.

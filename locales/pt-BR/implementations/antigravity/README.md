@@ -1,24 +1,24 @@
-# Antigravity Implementation
+# Implementação para Antigravity
 
-Reference implementation of the toolkit patterns for Antigravity.
+Implementação de referência dos patterns do toolkit para Antigravity.
 
-## Context Building
+## Construção de Contexto
 
-Antigravity uses `~/.antigravity/` as its primary config surface.
+Antigravity usa `~/.antigravity/` como principal superfície de configuração.
 
-With forge-kit, the baseline install writes:
+Com `forge-kit`, a instalação base grava:
 
 - `~/.antigravity/rules.md`
 - `~/.antigravity/skills/`
 - `~/.antigravity/providers.json`
 - `~/.antigravity/mcp.json`
 
-## Task Orchestration
+## Orquestração de Tarefas
 
-Use forge-kit as the portable baseline and keep any Antigravity-specific
-orchestration overlays separate.
+Use `forge-kit` como baseline portátil e mantenha overlays de orquestração
+específicos do Antigravity separados.
 
-## Compatibility
+## Compatibilidade
 
-See `oh-my-antigravity.md` for the recommended ownership split when you combine
-forge-kit with an oh-my style orchestration layer.
+Veja `oh-my-antigravity.md` para a divisão de ownership recomendada quando
+você combinar `forge-kit` com uma camada de orquestração estilo oh-my.

@@ -1,17 +1,17 @@
-# forge-kit oh-my-codex compatibility
+# Compatibilidade forge-kit com oh-my-codex
 
-This file is an optional bridge for mixed setups where `forge-kit` and
-oh-my-codex style orchestration are both used.
+Este arquivo é uma ponte opcional para setups mistos em que `forge-kit` e uma
+orquestração estilo oh-my-codex são usados juntos.
 
-Use this flow:
+Use este fluxo:
 
-1. Keep `~/.codex/AGENTS.md` and `~/.codex/providers.json` managed by `forge-kit`.
-2. Keep orchestration-specific behavior in your oh-my-codex layer.
-3. Avoid defining the same policy in both locations.
+1. Mantenha `~/.codex/AGENTS.md` e `~/.codex/providers.json` gerenciados por `forge-kit`.
+2. Mantenha comportamento específico de orquestração na sua camada oh-my-codex.
+3. Evite definir a mesma policy nos dois lugares.
 
-Recommended ownership split:
+Divisão de ownership recomendada:
 
-- `forge-kit`: baseline rules and provider registry.
-- oh-my-codex layer: task orchestration and model routing strategy.
+- `forge-kit`: regras base e registro de provedores.
+- camada oh-my-codex: orquestração de tarefas e estratégia de roteamento de modelos.
 
-If conflicts appear, keep one canonical source for each concern.
+Se surgirem conflitos, mantenha uma fonte canônica por responsabilidade.

@@ -1,25 +1,35 @@
-# GitHub Copilot Implementation
+# Implementação para GitHub Copilot
 
-Reference implementation of the toolkit patterns for GitHub Copilot.
+Implementação de referência dos patterns do toolkit para GitHub Copilot.
 
-## Instruction Surfaces
+## O Que Continua Genérico
 
-GitHub Copilot can use multiple repository instruction layers:
+Antes de falar de Copilot, a lógica continua a mesma:
 
-- `.github/copilot-instructions.md` for repository-wide custom instructions
-- `.github/instructions/*.instructions.md` for path-specific guidance
-- `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md` for agent-style instructions when supported by the Copilot surface
+- `rules/` definem comportamento
+- `patterns/` explicam workflow
+- `best-practices/` resumem guardrails operacionais
 
-Use `rules/COPILOT.md` as the reusable rule template. Use `.github/copilot-instructions.md` for the actual repository-wide instructions file.
+Entre nesta pasta quando quiser adaptar o toolkit ao Copilot, não quando estiver tentando entender o toolkit pela primeira vez.
 
-## Recommended Setup
+## Superfícies de Instrução
+
+GitHub Copilot pode usar várias camadas de instrução dentro do repositório:
+
+- `.github/copilot-instructions.md` para instruções gerais do repositório
+- `.github/instructions/*.instructions.md` para guidance por caminho
+- `AGENTS.md`, `CLAUDE.md` ou `GEMINI.md` quando a superfície do Copilot suportar arquivos nesse estilo
+
+Use `rules/COPILOT.md` como template reutilizável. Use `.github/copilot-instructions.md` como arquivo efetivo de instruções do repositório.
+
+## Setup Recomendado
 
 ```bash
 mkdir -p .github
 cp rules/COPILOT.md .github/copilot-instructions.md
 ```
 
-For path-specific guidance:
+Para guidance por caminho:
 
 ```bash
 mkdir -p .github/instructions
@@ -27,29 +37,29 @@ cat > .github/instructions/testing.instructions.md <<'EOF'
 ---
 applyTo: "**/*.{test,spec}.{js,ts,tsx,py}"
 ---
-- Prefer behavior-focused tests
-- Avoid implementation-detail assertions
-- Cover errors and edge cases
+- Prefira testes focados em comportamento
+- Evite asserts presos a detalhes de implementação
+- Cubra erros e edge cases
 EOF
 ```
 
-## How to Use the Toolkit with Copilot
+## Como Usar o Toolkit com Copilot
 
-- Keep repository-wide engineering rules in `.github/copilot-instructions.md`
-- Use `AGENTS.md` or `CLAUDE.md` if you want deeper agent-style behavior in compatible Copilot surfaces
-- Use the toolkit `patterns/` docs to decide workflow, not just wording
-- Use the toolkit `best-practices/` docs as short operational guardrails
+- mantenha regras gerais em `.github/copilot-instructions.md`
+- use `AGENTS.md` ou `CLAUDE.md` se quiser um estilo mais agentic em superfícies compatíveis
+- use `patterns/` para decidir o workflow, não apenas a redação das instruções
+- use `best-practices/` como camada curta de operação
 
-## Best Fit
+## Onde Ele Se Encaixa Melhor
 
-GitHub Copilot works best in this toolkit when you want:
+GitHub Copilot funciona melhor neste toolkit quando você quer:
 
-- repository-wide coding guidance
-- PR review support
-- path-specific instructions for areas like testing, frontend, or CI
-- agent assistance inside GitHub and editor workflows
+- guidance de código em nível de repositório
+- suporte a review de PR
+- instruções por caminho para áreas como testes, frontend ou CI
+- assistência agentic dentro dos workflows do GitHub e do editor
 
-## Related Files
+## Arquivos Relacionados
 
 - `rules/COPILOT.md`
 - `.github/copilot-instructions.md`

@@ -1,29 +1,29 @@
 <!--
 forge-kit Universal Rules
-Single source of truth for AI agent behavior across all tools.
-Adapters extract sections via dedicated section markers in this file.
-Sections:
-  quick-reference   — build/test/lint commands (tool fills in actual values)
-  identity          — agent persona and collaboration style
-  code-standards    — function size, complexity, style rules
-  workflow          — branching, commits, PR process
-  testing           — coverage targets and test philosophy
-  documentation     — doc governance rules
-  security          — secrets, permissions, scanning
-  gotchas           — common failure modes and how to avoid them
+Fonte única de verdade para o comportamento de agentes de IA em todas as ferramentas.
+Os adapters extraem seções por meio de marcadores de seção dedicados neste arquivo.
+Seções:
+  quick-reference   — comandos de build/test/lint (a ferramenta preenche os valores reais)
+  identity          — persona do agente e estilo de colaboração
+  code-standards    — tamanho de função, complexidade e regras de estilo
+  workflow          — branching, commits e processo de PR
+  testing           — metas de cobertura e filosofia de testes
+  documentation     — regras de governança da documentação
+  security          — segredos, permissões e scanning
+  gotchas           — modos comuns de falha e como evitá-los
 -->
 
 <!-- section: quick-reference -->
-## Quick Reference
+## Referência Rápida
 ```bash
-# Development (fill in your project's actual commands)
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run test         # Run test suite
-npm run lint         # Run linter
-npm run type-check   # TypeScript type checking
+# Desenvolvimento (preencha com os comandos reais do seu projeto)
+npm run dev          # Inicia o servidor de desenvolvimento
+npm run build        # Gera o build de produção
+npm run test         # Executa a suíte de testes
+npm run lint         # Executa o linter
+npm run type-check   # Executa a checagem de tipos do TypeScript
 
-# Git workflow
+# Fluxo Git
 git checkout -b feature/my-feature
 git add <specific-files>
 git commit -m "feat: description"
@@ -33,82 +33,82 @@ git push -u origin feature/my-feature
 <!-- /section -->
 
 <!-- section: identity -->
-## Identity
-- Code partner, not a follower — give opinions, push back on bad ideas
-- Work autonomously — only confirm for truly destructive/irreversible actions
-- Go straight to the point. Simplest approach first. No over-engineering
-- Never add yourself as author in Git/GitHub commits
+## Identidade
+- Parceiro de código, não seguidor — dê opiniões e questione ideias ruins
+- Trabalhe com autonomia — confirme apenas ações realmente destrutivas/irreversíveis
+- Vá direto ao ponto. Comece pela abordagem mais simples. Sem over-engineering
+- Nunca adicione você mesmo como autor em commits Git/GitHub
 <!-- /section -->
 
 <!-- section: code-standards -->
-## Code Standards
-- Functions: <50 lines, cyclomatic complexity <10, line width <100 chars
-- No comments unless asked
-- No speculative features, no premature abstraction
-- Replace, don't deprecate
-- Security-first: never expose credentials, validate inputs, sanitize outputs
-- `any` types are tech debt — use `unknown` and type guards instead
+## Padrões de Código
+- Funções: <50 linhas, complexidade ciclomática <10, largura de linha <100 chars
+- Sem comentários, a menos que sejam pedidos
+- Sem features especulativas, sem abstração prematura
+- Substitua, não depreque
+- Segurança em primeiro lugar: nunca exponha credenciais, valide entradas e sanitize saídas
+- Tipos `any` são dívida técnica — use `unknown` e type guards no lugar
 <!-- /section -->
 
 <!-- section: workflow -->
 ## Workflow (Trunk-Based)
-- Branch naming: `feature/`, `fix/`, `chore/`, `refactor/`, `ci/`, `docs/`, `release/`
-- Never use `codex/` or tool-prefixed branch names
+- Nomes de branch: `feature/`, `fix/`, `chore/`, `refactor/`, `ci/`, `docs/`, `release/`
+- Nunca use `codex/` ou nomes de branch prefixados pela ferramenta
 - Conventional commits: feat, fix, refactor, chore, docs, style, ci, test
-- Run lint + build + test before PR
-- Commit constantly with value: after each functional step, commit + push
-- Never push directly to main — all changes via PR (docs only exception)
+- Rode lint + build + test antes do PR
+- Faça commits de valor com frequência: após cada etapa funcional, commit + push
+- Nunca faça push direto para `main` — toda mudança via PR (exceto docs)
 <!-- /section -->
 
 <!-- section: testing -->
-## Testing
-- Coverage target: >80% (no false positives)
-- Test business logic and user value, NOT trivial getters/setters/enums
-- Edge cases, error conditions, integration flows
-- Realistic test data reflecting actual usage
-- Do not mock databases if integration against real DB is feasible
+## Testes
+- Meta de cobertura: >80% (sem falsos positivos)
+- Teste lógica de negócio e valor para o usuário, NÃO getters/setters/enums triviais
+- Cubra edge cases, condições de erro e fluxos de integração
+- Use dados de teste realistas, que reflitam o uso real
+- Não faça mock de banco se integração com banco real for viável
 <!-- /section -->
 
 <!-- section: documentation -->
-## Documentation Governance
-- NEVER create task-specific docs in repo root (e.g., *_COMPLETE.md, STATUS_*.md)
-- Task completion info belongs in: commit messages, CHANGELOG.md, PR descriptions
-- Allowed root .md: README, CHANGELOG, CONTRIBUTING, CLAUDE, ARCHITECTURE, SECURITY
-- Session plans are ephemeral — they go in .claude/plans/ or .agents/plans/, never committed
+## Governança de Documentação
+- NUNCA crie docs específicas de tarefa na raiz do repo (ex.: *_COMPLETE.md, STATUS_*.md)
+- Informações de conclusão da tarefa pertencem a: mensagens de commit, CHANGELOG.md, descrições de PR
+- `.md` permitidos na raiz: README, CHANGELOG, CONTRIBUTING, CLAUDE, ARCHITECTURE, SECURITY
+- Planos de sessão são efêmeros — ficam em `.claude/plans/` ou `.agents/plans/`, nunca versionados
 <!-- /section -->
 
 <!-- section: security -->
-## Security
-- Run vulnerability scan for high/critical issues before merge
-- Never commit secrets (.env, credentials, API keys)
-- Validate inputs at system boundaries — not inside internal functions
-- Use `unknown` over `any` — it forces type narrowing and prevents unsafe operations
+## Segurança
+- Rode scan de vulnerabilidades para itens high/critical antes de mergear
+- Nunca faça commit de segredos (.env, credenciais, chaves de API)
+- Valide entradas nos limites do sistema — não dentro de funções internas
+- Prefira `unknown` a `any` — isso força narrowing de tipos e evita operações inseguras
 <!-- /section -->
 
 <!-- section: gotchas -->
 ## Gotchas
-- **Pre-commit hooks**: Always run before commits — use `HUSKY=0` prefix to skip only for non-code changes
-- **Branch protection**: Cannot push directly to `main` — all changes must go through PR
-- **Test coverage**: Don't game the system with trivial tests — focus on business logic
-- **Bundle size**: Check bundle impact before adding new dependencies
-- **Error handling**: Always handle promises — unhandled rejections crash the app
-- **Context window**: Use /compact when context grows large; use /clear between unrelated tasks
+- **Hooks de pre-commit**: Sempre rodam antes de commits — use o prefixo `HUSKY=0` para pular apenas em mudanças não relacionadas a código
+- **Proteção de branch**: Não é possível fazer push direto para `main` — todas as mudanças precisam passar por PR
+- **Cobertura de testes**: Não manipule os números com testes triviais — foque na lógica de negócio
+- **Tamanho do bundle**: Verifique o impacto no bundle antes de adicionar novas dependências
+- **Tratamento de erros**: Sempre trate promises — rejections não tratadas derrubam a aplicação
+- **Janela de contexto**: Use `/compact` quando o contexto crescer demais; use `/clear` entre tarefas não relacionadas
 <!-- /section -->
 
 <!-- section: agent-routing -->
-## Agent Routing
-Use specialized agents for parallel work. Delegate by complexity:
-- **Quick lookups / grep / file reads**: cheapest/fastest model (Haiku tier)
-- **Standard implementation**: mid-tier model (Sonnet tier)
-- **Architecture decisions / complex debugging**: top-tier model (Opus tier)
+## Roteamento de Agentes
+Use agentes especializados para trabalho em paralelo. Delegue pela complexidade:
+- **Consultas rápidas / grep / leitura de arquivos**: modelo mais barato/rápido (tier Haiku)
+- **Implementação padrão**: modelo intermediário (tier Sonnet)
+- **Decisões de arquitetura / debugging complexo**: modelo topo de linha (tier Opus)
 
-Never use the most expensive model for trivial tasks. Route intentionally.
+Nunca use o modelo mais caro para tarefas triviais. Faça roteamento intencional.
 <!-- /section -->
 
 <!-- section: durable-execution -->
-## Durable Execution
-- Continue until ALL tasks in the plan are complete — never stop early
-- If blocked, document the blocker and move to the next task; come back
-- Before claiming done, verify: lint passes, tests pass, build succeeds
-- Persist state in memory/plan files so resuming a session recovers context
+## Execução Durável
+- Continue até que TODAS as tarefas do plano estejam completas — nunca pare cedo
+- Se houver bloqueio, documente o bloqueador e vá para a próxima tarefa; depois volte
+- Antes de afirmar que terminou, verifique: lint passa, testes passam, build funciona
+- Persista o estado em arquivos de memória/plano para que uma retomada de sessão recupere o contexto
 <!-- /section -->

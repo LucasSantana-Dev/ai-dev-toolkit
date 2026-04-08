@@ -1,36 +1,36 @@
 ---
 name: context-hygiene
-description: Keep sessions focused and efficient — prune stale outputs, preserve active state, recommend compaction
+description: Mantenha sessões focadas e eficientes — descarte saídas obsoletas, preserve o estado ativo e recomende compactação
 triggers:
-  - clean context
-  - session bloated
-  - context too long
-  - prune session
-  - switch task
+  - limpar contexto
+  - sessão inchada
+  - contexto muito longo
+  - podar sessão
+  - trocar de tarefa
 ---
 
 # Context Hygiene
 
-Identify what must stay active, mark stale outputs for removal, and decide whether to compact or start a fresh session.
+Identifique o que deve permanecer ativo, marque conteúdo obsoleto para remoção e decida se deve compactar ou iniciar uma sessão nova.
 
 ## Steps
 
-1. **Identify active state** — current task, files, decisions that must be preserved
-2. **Mark stale content** — completed threads, resolved questions, old tool outputs
-3. **Decide action** — compact current session or recommend a fresh session
-4. **Preserve explicitly** — write down active task state before any pruning
+1. **Identify active state** — tarefa atual, arquivos, decisões que precisam ser preservadas
+2. **Mark stale content** — threads concluídas, perguntas resolvidas, saídas antigas de ferramentas
+3. **Decide action** — compactar a sessão atual ou recomendar uma sessão nova
+4. **Preserve explicitly** — anote o estado ativo da tarefa antes de qualquer poda
 
 ## Output
 
 ```text
-Keep:    <active task, key files, open decisions>
-Prune:   <stale outputs, resolved threads>
+Keep:    <tarefa ativa, arquivos-chave, decisões em aberto>
+Prune:   <saídas obsoletas, threads resolvidas>
 Action:  compact | fresh session
 ```
 
 ## Rules
 
-- Never compact away active task state
-- Never preserve irrelevant historical chatter
-- Write active state explicitly before recommending a fresh session
-- Prefer compaction when the active task is still in progress
+- Nunca compacte e apague o estado da tarefa ativa
+- Nunca preserve conversa histórica irrelevante
+- Escreva explicitamente o estado ativo antes de recomendar uma sessão nova
+- Prefira compactação quando a tarefa ativa ainda estiver em andamento

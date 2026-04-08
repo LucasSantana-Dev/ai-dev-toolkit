@@ -1,10 +1,10 @@
 ---
 name: loop
-description: Autonomous development cycle — plan, implement, test, review, fix, commit, and PR without stopping
+description: Ciclo autônomo de desenvolvimento — planejar, implementar, testar, revisar, corrigir, commitar e abrir PR sem parar
 triggers:
   - loop
-  - autonomous
-  - run the full cycle
+  - autônomo
+  - executar o ciclo completo
   - dev loop
   - code loop
   - autopilot
@@ -13,7 +13,7 @@ triggers:
 
 # Loop
 
-Run the full development cycle autonomously until the task ships or a hard stop triggers.
+Execute o ciclo completo de desenvolvimento de forma autônoma até a tarefa ser entregue ou até disparar uma parada dura.
 
 ## Cycle
 
@@ -23,22 +23,22 @@ PLAN → IMPLEMENT → VERIFY → REVIEW → FIX → COMMIT → (repeat) → PR
 
 ## Steps
 
-1. **Receive task** — accept description, estimate scope, pick model tier (use route skill)
-2. **Plan** — break into phases with dependencies (use orchestrate skill)
+1. **Receive task** — aceite a descrição, estime o escopo, escolha o tier de modelo (use a skill route)
+2. **Plan** — quebre em fases com dependências (use a skill orchestrate)
 3. **For each phase:**
-   a. Implement the change
-   b. Run lint + type-check (fast feedback)
-   c. If lint/types fail → fix immediately, max 3 attempts
-   d. Run tests
-   e. If tests fail → debug (use debug skill), fix, max 3 attempts
-   f. Self-review the diff (use review skill)
-   g. If review finds issues → fix and re-verify
-   h. Commit with conventional message
+   a. Implemente a mudança
+   b. Rode lint + type-check (feedback rápido)
+   c. Se lint/types falharem → corrija imediatamente, máximo de 3 tentativas
+   d. Rode os testes
+   e. Se os testes falharem → debug (use a skill debug), corrija, máximo de 3 tentativas
+   f. Faça self-review do diff (use a skill review)
+   g. Se a review encontrar issues → corrija e verifique de novo
+   h. Faça commit com mensagem convencional
 4. **After all phases:**
-   a. Run full quality gates (use verify skill)
-   b. Push branch
-   c. Open PR (use ship skill)
-5. **If interrupted** — save state to plan file for resume
+   a. Rode os quality gates completos (use a skill verify)
+   b. Faça push da branch
+   c. Abra o PR (use a skill ship)
+5. **If interrupted** — salve o estado em um arquivo de plano para retomar
 
 ## Fallback Behavior
 
@@ -53,11 +53,11 @@ After 5 failures on same phase: STOP and report
 
 ## Guardrails
 
-- Never force-push or push to main
-- Never skip tests to "make progress"
-- Never suppress type errors to unblock
-- Stop the loop if 3 consecutive phases fail
-- Always run verify before claiming done
+- Nunca faça force-push nem push para `main`
+- Nunca pule testes para "ganhar progresso"
+- Nunca suprima erros de tipo para destravar
+- Pare o loop se 3 fases consecutivas falharem
+- Sempre rode verify antes de afirmar que terminou
 
 ## Output Per Phase
 
@@ -82,8 +82,8 @@ Quality: lint ✓ | types ✓ | tests ✓ (N passed) | build ✓
 
 ## Resume
 
-If the loop was interrupted:
-1. Check for plan file in `.agents/plans/`
-2. Find last completed phase
-3. Continue from the next incomplete phase
-4. Do not re-execute completed phases
+Se o loop foi interrompido:
+1. Verifique se há um arquivo de plano em `.agents/plans/`
+2. Encontre a última fase concluída
+3. Continue da próxima fase incompleta
+4. Não reexecute fases já concluídas

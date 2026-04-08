@@ -1,4 +1,4 @@
 ---
 name: feature-forge
-description: Turn startup goals into concrete feature scopes with acceptance criteria, sequencing, and clear MVP boundaries.
+description: Transformar objetivos da startup em escopos concretos de funcionalidades com critérios de aceitação, sequenciamento e limites claros de MVP.
 ---

@@ -1,48 +1,48 @@
 ---
 name: dispatch
-description: Spawn parallel subtasks, assign to worker agents, collect results
+description: Dispare subtarefas em paralelo, atribua a agentes workers e colete os resultados
 triggers:
   - dispatch
-  - parallel tasks
-  - spawn subtask
+  - tarefas paralelas
+  - criar subtarefa
   - fan out
-  - run in parallel
+  - rodar em paralelo
 ---
 
 # Dispatch
 
-Break work into independent subtasks and run them concurrently.
+Quebre o trabalho em subtarefas independentes e execute-as concorrentemente.
 
 ## Steps
 
-1. Identify independent units of work (no shared state, no ordering dependency)
-2. For each subtask: define scope, assign agent tier, set expected output
-3. Spawn all independent subtasks simultaneously
-4. Collect results as they complete
-5. Verify each result meets its expected output
-6. Integrate results into the main workflow
+1. Identifique unidades de trabalho independentes (sem estado compartilhado, sem dependência de ordem)
+2. Para cada subtarefa: defina o escopo, atribua um tier de agente, defina a saída esperada
+3. Dispare todas as subtarefas independentes ao mesmo tempo
+4. Colete os resultados conforme terminarem
+5. Verifique se cada resultado atende à sua saída esperada
+6. Integre os resultados ao workflow principal
 
 ## Subtask Template
 
 ```text
-Subtask: <name>
+Subtask: <nome>
   Agent: <tier>
-  Scope: <files or module>
-  Expected: <what done looks like>
-  Depends: none (must be independent)
+  Scope: <arquivos ou módulo>
+  Expected: <como é o pronto>
+  Depends: none (deve ser independente)
 ```
 
 ## Rules
 
-- Maximum 3 concurrent subtasks — more degrades review quality
-- Each subtask must be independently verifiable
-- Never dispatch subtasks with shared file writes — they will conflict
-- Collect ALL results before proceeding — no partial integration
-- If a subtask fails, retry it once then report the failure
-- Independent reads and searches are always safe to parallelize
+- Máximo de 3 subtarefas concorrentes — mais do que isso degrada a qualidade da revisão
+- Cada subtarefa deve ser verificável de forma independente
+- Nunca despache subtarefas com escrita nos mesmos arquivos — haverá conflito
+- Colete TODOS os resultados antes de prosseguir — sem integração parcial
+- Se uma subtarefa falhar, tente novamente uma vez e então reporte a falha
+- Leituras e buscas independentes sempre são seguras para paralelizar
 
 ## When NOT to Dispatch
 
-- Tasks share mutable state (same files being written)
-- Tasks have sequential dependencies (B needs A's output)
-- Total scope is small enough for one agent (<50 lines)
+- Tarefas compartilham estado mutável (os mesmos arquivos sendo escritos)
+- Tarefas têm dependências sequenciais (B precisa da saída de A)
+- O escopo total é pequeno o bastante para um único agente (<50 linhas)

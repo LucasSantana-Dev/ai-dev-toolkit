@@ -1,10 +1,20 @@
-# Gemini Implementation
+# Implementação para Gemini
 
-Reference implementation of the toolkit patterns for Gemini CLI and Gemini Code Assist.
+Implementação de referência dos patterns do toolkit para Gemini CLI e Gemini Code Assist.
+
+## O Que Continua Genérico
+
+Antes de pensar em Gemini, a ideia central continua a mesma:
+
+- use `rules/` para comportamento padrão
+- use `patterns/` para workflow
+- use `best-practices/` para o checklist operacional
+
+Entre em `implementations/gemini/` apenas quando você realmente precisar de setup específico do Gemini.
 
 ## Gemini CLI
 
-Gemini CLI is a terminal-first AI coding agent with built-in tools, MCP support, large context windows, and project-level behavior files.
+Gemini CLI é um agente de terminal com ferramentas embutidas, suporte a MCP, janelas grandes de contexto e arquivo de comportamento por projeto.
 
 ### Setup
 
@@ -13,60 +23,60 @@ npm install -g @google/gemini-cli
 cp rules/GEMINI.md your-project/GEMINI.md
 ```
 
-Authenticate with one of the supported methods:
+Autentique com um dos métodos suportados:
 
-- Google login for individual use
-- `GEMINI_API_KEY` for Gemini API access
-- Vertex AI environment variables for enterprise use
+- login do Google para uso individual
+- `GEMINI_API_KEY` para uso via API
+- variáveis de ambiente do Vertex AI para uso corporativo
 
-Then start Gemini in your project:
+Depois inicie o Gemini no projeto:
 
 ```bash
 cd your-project
 gemini
 ```
 
-## Gemini Context and Rules
+## Contexto e Regras no Gemini
 
-Use `GEMINI.md` as the stable project instruction file.
+Use `GEMINI.md` como arquivo estável de instruções do projeto.
 
-Keep in mind:
+Guarde esta divisão:
 
-- `GEMINI.md` is for behavior and expectations
-- prompts are still the right place to request concrete actions
-- long-lived standards belong in `GEMINI.md`
-- temporary task context belongs in prompts or project memory files
+- `GEMINI.md` para comportamento e expectativas
+- prompts para ações concretas
+- padrões duráveis no `GEMINI.md`
+- contexto temporário em prompts ou arquivos de memória do projeto
 
-## Gemini Code Assist on GitHub
+## Gemini Code Assist no GitHub
 
-For Gemini Code Assist on GitHub, the repository instruction surface is `.gemini/styleguide.md`.
+No GitHub, a superfície principal de instrução é `.gemini/styleguide.md`.
 
-Use it for:
+Use esse arquivo para:
 
-- coding standards
-- testing expectations
-- review heuristics
-- architecture and repo-specific preferences
+- padrões de código
+- expectativas de teste
+- heurísticas de review
+- preferências de arquitetura e do repositório
 
-The repository can also include `.gemini/config.yaml` when feature flags or ignore rules are needed.
+O repositório também pode incluir `.gemini/config.yaml` quando você precisar de flags ou regras de ignore.
 
-## Recommended Toolkit Mapping
+## Mapeamento Recomendado
 
-- `rules/GEMINI.md` -> project-root `GEMINI.md`
-- `.gemini/styleguide.md` -> GitHub review guidance for Gemini Code Assist
-- `patterns/` -> workflow playbooks
-- `best-practices/` -> short operational checklists
+- `rules/GEMINI.md` -> `GEMINI.md` na raiz do projeto
+- `.gemini/styleguide.md` -> guidance de review do Gemini no GitHub
+- `patterns/` -> playbooks de workflow
+- `best-practices/` -> checklists curtos de operação
 
-## Best Fit
+## Onde Ele Se Encaixa Melhor
 
-Gemini works well in this toolkit when you want:
+Gemini funciona bem neste toolkit quando você quer:
 
-- terminal-first coding assistance
-- large-context codebase analysis
-- MCP-connected workflows
-- GitHub-side review guidance through `.gemini/styleguide.md`
+- assistência de código terminal-first
+- análise de codebase com contexto grande
+- workflows conectados a MCP
+- guidance de review no GitHub via `.gemini/styleguide.md`
 
-## Related Files
+## Arquivos Relacionados
 
 - `rules/GEMINI.md`
 - `.gemini/styleguide.md`

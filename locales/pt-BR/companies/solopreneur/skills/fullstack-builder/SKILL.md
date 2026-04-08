@@ -1,4 +1,4 @@
 ---
 name: fullstack-builder
-description: Build and verify a lean full-stack increment end-to-end with minimal abstraction and strong release discipline.
+description: Construir e verificar um incremento full-stack enxuto de ponta a ponta, com abstração mínima e forte disciplina de release.
 ---

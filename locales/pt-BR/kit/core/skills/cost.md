@@ -1,32 +1,32 @@
 ---
 name: cost
-description: Track and report token usage and estimated cost per session, agent, and phase
+description: Acompanhe e reporte uso de tokens e custo estimado por sessão, agente e fase
 triggers:
   - cost
-  - how much did that cost
-  - token usage
-  - budget
-  - spending
+  - quanto isso custou
+  - uso de tokens
+  - orçamento
+  - gastos
 ---
 
 # Cost
 
-Track token usage and cost across the session.
+Acompanhe uso de tokens e custo ao longo da sessão.
 
 ## When to Report
 
-- After completing a major phase
-- When switching agents or tiers
-- At session end
-- When asked explicitly
+- Após concluir uma fase importante
+- Ao trocar de agente ou de tier
+- No fim da sessão
+- Quando solicitado explicitamente
 
 ## Output
 
 ```text
 Cost Report
 ───────────
-Phase:   <current phase name>
-Agent:   <agent name> (<tier>)
+Phase:   <nome da fase atual>
+Agent:   <nome do agente> (<tier>)
 Tokens:  <input> in / <output> out
 Est:     $<amount>
 Session: $<running total>
@@ -35,8 +35,8 @@ Budget:  $<remaining or unlimited>
 
 ## Rules
 
-- Report in-line, not as a separate step — cost is metadata, not a task
-- Never stop work to report cost unless budget is exceeded
-- On budget exceeded: warn, continue, and note the overage
-- Track per-agent to identify which agents consume the most
-- Use the cheapest tier that works — cost awareness drives routing
+- Reporte inline, não como uma etapa separada — custo é metadado, não tarefa
+- Nunca pare o trabalho para reportar custo, a menos que o orçamento tenha sido excedido
+- Ao exceder o orçamento: avise, continue e registre o excesso
+- Acompanhe por agente para identificar quais agentes consomem mais
+- Use o tier mais barato que funcione — consciência de custo orienta o roteamento

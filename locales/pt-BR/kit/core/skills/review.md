@@ -1,50 +1,50 @@
 ---
 name: review
-description: Review code changes for bugs, security issues, test coverage, and style
+description: Revise mudanças de código em busca de bugs, problemas de segurança, cobertura de testes e estilo
 triggers:
-  - review this
-  - check my code
+  - revise isso
+  - confira meu código
   - code review
-  - look for issues
+  - procurar issues
 ---
 
 # Review
 
-Systematic code review covering correctness, security, tests, and style.
+Revisão sistemática de código cobrindo correção, segurança, testes e estilo.
 
 ## Checklist
 
 ### Correctness
-- [ ] Logic handles all branches (null, empty, edge cases)
-- [ ] Error paths are handled and propagated correctly
-- [ ] No silent failures (catch blocks that swallow errors)
-- [ ] Async/await used correctly — no forgotten await
+- [ ] A lógica cobre todos os ramos (null, vazio, edge cases)
+- [ ] Caminhos de erro são tratados e propagados corretamente
+- [ ] Sem falhas silenciosas (blocos catch que engolem erros)
+- [ ] Async/await usados corretamente — sem `await` esquecido
 
 ### Security
-- [ ] No secrets, credentials, or PII in code
-- [ ] User inputs validated at system boundaries
-- [ ] SQL/command injection not possible
-- [ ] Dependencies: no new high/critical vulnerabilities
+- [ ] Sem segredos, credenciais ou PII no código
+- [ ] Entradas do usuário validadas nos limites do sistema
+- [ ] Injeção SQL/comando não é possível
+- [ ] Dependências: sem novas vulnerabilidades high/critical
 
 ### Tests
-- [ ] New behavior is tested
-- [ ] Edge cases covered
-- [ ] Tests would catch a regression if the code broke
+- [ ] O novo comportamento está testado
+- [ ] Edge cases cobertos
+- [ ] Os testes pegariam uma regressão se o código quebrasse
 
 ### Style
-- [ ] Functions under 50 lines
-- [ ] No speculative code added beyond what was asked
-- [ ] No commented-out code left behind
+- [ ] Funções com menos de 50 linhas
+- [ ] Sem código especulativo além do que foi pedido
+- [ ] Sem código comentado deixado para trás
 
 ## Output Format
 
-For each issue found:
+Para cada issue encontrada:
 ```text
-[SEVERITY] file:line — description
-  Why: <why this is a problem>
-  Fix: <specific suggestion>
+[SEVERITY] file:line — descrição
+  Why: <por que isso é um problema>
+  Fix: <sugestão específica>
 ```
 
-Severities: `CRITICAL` | `HIGH` | `MEDIUM` | `LOW` | `INFO`
+Severidades: `CRITICAL` | `HIGH` | `MEDIUM` | `LOW` | `INFO`
 
-Only report issues you are confident about. No noise.
+Reporte apenas issues em que você confia. Sem ruído.

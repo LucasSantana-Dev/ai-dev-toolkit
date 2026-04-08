@@ -1,10 +1,10 @@
 # Delivery Agency
 
-> A company pack for software agencies that need predictable discovery, implementation, QA, and client communication.
+> Um company pack para agências de software que precisam de discovery, implementação, QA e comunicação com clientes de forma previsível.
 
-| Content | Count |
-| ------- | ----- |
-| Agents  | 5     |
-| Skills  | 4     |
+| Conteúdo | Quantidade |
+| ------- | ---------- |
+| Agents  | 5          |
+| Skills  | 4          |
 
-Best for boutique agencies, freelance collectives, and retained client delivery teams.
+Ideal para agências boutique, coletivos de freelancers e times que fazem entrega contínua para clientes.

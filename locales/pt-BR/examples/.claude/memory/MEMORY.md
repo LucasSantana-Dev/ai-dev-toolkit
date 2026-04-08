@@ -1,17 +1,17 @@
-# Memory Index
+# Índice de Memória
 
-## User
-- [User Preferences](user-preferences.md) - Coding style, workflow preferences, tech stack
-- Default model: Sonnet (Opus only for complex architecture)
-- Prefers lean setup, no bloat, no speculative features
-- Commit constantly: after each functional step, commit + push
+## Usuário
+- [Preferências do Usuário](user-preferences.md) - estilo de código, preferências de workflow e stack técnica
+- Modelo padrão: Sonnet (Opus apenas para arquitetura complexa)
+- Prefere setup enxuto, sem bloat e sem features especulativas
+- Commits constantes: após cada passo funcional, commit + push
 
-## Project
-- [Project Decisions](project-decisions.md) - Architectural decisions and rationale
+## Projeto
+- [Decisões do Projeto](project-decisions.md) - decisões de arquitetura e seus motivos
 - TypeScript + React + Node.js + PostgreSQL
-- Monorepo with Turborepo, pnpm workspaces
+- Monorepo com Turborepo e workspaces pnpm
 
-## Task Context
-- Current sprint: Authentication & API security (TASK-001, TASK-002)
-- Known blockers: Database migration for dashboard filters (TASK-003)
-- Next up: Rate limiting implementation after auth flow complete
+## Contexto da Tarefa
+- Sprint atual: autenticação e segurança de API (`TASK-001`, `TASK-002`)
+- Bloqueios conhecidos: migration do banco para filtros do dashboard (`TASK-003`)
+- Próximo passo: implementar rate limiting após concluir o fluxo de autenticação

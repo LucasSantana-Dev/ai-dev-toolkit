@@ -1,25 +1,25 @@
 ---
 name: repo-intake
-description: Onboard into an unfamiliar repository fast before making any changes
+description: Faça onboarding rápido em um repositório desconhecido antes de mudar qualquer coisa
 triggers:
-  - new repo
+  - repo novo
   - onboard
-  - what is this project
-  - explore codebase
-  - repo overview
+  - o que é este projeto
+  - explorar codebase
+  - visão geral do repo
 ---
 
 # Repo Intake
 
-Read local docs, detect the stack, summarize the structure, and flag blockers — before touching any code.
+Leia docs locais, detecte a stack, resuma a estrutura e sinalize bloqueadores — antes de tocar em qualquer código.
 
 ## Steps
 
-1. **Read local instructions** — check README.md, AGENTS.md, CLAUDE.md, CONTRIBUTING.md
-2. **Detect the stack** — scan package manifests, lockfiles, Dockerfiles, CI configs
-3. **Map the structure** — identify entrypoints, source layout, test directories, scripts
-4. **List primary commands** — run, test, build, lint, deploy (only what actually exists)
-5. **Flag blockers** — missing env files, auth, broken deps, unclear setup steps
+1. **Read local instructions** — verifique `README.md`, `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`
+2. **Detect the stack** — examine manifests de pacote, lockfiles, Dockerfiles e configs de CI
+3. **Map the structure** — identifique entrypoints, layout de source, diretórios de teste e scripts
+4. **List primary commands** — run, test, build, lint, deploy (somente o que realmente existir)
+5. **Flag blockers** — arquivos de ambiente ausentes, auth, deps quebradas, passos de setup pouco claros
 
 ## Output
 
@@ -33,7 +33,7 @@ Next:      <top 1-3 actions>
 
 ## Rules
 
-- Read docs before scanning code
-- Never guess commands that are not present in the repo
-- Stop if the repo root is unclear or ambiguous
-- Flag missing setup steps instead of inventing them
+- Leia as docs antes de varrer o código
+- Nunca adivinhe comandos que não estão presentes no repo
+- Pare se a raiz do repo estiver pouco clara ou ambígua
+- Sinalize passos de setup ausentes em vez de inventá-los

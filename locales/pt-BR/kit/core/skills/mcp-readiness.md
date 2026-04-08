@@ -1,24 +1,24 @@
 ---
 name: mcp-readiness
-description: Check whether MCP-backed workflows are usable on this machine
+description: Verifique se workflows apoiados em MCP estão utilizáveis nesta máquina
 triggers:
   - mcp ready
-  - mcp setup check
-  - mcp missing
-  - check mcp config
-  - mcp troubleshoot
+  - check de setup mcp
+  - mcp ausente
+  - verificar config mcp
+  - troubleshoot mcp
 ---
 
 # MCP Readiness
 
-Verify that MCP config files exist and provider tokens are present — distinguish config problems from auth problems.
+Verifique se os arquivos de config MCP existem e se os tokens dos provedores estão presentes — diferencie problemas de config de problemas de auth.
 
 ## Steps
 
-1. **Check config files** — verify MCP configuration files exist in expected locations
-2. **Check provider tokens** — confirm required environment variables or auth tokens are set
-3. **Classify problems** — config missing vs auth missing vs both
-4. **Report next fix** — smallest action to reach a working state
+1. **Check config files** — confirme se os arquivos de configuração MCP existem nos locais esperados
+2. **Check provider tokens** — confirme se variáveis de ambiente ou tokens de auth obrigatórios estão definidos
+3. **Classify problems** — config ausente vs auth ausente vs ambos
+4. **Report next fix** — a menor ação para chegar a um estado funcional
 
 ## Output
 
@@ -26,12 +26,12 @@ Verify that MCP config files exist and provider tokens are present — distingui
 Config:    found | missing (<path>)
 Auth:      OK | missing (<provider>)
 Status:    ready | blocked
-Action:    <next fix>
+Action:    <próxima correção>
 ```
 
 ## Rules
 
-- Never expose secret values or tokens
-- Never claim MCP readiness if auth is still missing
-- Distinguish config problems from auth problems explicitly
-- Report the smallest next fix, not a full setup guide
+- Nunca exponha valores secretos ou tokens
+- Nunca afirme prontidão do MCP se ainda faltar auth
+- Diferencie explicitamente problemas de config de problemas de auth
+- Reporte a menor próxima correção, não um guia completo de setup

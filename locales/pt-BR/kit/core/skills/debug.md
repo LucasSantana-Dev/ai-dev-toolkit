@@ -1,40 +1,40 @@
 ---
 name: debug
-description: Systematic root-cause analysis for bugs, errors, and unexpected behavior
+description: Análise sistemática de causa raiz para bugs, erros e comportamento inesperado
 triggers:
   - debug this
-  - why is this failing
+  - por que isso está falhando
   - root cause
-  - investigate
+  - investigar
   - ultradebug
 ---
 
 # Debug
 
-Systematic 7-step debugging. Don't guess — trace.
+Debug em 7 etapas. Não adivinhe — rastreie.
 
 ## Steps
 
-1. **Reproduce** — get a minimal, reliable reproduction
-2. **Locate** — find the exact file, line, and call path where it breaks
-3. **Hypothesize** — list 2-3 competing explanations
-4. **Evidence** — for each hypothesis: what would confirm or rule it out
-5. **Test** — run the fastest confirming/ruling test first
-6. **Fix** — change exactly what the evidence points to
-7. **Verify** — confirm fix resolves the issue, run full test suite
+1. **Reproduce** — obtenha uma reprodução mínima e confiável
+2. **Locate** — encontre o arquivo, a linha e o call path exatos onde quebra
+3. **Hypothesize** — liste 2-3 explicações concorrentes
+4. **Evidence** — para cada hipótese: o que a confirmaria ou descartaria
+5. **Test** — rode primeiro o teste mais rápido para confirmar/descartar
+6. **Fix** — mude exatamente o que as evidências apontam
+7. **Verify** — confirme que a correção resolve o issue e rode a suíte completa
 
 ## Rules
 
-- Never change code before you know the root cause
-- Read the actual error message — don't skim it
-- Check assumptions: is the value what you think it is? Add a log
-- Distinguish "symptom" from "cause" — fix the cause
-- If stuck after 3 hypotheses, add instrumentation before guessing more
+- Nunca altere código antes de saber a causa raiz
+- Leia a mensagem real de erro — não passe por cima
+- Verifique pressupostos: o valor é mesmo o que você imagina? Adicione um log
+- Diferencie "sintoma" de "causa" — corrija a causa
+- Se travar depois de 3 hipóteses, adicione instrumentação antes de continuar adivinhando
 
 ## Output
 
 ```text
-Root cause: <one sentence>
+Root cause: <uma frase>
 Location:   <file>:<line>
-Fix:        <what to change and why>
+Fix:        <o que mudar e por quê>
 ```

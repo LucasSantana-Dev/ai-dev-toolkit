@@ -1,24 +1,24 @@
 ---
 name: plan
-description: Analyze the codebase and create a structured implementation plan before writing any code
+description: Analise a base de código e crie um plano estruturado de implementação antes de escrever código
 triggers:
-  - create a plan
-  - plan this
-  - before implementing
-  - what's the approach
+  - criar um plano
+  - planeje isso
+  - antes de implementar
+  - qual a abordagem
 ---
 
 # Plan
 
-Before writing code, gather context and produce a structured plan.
+Antes de escrever código, reúna contexto e produza um plano estruturado.
 
 ## Steps
 
-1. Read relevant files — CLAUDE.md / AGENTS.md, recent git log, open PRs
-2. Understand the current state — what exists, what's partial, what's missing
-3. Break work into phases (each completable in ~1-2 hours)
-4. Identify dependencies between phases
-5. Write plan to `.agents/plans/<task-name>.md` or `.claude/plans/<task-name>.md`
+1. Leia arquivos relevantes — `CLAUDE.md` / `AGENTS.md`, git log recente, PRs abertos
+2. Entenda o estado atual — o que existe, o que está parcial, o que falta
+3. Quebre o trabalho em fases (cada uma concluível em ~1-2 horas)
+4. Identifique dependências entre as fases
+5. Escreva o plano em `.agents/plans/<task-name>.md` ou `.claude/plans/<task-name>.md`
 
 ## Plan Structure
 
@@ -26,11 +26,11 @@ Before writing code, gather context and produce a structured plan.
 # <Task>
 
 ## Goal
-One sentence.
+Uma frase.
 
 ## Phases
 ### Phase 1: <name>
-Steps, files to touch, verification check.
+Passos, arquivos a tocar, check de verificação.
 
 ### Phase N: Ship
 Lint + build + test + PR.
@@ -38,7 +38,7 @@ Lint + build + test + PR.
 
 ## Rules
 
-- Explore before implementing — don't assume the current state
-- Every phase must have a verification step
-- Explicitly list what is OUT OF SCOPE
-- If work is >40% done already, document what's complete before continuing
+- Explore antes de implementar — não assuma o estado atual
+- Toda fase deve ter um passo de verificação
+- Liste explicitamente o que está FORA DE ESCOPO
+- Se o trabalho já estiver >40% pronto, documente o que está completo antes de continuar

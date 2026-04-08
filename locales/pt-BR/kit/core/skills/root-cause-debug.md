@@ -1,39 +1,39 @@
 ---
 name: root-cause-debug
-description: Debug systematically before changing code — reproduce, gather evidence, form a hypothesis, test the smallest fix
+description: Debugue de forma sistemática antes de mudar código — reproduza, reúna evidências, formule uma hipótese e teste a menor correção possível
 triggers:
   - debug
-  - root cause
-  - why is this failing
-  - bug investigation
-  - systematic debug
+  - causa raiz
+  - por que isso está falhando
+  - investigação de bug
+  - debug sistemático
 ---
 
 # Root Cause Debug
 
-Reproduce the problem, gather evidence, form one hypothesis, and test the smallest fix that proves or disproves it.
+Reproduza o problema, reúna evidências, formule uma hipótese única e teste a menor correção que a confirme ou refute.
 
 ## Steps
 
-1. **Reproduce** — run the failing command or scenario
-2. **Gather evidence** — logs, error output, stack traces, state diffs
-3. **Compare** — expected behavior vs actual behavior
-4. **Hypothesize** — form one root-cause hypothesis from the evidence
-5. **Test minimal fix** — apply the smallest change that validates the hypothesis
+1. **Reproduce** — rode o comando ou cenário com falha
+2. **Gather evidence** — logs, saída de erro, stack traces, diffs de estado
+3. **Compare** — comportamento esperado vs comportamento real
+4. **Hypothesize** — formule uma hipótese de causa raiz a partir das evidências
+5. **Test minimal fix** — aplique a menor mudança que valide a hipótese
 
 ## Output
 
 ```text
-Reproduction: <command or scenario>
-Evidence:     <key finding>
-Root cause:   <hypothesis>
-Fix:          <minimal change>
-Verified:     <pass/fail after fix>
+Reproduction: <comando ou cenário>
+Evidence:     <principal achado>
+Root cause:   <hipótese>
+Fix:          <mudança mínima>
+Verified:     <pass/fail após a correção>
 ```
 
 ## Rules
 
-- Never bundle multiple unrelated fixes
-- Never claim root cause without evidence
-- Reproduce before theorizing
-- Test the smallest fix first, not the most thorough refactor
+- Nunca agrupe várias correções não relacionadas
+- Nunca afirme a causa raiz sem evidência
+- Reproduza antes de teorizar
+- Teste primeiro a menor correção, não o refactor mais abrangente

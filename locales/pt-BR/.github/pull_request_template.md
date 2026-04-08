@@ -1,67 +1,67 @@
-## Summary
+## Resumo
 
-<!-- Brief description of what this PR does and why -->
+<!-- Descrição breve do que este PR faz e por quê -->
 
-**What:**
-<!-- What changes are being made? -->
+**O que:**
+<!-- Quais mudanças estão sendo feitas? -->
 
-**Why:**
-<!-- Why are these changes needed? What problem do they solve? -->
+**Por quê:**
+<!-- Por que essas mudanças são necessárias? Que problema elas resolvem? -->
 
-## Type
+## Tipo
 
-<!-- Check all that apply -->
+<!-- Marque tudo o que se aplica -->
 
-- [ ] Pattern (new or updated development pattern)
-- [ ] Implementation (tool script, configuration, workflow)
-- [ ] Tool (add/update CLI tool in installation scripts)
-- [ ] Documentation
-- [ ] Bug fix
-- [ ] Other (please describe):
+- [ ] Pattern (novo pattern ou atualização de pattern existente)
+- [ ] Implementação (script de ferramenta, configuração ou workflow)
+- [ ] Ferramenta (adiciona/atualiza ferramenta CLI nos scripts de instalação)
+- [ ] Documentação
+- [ ] Correção de bug
+- [ ] Outro (descreva):
 
-## Changes
+## Mudanças
 
-<!-- List the key changes made in this PR -->
+<!-- Liste as principais mudanças feitas neste PR -->
 
 -
 -
 -
 
-## Testing
+## Testes
 
-<!-- How were these changes tested? -->
+<!-- Como essas mudanças foram testadas? -->
 
-- [ ] Tested on macOS
-- [ ] Tested on Ubuntu/Debian
-- [ ] Tested on Windows
-- [ ] N/A (documentation only)
+- [ ] Testado em macOS
+- [ ] Testado em Ubuntu/Debian
+- [ ] Testado em Windows
+- [ ] N/A (somente documentação)
 
-**Test details:**
-<!-- Describe what you tested and how -->
+**Detalhes dos testes:**
+<!-- Descreva o que você testou e como -->
 
 ## Checklist
 
-<!-- Mark items with [x] when complete -->
+<!-- Marque os itens com [x] quando concluir -->
 
-- [ ] Changes follow the repository guidelines
-- [ ] All links are valid (run `npm run check` if available)
-- [ ] Installation scripts are idempotent (skip already-installed tools)
-- [ ] Pattern documentation is tool-agnostic where possible
-- [ ] Code examples are tested and working
-- [ ] Documentation is clear and concise
-- [ ] No broken links or references
+- [ ] As mudanças seguem as diretrizes do repositório
+- [ ] Todos os links estão válidos (`npm run check`, se disponível)
+- [ ] Os scripts de instalação são idempotentes (pulam ferramentas já instaladas)
+- [ ] A documentação de patterns é tool-agnostic quando possível
+- [ ] Os exemplos de código foram testados e funcionam
+- [ ] A documentação está clara e concisa
+- [ ] Não há links ou referências quebrados
 
 ## Screenshots
 
-<!-- If applicable, add screenshots to help explain your changes -->
+<!-- Se fizer sentido, adicione screenshots para explicar melhor suas mudanças -->
 
-## Related Issues
+## Issues Relacionadas
 
-<!-- Link to related issues using #issue-number -->
+<!-- Referencie issues usando #numero-da-issue -->
 
 Closes #
 Relates to #
 
-## Additional Context
+## Contexto Adicional
 
-<!-- Any other information that reviewers should know -->
+<!-- Qualquer outra informação que os revisores precisem saber -->

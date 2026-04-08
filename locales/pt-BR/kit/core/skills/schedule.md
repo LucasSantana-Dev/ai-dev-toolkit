@@ -1,54 +1,54 @@
 ---
 name: schedule
-description: Define and manage recurring automated agent runs — CI monitoring, dep updates, security scans
+description: Defina e gerencie execuções recorrentes automatizadas de agentes — monitoramento de CI, updates de dependência, scans de segurança
 triggers:
   - schedule
-  - recurring
+  - recorrente
   - cron
-  - run every
-  - automate on schedule
+  - rodar a cada
+  - automatizar em agenda
 ---
 
 # Schedule
 
-Define recurring agent tasks that run without manual triggering.
+Defina tarefas recorrentes de agentes que rodam sem acionamento manual.
 
 ## Common Schedules
 
-| Task | Frequency | Agent | Skill |
+| Tarefa | Frequência | Agent | Skill |
 |---|---|---|---|
-| Dependency audit | weekly | reviewer | secure |
-| CI health check | on PR update | explorer | verify |
-| Backlog grooming | weekly | orchestrator | plan |
-| Security scan | daily | reviewer | secure |
-| Context cleanup | per session end | orchestrator | context |
-| Memory sync | per session end | orchestrator | resume |
+| Auditoria de dependências | semanal | reviewer | secure |
+| Check de saúde do CI | em atualização de PR | explorer | verify |
+| Grooming de backlog | semanal | orchestrator | plan |
+| Scan de segurança | diário | reviewer | secure |
+| Limpeza de contexto | ao fim de cada sessão | orchestrator | context |
+| Sync de memória | ao fim de cada sessão | orchestrator | resume |
 
 ## Definition Format
 
 ```json
 {
-  "name": "<task name>",
-  "cron": "<cron expression or keyword>",
-  "agent": "<agent name>",
-  "skill": "<skill to invoke>",
-  "scope": "<files or directories>",
+  "name": "<nome da tarefa>",
+  "cron": "<expressão cron ou palavra-chave>",
+  "agent": "<nome do agente>",
+  "skill": "<skill a invocar>",
+  "scope": "<arquivos ou diretórios>",
   "notify": "on-failure | always | never"
 }
 ```
 
 ## Keywords
 
-- `on-pr` — run when a PR is created or updated
-- `on-push` — run on every push to the branch
-- `on-session-start` — run at the beginning of each agent session
-- `on-session-end` — run at the end of each session
-- `daily` / `weekly` / `monthly` — calendar schedules
+- `on-pr` — rodar quando um PR é criado ou atualizado
+- `on-push` — rodar em todo push para a branch
+- `on-session-start` — rodar no início de cada sessão do agente
+- `on-session-end` — rodar no fim de cada sessão
+- `daily` / `weekly` / `monthly` — agendas de calendário
 
 ## Rules
 
-- Scheduled tasks run at the cheapest viable tier
-- Never schedule destructive actions (deploy, force push)
-- On failure: retry once, then log and continue
-- Scheduled results feed back into the next session via memory
-- Keep schedules minimal — 3-5 recurring tasks max
+- Tarefas agendadas rodam no tier viável mais barato
+- Nunca agende ações destrutivas (deploy, force push)
+- Em falha: tente uma vez de novo, depois registre e continue
+- Resultados agendados retroalimentam a próxima sessão via memória
+- Mantenha a agenda mínima — no máximo 3-5 tarefas recorrentes

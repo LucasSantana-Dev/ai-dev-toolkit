@@ -1,20 +1,20 @@
-# forge-kit oh-my-antigravity compatibility
+# Compatibilidade forge-kit com oh-my-antigravity
 
-This file is an optional bridge for mixed setups where `forge-kit` and an
-Antigravity-specific oh-my orchestration layer are both used.
+Este arquivo é uma ponte opcional para setups mistos em que `forge-kit` e uma
+camada de orquestração oh-my específica do Antigravity são usados juntos.
 
-Use this flow:
+Use este fluxo:
 
-1. Keep `~/.antigravity/rules.md`, `~/.antigravity/skills/`, and
-   `~/.antigravity/providers.json` managed by `forge-kit`.
-2. Keep orchestration-specific prompts, routing, and workflow overlays in your
-   oh-my Antigravity layer.
-3. Avoid defining the same policy in both locations.
+1. Mantenha `~/.antigravity/rules.md`, `~/.antigravity/skills/` e
+   `~/.antigravity/providers.json` gerenciados por `forge-kit`.
+2. Mantenha prompts, roteamento e overlays de workflow específicos de
+   orquestração na sua camada oh-my Antigravity.
+3. Evite definir a mesma policy nos dois lugares.
 
-Recommended ownership split:
+Divisão de ownership recomendada:
 
-- `forge-kit`: baseline rules, portable skills, provider registry, MCP baseline.
-- oh-my Antigravity layer: task orchestration, role routing, specialized
-  workflow overlays.
+- `forge-kit`: regras base, skills portáveis, registro de provedores, baseline de MCP.
+- camada oh-my Antigravity: orquestração de tarefas, roteamento de papéis e
+  overlays especializados de workflow.
 
-If conflicts appear, keep one canonical source for each concern.
+Se surgirem conflitos, mantenha uma fonte canônica por responsabilidade.

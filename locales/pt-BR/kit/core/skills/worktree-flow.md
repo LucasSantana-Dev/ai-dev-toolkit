@@ -1,36 +1,36 @@
 ---
 name: worktree-flow
-description: Decide when and how to use git worktrees for isolated parallel work
+description: Decida quando e como usar git worktrees para trabalho paralelo isolado
 triggers:
   - worktree
-  - isolate branch
-  - parallel branches
+  - isolar branch
+  - branches paralelas
   - new worktree
-  - feature isolation
+  - isolamento de feature
 ---
 
 # Worktree Flow
 
-Decide whether a task deserves an isolated git worktree, create it with a proper branch name, and keep the original checkout clean.
+Decida se uma tarefa merece um git worktree isolado, crie-o com um nome de branch apropriado e mantenha o checkout original limpo.
 
 ## Steps
 
-1. **Evaluate isolation need** — does this task risk conflicting with current work?
-2. **Choose branch name** — use `feature/`, `fix/`, `chore/`, or `refactor/` prefix
+1. **Evaluate isolation need** — esta tarefa corre risco de conflitar com o trabalho atual?
+2. **Choose branch name** — use prefixo `feature/`, `fix/`, `chore/` ou `refactor/`
 3. **Create worktree** — `git worktree add ../<repo>-<branch> -b <branch>`
-4. **Report** — branch name, worktree path, isolation reason
+4. **Report** — nome da branch, caminho do worktree, motivo do isolamento
 
 ## Output
 
 ```text
 Branch:    <prefix/short-name>
 Path:      ../<repo>-<branch>
-Reason:    <why isolation was needed>
+Reason:    <por que o isolamento era necessário>
 ```
 
 ## Rules
 
-- Stop if the directory is not a git repo
-- Never create throwaway branches without a clear reason
-- Prefer worktrees over stashing for multi-day parallel work
-- Keep the original checkout on its current branch
+- Pare se o diretório não for um repositório git
+- Nunca crie branches descartáveis sem motivo claro
+- Prefira worktrees a stash para trabalho paralelo de vários dias
+- Mantenha o checkout original na branch atual

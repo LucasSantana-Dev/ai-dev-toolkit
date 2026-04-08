@@ -1,41 +1,41 @@
 ---
 name: tdd
-description: Test-driven development — write tests first, implement second, refactor third
+description: Desenvolvimento orientado a testes — escreva testes primeiro, implemente depois, refatore por último
 triggers:
   - tdd
-  - test first
-  - write tests
+  - teste primeiro
+  - escrever testes
   - test driven
   - red green refactor
 ---
 
 # TDD
 
-Write the test before the implementation. Always.
+Escreva o teste antes da implementação. Sempre.
 
 ## Cycle
 
 ```text
-RED    → Write a failing test that captures expected behavior
-GREEN  → Write the minimum code to make it pass
-REFACTOR → Clean up while tests stay green
+RED    → Escreva um teste falhando que capture o comportamento esperado
+GREEN  → Escreva o código mínimo para fazê-lo passar
+REFACTOR → Limpe o código mantendo os testes verdes
 ```
 
 ## Steps
 
-1. Understand the requirement
-2. Write one failing test for the happy path
-3. Run it — confirm it fails for the right reason
-4. Write minimum implementation to pass
-5. Run it — confirm green
-6. Refactor if needed (tests must stay green)
-7. Add edge case tests after happy path works
+1. Entenda o requisito
+2. Escreva um teste falhando para o caminho feliz
+3. Rode-o — confirme que falha pelo motivo certo
+4. Escreva a implementação mínima para passar
+5. Rode novamente — confirme que ficou verde
+6. Refatore se necessário (os testes devem permanecer verdes)
+7. Adicione testes de edge case depois que o caminho feliz funcionar
 
 ## Rules
 
-- Never write implementation before the test exists
-- Test behavior, not implementation details
-- One assertion focus per test
-- If you cannot write a test, clarify the requirement first
-- Mock external dependencies; do not mock internal logic
-- Coverage is a signal, not a target — test business value
+- Nunca escreva implementação antes de o teste existir
+- Teste comportamento, não detalhes de implementação
+- Um foco de assert por teste
+- Se você não consegue escrever um teste, esclareça o requisito primeiro
+- Faça mock de dependências externas; não faça mock da lógica interna
+- Cobertura é um sinal, não uma meta — teste valor de negócio

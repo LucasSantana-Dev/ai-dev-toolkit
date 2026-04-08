@@ -1,4 +1,4 @@
 ---
 name: growth-loop
-description: Turn launches and customer feedback into the next growth experiment, messaging update, or prioritization decision.
+description: Transformar lançamentos e feedback de clientes no próximo experimento de crescimento, atualização de mensagem ou decisão de priorização.
 ---

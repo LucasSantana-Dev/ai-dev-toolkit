@@ -1,48 +1,48 @@
 ---
 name: route
-description: Classify task complexity and pick the right model tier to avoid overspending on trivial work
+description: Classifique a complexidade da tarefa e escolha o tier de modelo certo para evitar gasto excessivo em trabalho trivial
 triggers:
   - route
-  - which model
-  - model selection
-  - task complexity
-  - pick model
+  - qual modelo
+  - seleção de modelo
+  - complexidade da tarefa
+  - escolher modelo
 ---
 
 # Route
 
-Classify the task and recommend a model tier before execution.
+Classifique a tarefa e recomende um tier de modelo antes da execução.
 
-## Classification
+## Classificação
 
-| Signal | Cheap | Mid | Expensive |
+| Sinal | Barato | Médio | Caro |
 |---|---|---|---|
-| Lines changed | <20, single file | 20-200, multi-file | >200 or cross-repo |
-| Reasoning depth | Lookup, grep, rename | Bug fix, test writing | Architecture, migration |
-| Domain | Config, docs, typo | Standard implementation | Multi-system design |
+| Linhas alteradas | <20, arquivo único | 20-200, vários arquivos | >200 ou cross-repo |
+| Profundidade de raciocínio | Lookup, grep, rename | Bug fix, escrita de testes | Arquitetura, migração |
+| Domínio | Config, docs, typo | Implementação padrão | Design multi-sistema |
 
 ## Overrides
 
-- Visual/UI work → visual-capable model regardless of size
-- Docs/writing → mid-tier with high token limit
-- Security audit → mid-tier minimum
+- Trabalho visual/UI → modelo com capacidade visual independentemente do tamanho
+- Docs/escrita → tier intermediário com limite alto de tokens
+- Auditoria de segurança → no mínimo tier intermediário
 
 ## Steps
 
-1. Estimate lines changed and file count
-2. Assess reasoning depth required
-3. Check for domain overrides
-4. Output recommendation
+1. Estime linhas alteradas e quantidade de arquivos
+2. Avalie a profundidade de raciocínio necessária
+3. Verifique overrides de domínio
+4. Produza a recomendação
 
 ## Output
 
 ```text
 Tier: cheap | mid | expensive
-Reason: <one sentence justification>
+Reason: <justificativa em uma frase>
 ```
 
 ## Rules
 
-- Default to the cheapest tier that can handle the task
-- When uncertain, start cheap and escalate on failure
-- Never use expensive tier for single-file edits under 20 lines
+- Por padrão, use o tier mais barato capaz de lidar com a tarefa
+- Em caso de dúvida, comece barato e escale se falhar
+- Nunca use o tier caro para edições em um único arquivo com menos de 20 linhas

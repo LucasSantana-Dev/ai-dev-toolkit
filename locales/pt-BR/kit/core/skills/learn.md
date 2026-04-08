@@ -1,53 +1,53 @@
 ---
 name: learn
-description: Auto-extract reusable patterns from the current session into skills or memory
+description: Extraia automaticamente padrões reutilizáveis da sessão atual para skills ou memória
 triggers:
   - learn
-  - extract patterns
-  - what did I learn
-  - save pattern
-  - continuous learning
+  - extrair padrões
+  - o que eu aprendi
+  - salvar padrão
+  - aprendizado contínuo
 ---
 
 # Learn
 
-Extract reusable patterns from the current session and persist them.
+Extraia padrões reutilizáveis da sessão atual e persista-os.
 
 ## When to Use
 
-- End of a productive session with new discoveries
-- After solving a hard debugging problem
-- When a workaround becomes a permanent pattern
-- After figuring out a library's quirks
+- Fim de uma sessão produtiva com descobertas novas
+- Depois de resolver um problema difícil de debugging
+- Quando um workaround vira um padrão permanente
+- Depois de entender as peculiaridades de uma biblioteca
 
 ## Steps
 
-1. Review the session for decisions, fixes, and patterns
-2. Classify each finding:
-   - **Decision** — architecture choice, API design, naming convention
-   - **Pattern** — reusable code approach, workflow, or configuration
-   - **Gotcha** — bug, quirk, or failure mode to avoid next time
-   - **Preference** — style choice, tool selection, commit format
-3. For each finding, write a concise entry:
+1. Revise a sessão em busca de decisões, correções e padrões
+2. Classifique cada achado:
+   - **Decision** — escolha de arquitetura, design de API, convenção de nomes
+   - **Pattern** — abordagem reutilizável de código, workflow ou configuração
+   - **Gotcha** — bug, peculiaridade ou modo de falha a evitar da próxima vez
+   - **Preference** — escolha de estilo, seleção de ferramenta, formato de commit
+3. Para cada achado, escreva uma entrada concisa:
    ```text
-   [TYPE] <one-line summary>
-   Context: <when this applies>
-   Evidence: <what happened that taught us this>
+   [TYPE] <resumo em uma linha>
+   Context: <quando isso se aplica>
+   Evidence: <o que aconteceu e ensinou isso>
    Confidence: high | medium | low
    ```
-4. Persist to the appropriate location:
+4. Persista no local apropriado:
    - Decisions → `.agents/memory/decisions.md`
    - Patterns → `.agents/memory/patterns.md`
    - Gotchas → `.agents/memory/gotchas.md`
    - Preferences → `.agents/memory/preferences.md`
-5. If a pattern is mature enough (high confidence, used 3+ times), promote it to a skill
+5. Se um padrão estiver maduro o suficiente (alta confiança, usado 3+ vezes), promova-o a skill
 
 ## Rules
 
-- Extract at session end, not continuously
-- One entry per finding — keep them atomic
-- Date-stamp every entry
-- Remove entries that are no longer true
-- Never extract sensitive data (keys, passwords, internal URLs)
-- Low-confidence entries are fine — they mature over time
-- The codebase is the source of truth, memory is supplementary
+- Extraia no fim da sessão, não continuamente
+- Uma entrada por achado — mantenha tudo atômico
+- Adicione data em toda entrada
+- Remova entradas que não são mais verdadeiras
+- Nunca extraia dados sensíveis (keys, senhas, URLs internas)
+- Entradas de baixa confiança são aceitáveis — amadurecem com o tempo
+- A base de código é a fonte de verdade; memória é complementar

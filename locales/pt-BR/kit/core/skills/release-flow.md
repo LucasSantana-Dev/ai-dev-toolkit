@@ -1,27 +1,27 @@
 ---
 name: release-flow
-description: Ship validated changes with repeatable release evidence — version bump, changelog, tag, and optional GitHub release
+description: Entregue mudanças validadas com evidência de release repetível — bump de versão, changelog, tag e release opcional no GitHub
 triggers:
   - release
-  - bump version
-  - create release
+  - bump de versão
+  - criar release
   - tag and release
-  - publish version
+  - publicar versão
 ---
 
 # Release Flow
 
-After verification passes, bump the version, update the changelog, tag the repo, and optionally create a GitHub release.
+Depois que a verificação passar, faça bump da versão, atualize o changelog, crie a tag do repositório e, opcionalmente, um release no GitHub.
 
 ## Steps
 
-1. **Confirm verification passed** — refuse to release without prior quality gate evidence
-2. **Detect version source** — package.json, pyproject.toml, VERSION file, or git tags
-3. **Preflight** — run the helper in verify mode to confirm git cleanliness, git identity, target tag availability, version source, changelog readiness, notes destinations, and optional `gh` readiness before any mutation
-4. **Plan the release** — preview version bump level (patch, minor, major) and changelog entry
-5. **Execute** — bump version, update changelog, create annotated git tag
-6. **GitHub release** (optional) — validate `gh` auth, then create release with notes
-7. **Report** — version, tag, changelog path, any skipped steps with reasons
+1. **Confirme que a verificação passou** — recuse fazer release sem evidência prévia de quality gates
+2. **Detecte a origem da versão** — `package.json`, `pyproject.toml`, arquivo `VERSION` ou tags git
+3. **Preflight** — rode o helper em modo de verificação para confirmar limpeza do git, identidade git, disponibilidade da tag alvo, origem da versão, prontidão do changelog, destinos das release notes e prontidão opcional do `gh` antes de qualquer mutação
+4. **Planeje o release** — visualize o nível do bump de versão (patch, minor, major) e a entrada do changelog
+5. **Execute** — faça bump da versão, atualize o changelog e crie uma annotated git tag
+6. **GitHub release** (opcional) — valide auth do `gh`, então crie o release com notes
+7. **Reporte** — versão, tag, caminho do changelog e quaisquer etapas puladas com seus motivos
 
 ## Output
 
@@ -35,8 +35,8 @@ GH Release: created | skipped (reason)
 
 ## Rules
 
-- Never release without prior verification evidence
-- Never invent a version file or changelog format the repo doesn't use
-- Never publish artifacts without confirmed auth
-- Only update changelog when it already has an `[Unreleased]` section
-- Report skipped steps with reasons instead of failing silently
+- Nunca faça release sem evidência prévia de verificação
+- Nunca invente um arquivo de versão ou formato de changelog que o repo não usa
+- Nunca publique artefatos sem auth confirmada
+- Só atualize o changelog quando ele já tiver uma seção `[Unreleased]`
+- Reporte etapas puladas com seus motivos em vez de falhar silenciosamente

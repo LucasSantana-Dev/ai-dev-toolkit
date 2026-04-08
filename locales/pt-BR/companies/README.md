@@ -1,41 +1,42 @@
-# Companies
 
-Pre-built agent organizations for AI-assisted development. Each company is a complete team of specialized agents with defined roles, skills, and routing protocols — ready to drop into any project.
+# Empresas
 
-## Concept
+Organizações de agentes prontas para desenvolvimento assistido por IA. Cada empresa é uma equipe completa de agentes especializados com papéis, habilidades e protocolos de roteamento definidos, pronta para ser usada em qualquer projeto.
 
-A company maps work to the right specialist automatically:
+## Conceito
+
+Uma empresa encaminha o trabalho automaticamente para o especialista certo:
 
 ```
-Task → CEO → CTO → Team Lead → Specialist
+Tarefa → CEO → CTO → Líder de Equipe → Especialista
 ```
 
-Each agent has a strict contract:
+Cada agente tem um contrato rigoroso:
 
-- **What triggers it** — conditions that activate the agent
-- **What it does** — specific responsibilities
-- **What it produces** — concrete outputs
-- **Who it hands off to** — next agent in the chain
+- **O que o aciona** — condições que ativam o agente
+- **O que ele faz** — responsabilidades específicas
+- **O que ele produz** — entregas concretas
+- **Para quem ele repassa** — próximo agente da cadeia
 
-## File format
+## Formato dos arquivos
 
 ```
 companies/
   <company-name>/
-    COMPANY.md          ← manifest (name, schema, goals)
-    README.md           ← usage guide
+    COMPANY.md          ← manifesto (nome, schema, objetivos)
+    README.md           ← guia de uso
     agents/
       <role>/
-        AGENTS.md       ← agent definition (frontmatter + body)
+        AGENTS.md       ← definição do agente (frontmatter + corpo)
     skills/
       <skill>/
-        SKILL.md        ← reusable skill definition
+        SKILL.md        ← definição de skill reutilizável
     teams/
       <team>/
-        TEAM.md         ← team grouping with members
+        TEAM.md         ← agrupamento de equipe com membros
 ```
 
-### Agent format (`AGENTS.md`)
+### Formato do agente (`AGENTS.md`)
 
 ```yaml
 ---
@@ -57,39 +58,37 @@ You are the React Engineer. You handle React and Next.js projects.
 ...
 ```
 
-The `skills` field references entries in the company's `skills/` directory.
-This format is toolkit-native. Some tools can use it directly; others need an adapter.
+O campo `skills` referencia entradas no diretório `skills/` da empresa.
+Esse formato é nativo do toolkit. Algumas ferramentas conseguem usá-lo diretamente; outras precisam de um adaptador.
 
-## Using with AI tools
+## Uso com ferramentas de IA
 
 ### Claude Code
 
-Treat `companies/` as source material. Export or adapt an agent into Claude's native
-subagent format as `.claude/agents/<role>.md` with Claude-specific frontmatter such as
-`name` and `description`.
+Trate `companies/` como material-fonte. Exporte ou adapte um agente para o formato nativo de subagente do Claude em `.claude/agents/<role>.md`, com frontmatter específico do Claude como `name` e `description`.
 
 ### OpenCode
 
-Use the toolkit agent body as source material for your OpenCode agent or prompt layer.
+Use o corpo do agente do toolkit como material-fonte para seu agente ou camada de prompt no OpenCode.
 
 ### Codex CLI
 
-Agents follow the standard `AGENTS.md` format — drop into your repo root or subdirectory.
+Os agentes seguem o formato padrão `AGENTS.md`; basta colocá-los na raiz do repositório ou em um subdiretório.
 
 ### Cursor / Windsurf
 
-Use the agent body as a scoped `.cursorrules` or `.windsurfrules` entry.
+Use o corpo do agente como uma entrada escopada em `.cursorrules` ou `.windsurfrules`.
 
-## Available companies
+## Empresas disponíveis
 
-| Company                                             | Agents | Skills | Teams | Description                                                         |
-| --------------------------------------------------- | ------ | ------ | ----- | ------------------------------------------------------------------- |
-| [solopreneur](./solopreneur/)                       | 3      | 3      | 0     | Founder-led product studio for solo SaaS and indie product work     |
-| [startup-mvp](./startup-mvp/)                       | 4      | 4      | 0     | Early-stage startup pack for MVP building and launch iteration      |
-| [agency](./agency/)                                 | 5      | 4      | 0     | Client delivery model for discovery, execution, QA, and comms       |
-| [open-source-maintainer](./open-source-maintainer/) | 5      | 4      | 0     | Maintainer-focused org for triage, releases, docs, and community    |
-| [fullstack-forge](./fullstack-forge/)               | 49     | 66     | 10    | Full-service software development consultancy across 11 departments |
+| Empresa                                             | Agentes | Skills | Equipes | Descrição                                                             |
+| --------------------------------------------------- | ------- | ------ | ------- | --------------------------------------------------------------------- |
+| [solopreneur](./solopreneur/)                       | 3       | 3      | 0       | Estúdio de produto liderado pelo fundador para SaaS solo e produtos indie |
+| [startup-mvp](./startup-mvp/)                       | 4       | 4      | 0       | Pacote para startups em estágio inicial focado em construir MVPs e iterar lançamentos |
+| [agency](./agency/)                                 | 5       | 4      | 0       | Modelo de entrega para clientes com discovery, execução, QA e comunicação |
+| [open-source-maintainer](./open-source-maintainer/) | 5       | 4      | 0       | Organização focada em mantenedores para triagem, releases, docs e comunidade |
+| [fullstack-forge](./fullstack-forge/)               | 49      | 66     | 10      | Consultoria completa de desenvolvimento de software em 11 departamentos |
 
-## Attribution
+## Atribuição
 
-Companies are MIT licensed. `fullstack-forge` was imported from [paperclipai/companies](https://github.com/paperclipai/companies).
+As empresas são licenciadas sob MIT. `fullstack-forge` foi importada de [paperclipai/companies](https://github.com/paperclipai/companies).

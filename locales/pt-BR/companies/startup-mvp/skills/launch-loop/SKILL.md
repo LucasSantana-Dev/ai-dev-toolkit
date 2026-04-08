@@ -1,4 +1,4 @@
 ---
 name: launch-loop
-description: Convert a shipped MVP increment into launch actions, experiments, and the next growth recommendation.
+description: Converter um incremento de MVP entregue em ações de lançamento, experimentos e a próxima recomendação de crescimento.
 ---

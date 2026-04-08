@@ -1,48 +1,48 @@
 ---
 name: research
-description: Deep research on a topic using web search, docs, and codebase analysis
+description: Pesquisa profunda sobre um tópico usando busca na web, documentação e análise da base de código
 triggers:
   - research
-  - investigate
-  - what does X do
-  - how does X work
-  - find information about
+  - investigar
+  - o que X faz
+  - como X funciona
+  - encontrar informações sobre
   - ultraresearch
 ---
 
 # Research
 
-Exhaust all available sources before concluding. Don't stop at the first result.
+Esgote todas as fontes disponíveis antes de concluir. Não pare no primeiro resultado.
 
 ## Sources (in order)
 
-1. **Codebase** — search existing code first; answer may already be there
-2. **Library docs** — use context7 or equivalent for up-to-date package docs
-3. **Web search** — use for current state, comparisons, best practices
-4. **GitHub** — search issues/PRs for known bugs and workarounds
+1. **Codebase** — pesquise primeiro no código existente; a resposta pode já estar lá
+2. **Library docs** — use context7 ou equivalente para documentação atualizada de pacotes
+3. **Web search** — use para estado atual, comparações e boas práticas
+4. **GitHub** — pesquise issues/PRs por bugs conhecidos e workarounds
 
 ## Rules
 
-- Verify claims against primary sources — don't trust summaries of summaries
-- Note the date of sources; docs for old versions mislead
-- When sources contradict, report the contradiction — don't pick one silently
-- If uncertain after exhausting sources, say so explicitly
+- Verifique afirmações em fontes primárias — não confie em resumos de resumos
+- Observe a data das fontes; docs de versões antigas enganam
+- Quando fontes se contradizerem, reporte a contradição — não escolha uma silenciosamente
+- Se ainda houver incerteza depois de esgotar as fontes, diga isso explicitamente
 
 ## Output
 
 ```markdown
-## Finding: <topic>
+## Finding: <tópico>
 
 ### Summary
-<2-3 sentences>
+<2-3 frases>
 
 ### Key Facts
-- <fact with source>
-- <fact with source>
+- <fato com fonte>
+- <fato com fonte>
 
 ### Uncertainties
-- <what is unclear or unverified>
+- <o que está incerto ou não verificado>
 
 ### Recommendation
-<what to do based on findings>
+<o que fazer com base nos achados>
 ```

@@ -1,40 +1,40 @@
 ---
 name: verify
-description: Run full quality gate suite before committing or creating a PR
+description: Rode a suíte completa de quality gates antes de fazer commit ou criar um PR
 triggers:
   - verify
   - quality check
-  - run tests
-  - before commit
-  - before PR
+  - rodar testes
+  - antes do commit
+  - antes do PR
 ---
 
 # Verify
 
-Run all quality gates. Do not commit or PR until all pass.
+Rode todos os quality gates. Não faça commit nem abra PR até que tudo passe.
 
 ## Gates (run in order)
 
 ```bash
-npm run lint         # or: ruff check . / golangci-lint run / cargo clippy
-npm run type-check   # or: tsc --noEmit / mypy . / go build ./...
-npm test             # or: pytest / go test ./... / cargo test
-npm run build        # confirm no build errors
+npm run lint         # ou: ruff check . / golangci-lint run / cargo clippy
+npm run type-check   # ou: tsc --noEmit / mypy . / go build ./...
+npm test             # ou: pytest / go test ./... / cargo test
+npm run build        # confirma que não há erros de build
 ```
 
 ## Rules
 
-- Fix lint errors before moving on — don't suppress
-- If tests fail, determine root cause before changing the test
-- Coverage below threshold = a problem to fix, not a number to ignore
-- Security: `npm audit --audit-level=high` for any dependency changes
+- Corrija erros de lint antes de seguir — não suprima
+- Se testes falharem, determine a causa raiz antes de mudar o teste
+- Cobertura abaixo do limite = problema a corrigir, não número para ignorar
+- Segurança: `npm audit --audit-level=high` para qualquer mudança de dependência
 
 ## Output
 
-Report status for each gate:
+Reporte o status de cada gate:
 ```text
-✓ lint        — passed
-✓ type-check  — passed
-✓ tests       — 142 passed, 87% coverage
-✓ build       — succeeded
+✓ lint        — passou
+✓ type-check  — passou
+✓ tests       — 142 passaram, 87% de cobertura
+✓ build       — sucesso
 ```

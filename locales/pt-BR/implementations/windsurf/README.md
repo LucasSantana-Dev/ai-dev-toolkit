@@ -1,28 +1,28 @@
-# Windsurf Implementation
+# Implementação para Windsurf
 
-Reference implementation of the toolkit patterns for Windsurf.
+Implementação de referência dos patterns do toolkit para Windsurf.
 
-## Context Building
+## Construção de Contexto
 
-Windsurf reads `.windsurfrules` from the project root and can also consume
-supporting files from a `.windsurf/` directory.
+Windsurf lê `.windsurfrules` a partir da raiz do projeto e também pode consumir
+arquivos de apoio de um diretório `.windsurf/`.
 
 ```bash
-# from the repository root
+# a partir da raiz do repositório
 cp rules/.windsurfrules your-project/.windsurfrules
 ```
 
-## Multi-Model Routing
+## Roteamento Multi-Model
 
-Use forge-kit to keep Windsurf rules, skills, providers, and MCP guidance in a
-single portable install flow.
+Use `forge-kit` para manter regras, skills, provedores e guidance de MCP do
+Windsurf em um único fluxo portátil de instalação.
 
-## Task Orchestration
+## Orquestração de Tarefas
 
-Treat `forge-kit` as the baseline policy layer and keep any Windsurf-specific
-automation or orchestration overlays separate.
+Trate `forge-kit` como a camada de policy base e mantenha automações ou
+overlays de orquestração específicos do Windsurf separados.
 
-## Compatibility
+## Compatibilidade
 
-See `oh-my-windsurf.md` for the recommended ownership split when you combine
-forge-kit with an oh-my style orchestration layer.
+Veja `oh-my-windsurf.md` para a divisão de ownership recomendada quando você
+combinar `forge-kit` com uma camada de orquestração estilo oh-my.

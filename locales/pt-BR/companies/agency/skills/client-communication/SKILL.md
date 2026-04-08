@@ -1,4 +1,4 @@
 ---
 name: client-communication
-description: Translate technical work into clear stakeholder updates, risk summaries, and release communication.
+description: Traduzir trabalho técnico em atualizações claras para stakeholders, resumos de risco e comunicação de release.
 ---

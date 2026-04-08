@@ -1,4 +1,4 @@
 ---
 name: qa-playbook
-description: Turn delivered work into client-ready work through structured QA, regression coverage, and release recommendation.
+description: Transformar trabalho entregue em trabalho pronto para o cliente por meio de QA estruturado, cobertura de regressão e recomendação de release.
 ---

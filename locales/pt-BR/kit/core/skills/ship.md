@@ -1,24 +1,24 @@
 ---
 name: ship
-description: Commit, push, and open a pull request with a conventional commit message
+description: Faça commit, push e abra um pull request com uma mensagem de commit convencional
 triggers:
   - ship
-  - create PR
-  - commit and push
-  - ready to merge
+  - criar PR
+  - commit e push
+  - pronto para mergear
 ---
 
 # Ship
 
-Run verify first. Then commit, push, and open a PR.
+Rode verify primeiro. Depois faça commit, push e abra um PR.
 
 ## Steps
 
 ```bash
-# 1. Verify quality gates pass
-# (run /verify or equivalent)
+# 1. Verifique se os quality gates passam
+# (rode /verify ou equivalente)
 
-# 2. Stage specific files
+# 2. Faça stage dos arquivos específicos
 git add <files>
 
 # 3. Conventional commit
@@ -42,16 +42,16 @@ gh pr create --title "<type>: <description>" --body "..."
 
 ```markdown
 ## Summary
-- <what changed>
+- <o que mudou>
 
 ## Test plan
-- [ ] CI passes
-- [ ] Manually tested: <scenario>
+- [ ] CI passa
+- [ ] Testado manualmente: <cenário>
 ```
 
 ## Rules
 
-- Never push directly to main
-- Never use `--no-verify` unless change is docs/config only
-- Stage specific files — not `git add .` blindly
-- Delete local branch after merge
+- Nunca faça push direto para `main`
+- Nunca use `--no-verify`, a menos que a mudança seja apenas docs/config
+- Faça stage de arquivos específicos — não use `git add .` cegamente
+- Apague a branch local após o merge

@@ -1,4 +1,4 @@
 ---
 name: feature-delivery
-description: Deliver scoped client milestones predictably with milestone sequencing, verification, and status reporting.
+description: Entregar marcos de cliente dentro do escopo com previsibilidade, usando sequenciamento, verificação e reporte de status.
 ---

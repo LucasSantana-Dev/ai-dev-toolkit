@@ -1,41 +1,41 @@
 ---
 name: orchestrate
-description: Break complex work into phases with dependency tracking and verification checkpoints
+description: Quebre trabalho complexo em fases com rastreamento de dependências e checkpoints de verificação
 triggers:
   - orchestrate
-  - break this down
+  - quebrar isso
   - multi-step
-  - plan and execute
-  - complex task
+  - planejar e executar
+  - tarefa complexa
 ---
 
 # Orchestrate
 
-Break complex work into verifiable phases and execute them in order.
+Quebre trabalho complexo em fases verificáveis e execute-as em ordem.
 
 ## Steps
 
-1. Decompose the request into 3-7 atomic phases
-2. Identify dependencies (which phases must complete before others)
-3. Define per-phase: deliverable, verification check, estimated scope
-4. Execute in dependency order
-5. After each phase: verify, report, proceed or stop on failure
-6. After all phases: run full quality gates
+1. Decomponha o pedido em 3-7 fases atômicas
+2. Identifique dependências (quais fases precisam terminar antes das outras)
+3. Defina por fase: entregável, check de verificação, escopo estimado
+4. Execute na ordem das dependências
+5. Após cada fase: verifique, reporte, prossiga ou pare em caso de falha
+6. Após todas as fases: rode os quality gates completos
 
 ## Phase Template
 
 ```text
-Phase N: <name>
-  Scope: ~N lines across N files
-  Deliverable: <what exists when done>
-  Verify: <command or check>
-  Depends on: <phase numbers or "none">
+Phase N: <nome>
+  Scope: ~N linhas em N arquivos
+  Deliverable: <o que existe quando termina>
+  Verify: <comando ou check>
+  Depends on: <números das fases ou "none">
 ```
 
 ## Rules
 
-- Never skip verification between phases
-- Fix a failed phase before starting the next
-- Independent phases can run in parallel when subagents are available
-- Keep each phase under ~100 lines changed
-- Write a brief status line after each phase completes
+- Nunca pule a verificação entre fases
+- Corrija uma fase que falhou antes de iniciar a próxima
+- Fases independentes podem rodar em paralelo quando houver subagentes disponíveis
+- Mantenha cada fase abaixo de ~100 linhas alteradas
+- Escreva uma linha curta de status após cada fase concluída

@@ -1,50 +1,50 @@
-# Cursor Implementation
+# Implementação para Cursor
 
-Reference implementation of the toolkit patterns for [Cursor](https://cursor.com).
+Implementação de referência dos patterns do toolkit para [Cursor](https://cursor.com).
 
-## Context Building
+## Construção de Contexto
 
-Cursor uses `.cursorrules` (project root) and `.cursor/rules/*.mdc` (scoped rules).
+Cursor usa `.cursorrules` (raiz do projeto) e `.cursor/rules/*.mdc` (regras com escopo).
 
 ```bash
 cp ../../rules/CLAUDE.md your-project/.cursorrules
 ```
 
-For scoped rules:
+Para regras com escopo:
 ```
 .cursor/
   rules/
-    api.mdc          ← Rules when working in src/api/
-    frontend.mdc     ← Rules when working in src/components/
-    testing.mdc      ← Rules when writing tests
+    api.mdc          ← Regras ao trabalhar em src/api/
+    frontend.mdc     ← Regras ao trabalhar em src/components/
+    testing.mdc      ← Regras ao escrever testes
 ```
 
-See [Context Building pattern](../../patterns/context-building.md).
+Veja o [pattern de Context Building](../../patterns/context-building.md).
 
-## Multi-Model Routing
+## Roteamento Multi-Model
 
-Cursor supports model selection per-chat:
-- **Fast** (Tab completions): Uses smaller models automatically
-- **Standard** (Cmd+K, Chat): Configure in settings
-- **Deep** (Composer): Use for multi-file changes
+Cursor suporta seleção de modelo por chat:
+- **Fast** (Tab completions): usa modelos menores automaticamente
+- **Standard** (Cmd+K, Chat): configure nas settings
+- **Deep** (Composer): use para mudanças em múltiplos arquivos
 
-## Memory
+## Memória
 
-Cursor doesn't have built-in persistent memory. Implement via:
-- `.cursor/context/` directory with markdown files
-- Reference in `.cursorrules`: "Read .cursor/context/ files for project decisions"
-- Notepad feature for session-level persistence
+Cursor não tem memória persistente nativa. Implemente por meio de:
+- diretório `.cursor/context/` com arquivos markdown
+- referência em `.cursorrules`: "Read .cursor/context/ files for project decisions"
+- recurso Notepad para persistência em nível de sessão
 
-## Task Orchestration
+## Orquestração de Tarefas
 
-Use Cursor Composer for multi-step plans:
-1. Open Composer (Cmd+I)
-2. Describe the full plan
-3. Composer breaks it into file-level changes
-4. Review and apply
+Use Cursor Composer para planos de múltiplas etapas:
+1. Abra o Composer (Cmd+I)
+2. Descreva o plano completo
+3. O Composer quebra em mudanças por arquivo
+4. Revise e aplique
 
-For backlog management, use the same `backlog.json` pattern with a shell wrapper.
+Para gestão de backlog, use o mesmo pattern `backlog.json` com um wrapper de shell.
 
-## Contributions Welcome
+## Contribuições Bem-vindas
 
-If you build Cursor implementations of these patterns, open a PR.
+Se você construir implementações desses patterns para Cursor, abra um PR.

@@ -1,86 +1,85 @@
-# Agent Routing Guide
+# Guia de Roteamento de Agentes
 
-> **Applies to**: Codex CLI and OpenCode — both read `AGENTS.md` automatically.  
-> For Claude Code, pair this with `CLAUDE.md`. Deeply nested `AGENTS.md` files override parent-level ones.
+> **Aplica-se a**: Codex CLI e OpenCode — ambos leem `AGENTS.md` automaticamente.  
+> Para Claude Code, combine este arquivo com `CLAUDE.md`. Arquivos `AGENTS.md` mais profundos sobrescrevem os de nível superior.
 
-## Multi-Model Strategy
+## Estratégia Multi-Modelo
 
-Use different model tiers for different task complexities.
-Prefer tier labels in shared guidance and keep exact model names in local config.
+Use tiers de modelo diferentes para níveis diferentes de complexidade.
+Prefira rótulos de tier na guidance compartilhada e deixe os nomes exatos dos modelos na configuração local.
 
-**OpenCode with oh-my-openagent** ([reference config](../implementations/opencode/oh-my-openagent.jsonc)):
+**OpenCode com oh-my-openagent** ([configuração de referência](../implementations/opencode/oh-my-openagent.jsonc)):
 
-Sisyphus delegates by **category**, not model name. Keep the routing categories
-stable and let the live config own the exact provider/model mapping.
+Sisyphus delega por **categoria**, não por nome de modelo. Mantenha as categorias de roteamento estáveis e deixe a configuração em uso controlar o mapeamento exato entre provider e modelo.
 
-| Agent | Tier | Use For |
-|-------|------|---------|
-| **Sisyphus** | Deep reasoning | Default orchestrator — plans, delegates, drives to completion |
-| **Hephaestus** | Deep reasoning | Deep architecture, multi-file debugging, cross-domain reasoning |
-| **Prometheus** | Deep reasoning | Strategic planning and interview mode |
-| **Oracle** | Deep reasoning | Architecture consultation, trade-off analysis |
-| **Librarian** | Deep reasoning | Documentation search, code reference, pattern lookup |
-| **Atlas** | Balanced | Todo orchestration and parallel execution |
-| **Sisyphus-Junior** | Balanced | Sub-tasks delegated from Sisyphus |
-| **Explore** | Fast | Fast codebase grep, quick lookups |
+| Agente | Tier | Uso |
+|-------|------|-----|
+| **Sisyphus** | Raciocínio profundo | Orquestrador padrão — planeja, delega e leva até a conclusão |
+| **Hephaestus** | Raciocínio profundo | Arquitetura profunda, debugging multi-arquivo e raciocínio entre domínios |
+| **Prometheus** | Raciocínio profundo | Planejamento estratégico e modo de entrevista |
+| **Oracle** | Raciocínio profundo | Consulta de arquitetura e análise de trade-offs |
+| **Librarian** | Raciocínio profundo | Busca em documentação, referência de código e lookup de patterns |
+| **Atlas** | Equilibrado | Orquestração de TODOs e execução paralela |
+| **Sisyphus-Junior** | Equilibrado | Subtarefas delegadas por Sisyphus |
+| **Explore** | Rápido | Grep rápido no codebase e lookups pontuais |
 
-| Category | Tier | Trigger |
+| Categoria | Tier | Disparo |
 |----------|------|---------|
-| `visual-engineering` | Visual specialist | UI/UX, CSS, design, animation |
-| `ultrabrain` | Deep reasoning | Deep architecture, complex reasoning |
-| `deep` | Deep reasoning | Autonomous research, thorough investigation |
-| `artistry` | Visual or creative specialist | Creative or unconventional approaches |
-| `writing` | Balanced | Docs, CHANGELOG, README, prose |
-| `quick` | Fast | Trivial edits, typo fixes, single-line changes |
-| `unspecified-low` | Balanced | General low-effort tasks |
-| `unspecified-high` | Balanced or deep reasoning | General high-effort tasks |
+| `visual-engineering` | Especialista visual | UI/UX, CSS, design, animação |
+| `ultrabrain` | Raciocínio profundo | Arquitetura profunda, raciocínio complexo |
+| `deep` | Raciocínio profundo | Pesquisa autônoma, investigação detalhada |
+| `artistry` | Especialista visual ou criativo | Abordagens criativas ou não convencionais |
+| `writing` | Equilibrado | Docs, CHANGELOG, README, prosa |
+| `quick` | Rápido | Edições triviais, correções de typo, mudanças de uma linha |
+| `unspecified-low` | Equilibrado | Tarefas gerais de baixo esforço |
+| `unspecified-high` | Equilibrado ou raciocínio profundo | Tarefas gerais de maior esforço |
 
-**Vanilla OpenCode agents** (without oh-my-openagent):
+**Agentes do OpenCode vanilla** (sem oh-my-openagent):
 
-| Agent | Tier | Use For |
-|-------|------|---------|
-| **primary** | Balanced | Default. Implementation, debugging, refactoring |
-| **architect** | Deep reasoning | Complex design, cross-repo impact, API design |
-| **fast** | Fast | Linting, formatting, simple edits, quick lookups |
+| Agente | Tier | Uso |
+|-------|------|-----|
+| **primary** | Equilibrado | Padrão. Implementação, debugging e refatoração |
+| **architect** | Raciocínio profundo | Design complexo, impacto cross-repo e desenho de API |
+| **fast** | Rápido | Lint, formatação, edições simples e lookups rápidos |
 
-**Codex CLI tiers** (set actual model names in `config.toml` or per-session flags):
+**Tiers do Codex CLI** (defina os nomes reais dos modelos em `config.toml` ou por flags de sessão):
 
-| Task | Tier |
+| Tarefa | Tier |
 |------|------|
-| Default / exploration | Balanced coding tier |
-| Complex architecture | Deep reasoning tier |
-| Quick edits | Fast tier |
-| Full codebase reasoning | Balanced or deep reasoning tier |
+| Padrão / exploração | Tier equilibrado de código |
+| Arquitetura complexa | Tier de raciocínio profundo |
+| Edições rápidas | Tier rápido |
+| Raciocínio sobre todo o codebase | Tier equilibrado ou de raciocínio profundo |
 
-## Tool Allocation
+## Alocação de Ferramentas
 
-With oh-my-openagent, tool access is set per-agent in `oh-my-opencode.jsonc` via `permission` overrides.
+Com oh-my-openagent, o acesso a ferramentas é definido por agente em `oh-my-opencode.jsonc` via overrides de `permission`.
 
-Without oh-my-openagent:
-- **primary**: All tools (bash, read, write, edit, glob, grep, webfetch, task, todo)
-- **architect**: All tools (needs planning capabilities)
-- **fast**: Core only (bash, read, write, edit, glob, grep — no webfetch, no task)
+Sem oh-my-openagent:
+- **primary**: todas as ferramentas (`bash`, `read`, `write`, `edit`, `glob`, `grep`, `webfetch`, `task`, `todo`)
+- **architect**: todas as ferramentas, porque precisa de capacidade de planejamento
+- **fast**: apenas o core (`bash`, `read`, `write`, `edit`, `glob`, `grep` — sem `webfetch`, sem `task`)
 
-## MCP Server Strategy
+## Estratégia de Servidores MCP
 
-Keep context lean by enabling servers only where needed:
+Mantenha o contexto enxuto ativando servidores apenas onde forem necessários:
 
-- **Always on globally**: filesystem, git, fetch, github, memory
-- **Per-project**: supabase (for DB projects), vercel (for deployed apps), sentry (for monitored apps)
-- **Disabled by default**: playwright, stitch, huggingface (heavy on context)
+- **Sempre ativos globalmente**: filesystem, git, fetch, github, memory
+- **Por projeto**: supabase (para projetos com banco), vercel (para apps implantados), sentry (para apps monitorados)
+- **Desativados por padrão**: playwright, stitch e huggingface, porque pesam no contexto
 
-Rule: Remote MCP (`type: "remote"`) is cheaper than local — tools register lazily.
+Regra: MCP remoto (`type: "remote"`) é mais barato do que local — as ferramentas se registram sob demanda.
 
-## Commands to Have
+## Comandos para Ter
 
-Essential workflow commands every project should have:
+Comandos essenciais de workflow que todo projeto deveria ter:
 
 ```
-/resume   — Load git state, suggest next task
-/verify   — Run lint + type-check + test + build
-/ship     — Commit + push + create PR
-/commit   — Conventional commit without push
-/test     — Run tests, report results
-/clean    — Clear build artifacts
-/validate — Full repo health scorecard
+/resume   — Carrega o estado do git e sugere a próxima tarefa
+/verify   — Roda lint + type-check + test + build
+/ship     — Faz commit + push + cria PR
+/commit   — Conventional commit sem push
+/test     — Roda testes e reporta resultados
+/clean    — Limpa artefatos de build
+/validate — Scorecard completo de saúde do repositório
 ```

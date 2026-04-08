@@ -1,19 +1,19 @@
-# Security Policy
+# Política de Segurança
 
-## Reporting a Vulnerability
+## Como Reportar uma Vulnerabilidade
 
-Report security issues to [security@forgespace.co](mailto:security@forgespace.co). Do not open a public issue.
+Reporte problemas de segurança para [security@forgespace.co](mailto:security@forgespace.co). Não abra uma issue pública.
 
-## Scope
+## Escopo
 
-- **Installer scripts** (`tools/*.sh`, `tools/*.ps1`) — shell injection, insecure downloads
-- **Example code** in patterns/ — hardcoded credentials, insecure practices
-- **CI/CD configuration** (`.github/workflows/`) — workflow injection, secrets exposure
+- **Scripts de instalação** (`tools/*.sh`, `tools/*.ps1`) — injeção em shell, downloads inseguros
+- **Código de exemplo** em `patterns/` — credenciais hardcoded, práticas inseguras
+- **Configuração de CI/CD** (`.github/workflows/`) — injeção em workflows, exposição de segredos
 
-## Response
+## Resposta
 
-| Severity | Response time |
+| Severidade | Tempo de resposta |
 |---|---|
-| Critical | 48 hours |
-| High | 1 week |
-| Medium/Low | Best effort |
+| Critical | 48 horas |
+| High | 1 semana |
+| Medium/Low | Melhor esforço |

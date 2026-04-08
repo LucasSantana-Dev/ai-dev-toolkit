@@ -1,24 +1,24 @@
 ---
 name: ship-check
-description: Verify work before committing, pushing, or requesting review
+description: Verifique o trabalho antes de fazer commit, push ou pedir review
 triggers:
   - check before ship
   - pre-commit check
-  - verify before push
-  - ready to commit
+  - verificar antes do push
+  - pronto para commit
   - quality gate
 ---
 
 # Ship Check
 
-Run the repo's own verification commands and report pass/fail with evidence — before any git operation.
+Rode os comandos de verificação do próprio repo e reporte pass/fail com evidência — antes de qualquer operação git.
 
 ## Steps
 
-1. **Inspect changes** — review staged and unstaged files, diff summary
-2. **Discover verification commands** — look for lint, typecheck, test, build scripts
-3. **Run each command** — capture exact output and exit codes
-4. **Report results** — pass/fail per command with evidence
+1. **Inspect changes** — revise arquivos staged e unstaged, resumo do diff
+2. **Discover verification commands** — procure scripts de lint, typecheck, test e build
+3. **Run each command** — capture a saída exata e os exit codes
+4. **Report results** — pass/fail por comando com evidência
 
 ## Output
 
@@ -28,12 +28,12 @@ Lint:          PASS | FAIL
 Typecheck:     PASS | FAIL | N/A
 Tests:         PASS | FAIL | N/A
 Build:         PASS | FAIL | N/A
-Blockers:      <list or none>
+Blockers:      <lista ou none>
 ```
 
 ## Rules
 
-- Never invent tests or build commands that don't exist in the repo
-- Never mark work ready when verification was skipped
-- Refuse to claim success without command output evidence
-- Report blockers explicitly instead of hiding failures
+- Nunca invente testes ou comandos de build que não existam no repo
+- Nunca marque trabalho como pronto quando a verificação foi pulada
+- Recuse afirmar sucesso sem evidência de saída dos comandos
+- Reporte bloqueadores explicitamente em vez de esconder falhas

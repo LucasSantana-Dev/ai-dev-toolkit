@@ -1,59 +1,59 @@
 ---
 name: fallback
-description: Handle model and provider failures with automatic fallback chains
+description: Lide com falhas de modelo e provedor com cadeias automáticas de fallback
 triggers:
   - fallback
-  - model failed
-  - provider down
+  - modelo falhou
+  - provedor fora
   - rate limited
-  - switch model
-  - retry with different model
+  - trocar modelo
+  - tentar com outro modelo
 ---
 
 # Fallback
 
-When a model or provider fails, follow the fallback chain instead of stopping.
+Quando um modelo ou provedor falhar, siga a cadeia de fallback em vez de parar.
 
 ## Failure Types
 
-| Type | Detection | Action |
+| Tipo | Detecção | Ação |
 |---|---|---|
-| Rate limit | 429 / "rate limited" | Wait and retry, then fallback |
-| Auth failure | 401 / 403 | Switch provider immediately |
-| Model unavailable | 404 / "model not found" | Switch to fallback model |
-| Timeout | No response in 60s | Retry once, then fallback |
-| Context overflow | "context too long" | Compact context (use context skill), retry |
-| Output quality | Broken/empty output | Escalate to next tier |
+| Rate limit | 429 / "rate limited" | Espere e tente novamente, depois faça fallback |
+| Falha de auth | 401 / 403 | Troque de provedor imediatamente |
+| Modelo indisponível | 404 / "model not found" | Troque para o modelo de fallback |
+| Timeout | Sem resposta em 60s | Tente uma vez de novo, depois faça fallback |
+| Overflow de contexto | "context too long" | Compacte o contexto (use a skill de context), tente novamente |
+| Qualidade da saída | Saída quebrada/vazia | Escale para o próximo tier |
 
 ## Fallback Chain
 
 ```text
-1. Retry same model (handles transient errors)
-2. Switch to fallback model at same tier
-3. Switch to fallback provider at same tier
-4. Escalate to next tier with primary provider
-5. Escalate to next tier with fallback provider
-6. STOP — report failure with full chain attempted
+1. Tentar novamente com o mesmo modelo (lida com erros transitórios)
+2. Trocar para o modelo de fallback no mesmo tier
+3. Trocar para o provedor de fallback no mesmo tier
+4. Escalar para o próximo tier com o provedor principal
+5. Escalar para o próximo tier com o provedor de fallback
+6. STOP — reporte a falha com a cadeia completa tentada
 ```
 
 ## Provider Priority
 
-Read from `.forge-setup.json` or `routing.json`:
+Leia de `.forge-setup.json` ou `routing.json`:
 
 ```text
-Primary: <user-selected provider>
-Fallback: <user-selected fallback>
-Local: ollama (if enabled)
+Primary: <provedor escolhido pelo usuário>
+Fallback: <provedor de fallback escolhido pelo usuário>
+Local: ollama (se habilitado)
 ```
 
 ## Rules
 
-- Never silently degrade — always log which model/provider is active
-- Rate limits: exponential backoff (1s → 2s → 4s → 8s → stop)
-- Auth failures skip retry — switch provider immediately
-- Context overflow triggers compaction before retry
-- Track total cost/tokens per session for awareness
-- After fallback activates, continue on fallback — do not switch back mid-task
+- Nunca degrade silenciosamente — sempre registre qual modelo/provedor está ativo
+- Rate limits: exponential backoff (1s → 2s → 4s → 8s → parar)
+- Falhas de auth pulam retry — troque de provedor imediatamente
+- Overflow de contexto dispara compactação antes do retry
+- Acompanhe custo/tokens totais por sessão para consciência operacional
+- Depois que o fallback ativar, continue no fallback — não volte no meio da tarefa
 
 ## Output on Fallback
 

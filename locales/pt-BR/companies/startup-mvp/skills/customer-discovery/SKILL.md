@@ -1,4 +1,4 @@
 ---
 name: customer-discovery
-description: Gather and synthesize customer evidence to validate the next product decision or positioning change.
+description: Coletar e sintetizar evidências de clientes para validar a próxima decisão de produto ou mudança de posicionamento.
 ---

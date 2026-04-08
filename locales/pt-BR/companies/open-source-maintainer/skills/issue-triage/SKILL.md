@@ -1,4 +1,4 @@
 ---
 name: issue-triage
-description: Classify issues, identify duplicates, request missing context, and surface what deserves maintainer attention first.
+description: Classificar issues, identificar duplicatas, pedir contexto ausente e destacar primeiro o que merece atenção do mantenedor.
 ---

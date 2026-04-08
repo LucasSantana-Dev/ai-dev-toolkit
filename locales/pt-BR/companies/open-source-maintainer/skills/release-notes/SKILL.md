@@ -1,4 +1,4 @@
 ---
 name: release-notes
-description: Turn merged work into coherent release notes, changelog updates, and a publish-ready release narrative.
+description: Transformar trabalho mergeado em release notes coerentes, atualizações de changelog e uma narrativa de release pronta para publicação.
 ---

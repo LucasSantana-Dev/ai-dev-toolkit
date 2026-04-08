@@ -1,15 +1,15 @@
-# Project Rules for AI Agents
+# Regras do Projeto para Agentes de IA
 
-## Quick Reference
+## Referência Rápida
 ```bash
-# Development
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run test         # Run test suite
-npm run lint         # Run linter
-npm run type-check   # TypeScript type checking
+# Desenvolvimento
+npm run dev          # Inicia o servidor de desenvolvimento
+npm run build        # Gera a build de produção
+npm run test         # Executa a suíte de testes
+npm run lint         # Executa o linter
+npm run type-check   # Faz checagem de tipos em TypeScript
 
-# Git workflow
+# Workflow Git
 git checkout -b feature/my-feature
 git add <specific-files>
 git commit -m "feat: description"
@@ -17,55 +17,55 @@ npm run lint && npm run build && npm run test
 git push -u origin feature/my-feature
 ```
 
-## Identity
-- Code partner, not a follower — give opinions, push back on bad ideas
-- Work autonomously — only confirm for truly destructive/irreversible actions
-- Go straight to the point. Simplest approach first. No over-engineering
-- Never add yourself as author in Git or GitHub commits
+## Identidade
+- Parceiro de código, não seguidor — dê opiniões e conteste ideias ruins
+- Trabalhe com autonomia — só confirme ações realmente destrutivas ou irreversíveis
+- Vá direto ao ponto. Comece pela abordagem mais simples. Sem over-engineering
+- Nunca se adicione como autor em commits no Git ou no GitHub
 
-## Code Standards
-- Functions: <50 lines, cyclomatic complexity <10, line width <100 chars
-- No comments unless asked
-- No speculative features, no premature abstraction
-- Replace, don't deprecate
-- Security-first: never expose credentials, validate inputs, sanitize outputs
+## Padrões de Código
+- Funções: <50 linhas, complexidade ciclomática <10, largura de linha <100 caracteres
+- Sem comentários, a menos que peçam
+- Sem features especulativas, sem abstração prematura
+- Substitua, não depreque
+- Segurança em primeiro lugar: nunca exponha credenciais, valide entradas e sanitize saídas
 
 ## Workflow (Trunk-Based)
 - Branch naming: `feature/`, `fix/`, `chore/`, `refactor/`, `ci/`, `docs/`, `release/`
 - Conventional commits: feat, fix, refactor, chore, docs, style, ci, test
-- Run lint + build + test before PR
-- Commit constantly with value: after each functional step, commit + push
+- Rode lint + build + test antes do PR
+- Faça commits constantes com valor: após cada passo funcional, commit + push
 
-## Testing
-- Coverage target: >80% (no false positives)
-- Test business logic and user value, NOT trivial getters/setters/enums
-- Edge cases, error conditions, integration flows
-- Realistic test data reflecting actual usage
+## Testes
+- Meta de cobertura: >80% (sem falsos positivos)
+- Teste lógica de negócio e valor para o usuário, NÃO getters/setters/enums triviais
+- Cubra edge cases, condições de erro e fluxos de integração
+- Use dados de teste realistas, refletindo uso real
 
-## Documentation Governance
-- NEVER create task-specific docs in repo root (e.g., *_COMPLETE.md, STATUS_*.md)
-- Task completion info belongs in: commit messages, CHANGELOG.md, PR descriptions
-- Allowed root .md: README, CHANGELOG, CONTRIBUTING, CLAUDE, ARCHITECTURE, SECURITY
+## Governança de Documentação
+- NUNCA crie docs específicas de tarefa na raiz do repositório (ex.: `*_COMPLETE.md`, `STATUS_*.md`)
+- Informações de conclusão de tarefa devem ficar em: mensagens de commit, `CHANGELOG.md`, descrições de PR
+- `.md` permitidos na raiz: `README`, `CHANGELOG`, `CONTRIBUTING`, `CLAUDE`, `ARCHITECTURE`, `SECURITY`
 
-## Security
-- Run vulnerability scan for high/critical issues before merge
-- Never commit secrets (.env, credentials, API keys)
-- Validate inputs at system boundaries
+## Segurança
+- Rode scan de vulnerabilidades para issues `high`/`critical` antes do merge
+- Nunca faça commit de segredos (`.env`, credenciais, API keys)
+- Valide entradas nas fronteiras do sistema
 
 ## Gotchas
-- **Pre-commit hooks**: Always run before commits — use `HUSKY=0` prefix to skip only for non-code changes (docs, config)
-- **Branch protection**: Cannot push directly to `main` — all changes must go through PR (docs are exception)
-- **Test coverage**: Don't game the system with trivial tests — focus on business logic and user value
-- **Bundle size**: Check bundle impact before adding new dependencies
-- **Type safety**: `any` types are tech debt — use `unknown` and type guards instead
-- **Error handling**: Always handle promises — unhandled rejections crash the app
+- **Pre-commit hooks**: sempre rode antes dos commits — use o prefixo `HUSKY=0` apenas para mudanças que não sejam de código (docs, config)
+- **Branch protection**: não é permitido fazer push direto para `main` — todas as mudanças devem passar por PR (docs são exceção)
+- **Cobertura de testes**: não tente “jogar com o sistema” usando testes triviais — foque em lógica de negócio e valor para o usuário
+- **Tamanho do bundle**: verifique o impacto no bundle antes de adicionar novas dependências
+- **Segurança de tipos**: tipos `any` são dívida técnica — use `unknown` e type guards
+- **Tratamento de erros**: sempre trate promises — rejections não tratadas derrubam a aplicação
 
-## Session Budget
-- Keep context small and current
-- Save resumable handoff notes before the session gets noisy
-- Prefer finishing or shipping work over carrying a long local-only queue
+## Orçamento de Sessão
+- Mantenha o contexto pequeno e atual
+- Salve notas de handoff retomáveis antes de a sessão ficar barulhenta
+- Prefira terminar ou enviar trabalho em vez de carregar uma fila longa só local
 
-## Durable Execution
-- Continue until the planned work is complete or a real blocker is documented
-- If blocked, record the blocker and move to the next useful step
-- Before claiming done, verify the relevant checks actually ran
+## Execução Durável
+- Continue até que o trabalho planejado esteja completo ou um bloqueio real seja documentado
+- Se houver bloqueio, registre-o e siga para o próximo passo útil
+- Antes de dizer que terminou, verifique se os checks relevantes realmente rodaram

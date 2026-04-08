@@ -1,17 +1,17 @@
-# forge-kit oh-my-claudecode compatibility
+# Compatibilidade forge-kit com oh-my-claudecode
 
-This file is an optional bridge for mixed setups where `forge-kit` and
-[oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) are both used.
+Este arquivo é uma ponte opcional para setups mistos em que `forge-kit` e
+[oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) são usados juntos.
 
-Use this flow:
+Use este fluxo:
 
-1. Keep `~/.claude/CLAUDE.md` managed by `forge-kit`.
-2. Keep oh-my specific routing and orchestration settings in the oh-my config files.
-3. Do not duplicate the same policy in two places.
+1. Mantenha `~/.claude/CLAUDE.md` gerenciado por `forge-kit`.
+2. Mantenha roteamento e settings de orquestração específicos do oh-my nos arquivos de config do oh-my.
+3. Não duplique a mesma policy em dois lugares.
 
-Recommended ownership split:
+Divisão de ownership recomendada:
 
-- `forge-kit`: global rules, portable skills, MCP baseline, durable execution section.
-- `oh-my-claudecode`: agent orchestration, category routing, model fallback strategy.
+- `forge-kit`: regras globais, skills portáveis, baseline de MCP, seção de execução durável.
+- `oh-my-claudecode`: orquestração de agentes, roteamento por categoria, estratégia de fallback de modelos.
 
-If both systems define the same behavior, prefer one source of truth and delete the other.
+Se ambos os sistemas definirem o mesmo comportamento, prefira uma única fonte de verdade e apague a outra.
