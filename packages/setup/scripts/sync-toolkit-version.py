@@ -7,7 +7,7 @@ import re
 import subprocess
 from pathlib import Path
 
-DEFAULT_REPO = "Forge-Space/ai-dev-toolkit"
+DEFAULT_REPO = "LucasSantana-Dev/ai-dev-toolkit"
 TAG_RE = re.compile(r"^v?(\d+)\.(\d+)\.(\d+)$")
 
 

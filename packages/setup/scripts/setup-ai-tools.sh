@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="${1:?repo root required}"
-TOOLKIT_REPO="Forge-Space/ai-dev-toolkit"
+TOOLKIT_REPO="LucasSantana-Dev/ai-dev-toolkit"
 TOOLKIT_STAMP_DIR="$HOME/.config/ai-dev-toolkit"
 TOOLKIT_STAMP="$TOOLKIT_STAMP_DIR/.toolkit-version"
 TOOLKIT_DIR_OVERRIDE="${TOOLKIT_DIR_OVERRIDE:-}"
