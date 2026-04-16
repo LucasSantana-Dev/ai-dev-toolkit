@@ -78,7 +78,7 @@ This document lists all documentation files for `ai-dev-toolkit-setup`, with bri
 
 **Key sections**:
 - Why `ai-dev-toolkit-setup` stays personal (LucasSantana-Dev)
-- Why `ai-dev-toolkit` is org-level (Forge-Space)
+- Why `ai-dev-toolkit` lives on LucasSantana-Dev
 - The consumption model
 - When to add content to each repo
 
@@ -135,4 +135,4 @@ This document lists all documentation files for `ai-dev-toolkit-setup`, with bri
 
 - **README.md** — Quick start
 - **README.en.md** — English version of README
-- **Forge-Space/ai-dev-toolkit** — Upstream repo with reusable patterns and skills
+- **LucasSantana-Dev/ai-dev-toolkit** — Upstream repo with reusable patterns and skills

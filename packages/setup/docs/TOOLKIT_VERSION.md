@@ -5,7 +5,7 @@
 The `ai-dev-toolkit-setup` repository bootstraps machines with system packages, shell helpers, and tmux workflows. It consumes canonical content from the companion `ai-dev-toolkit` repository at a pinned semantic version tag.
 
 - **Pinned via**: `TOOLKIT_VERSION` file (currently: v0.12.0)
-- **Canonical source**: [Forge-Space/ai-dev-toolkit](https://github.com/Forge-Space/ai-dev-toolkit)
+- **Canonical source**: [LucasSantana-Dev/ai-dev-toolkit](https://github.com/LucasSantana-Dev/ai-dev-toolkit)
 - **Why a pin?**: Ensures reproducible, versioned bootstraps. New toolkit features only become available here after a release and pin bump.
 
 ## What Gets Pinned
@@ -79,7 +79,7 @@ Alias for `toolkit-version-prepare` (both support `--pr-body-file`).
 
 This is the typical flow when `ai-dev-toolkit` releases a new version:
 
-1. **Upstream releases** a new tag (e.g., v0.12.1) on [Forge-Space/ai-dev-toolkit](https://github.com/Forge-Space/ai-dev-toolkit)
+1. **Upstream releases** a new tag (e.g., v0.12.1) on [LucasSantana-Dev/ai-dev-toolkit](https://github.com/LucasSantana-Dev/ai-dev-toolkit)
 
 2. **Check for updates**:
    ```bash
@@ -128,7 +128,7 @@ This is the typical flow when `ai-dev-toolkit` releases a new version:
 
 The helper commands are thin wrappers around `scripts/sync-toolkit-version.py`, which:
 
-- Queries the GitHub API for releases of `Forge-Space/ai-dev-toolkit`
+- Queries the GitHub API for releases of `LucasSantana-Dev/ai-dev-toolkit`
 - Filters for stable releases (ignores drafts and prereleases)
 - Compares versions using semantic versioning
 - Optionally writes the `TOOLKIT_VERSION` file
