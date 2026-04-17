@@ -78,7 +78,7 @@ Ele solicita:
 
 ## Que patterns estão incluídos?
 
-15 playbooks agnósticos de ferramentas cobrindo o ciclo de vida completo do desenvolvimento assistido por IA:
+16 playbooks agnósticos de ferramentas cobrindo o ciclo de vida completo do desenvolvimento assistido por IA:
 
 | Pattern                                                        | Quando você precisa dele                                    |
 | -------------------------------------------------------------- | ----------------------------------------------------------- |
@@ -97,6 +97,7 @@ Ele solicita:
 | [Streaming Orchestration](patterns/streaming-orchestration.md) | Loops de turno orientado por evento e orçamento de token     |
 | [Tool Registry Patterns](patterns/tool-registry-patterns.md)   | Desacoplando metadados de ferramenta de implementação         |
 | [Spec Driven Development](patterns/spec-driven-development.md) | Agentes precisam de um contrato estável antes de construir     |
+| [SKILL.md Adoption](patterns/skill-md-adoption.md)            | Descoberta de skill agnóstica de vendor e auto-invocação entre ferramentas |
 
 ## Que skills estão incluídas?
 
