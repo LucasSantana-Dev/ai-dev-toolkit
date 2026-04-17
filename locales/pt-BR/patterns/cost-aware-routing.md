@@ -1,4 +1,4 @@
-> **Tradução pendente** — conteúdo em inglês, aguardando tradução para pt-BR. Ver `bilingual-readme-sync` skill.
+> **Tradução pendente** — conteúdo em inglês, aguardando tradução para pt-BR. Contribute to [ai-dev-toolkit-pt-br](https://github.com/LucasSantana-Dev/ai-dev-toolkit-pt-br/issues).
 
 # Cost-Aware Routing
 
@@ -159,4 +159,4 @@ Cost: (2500 * 0.9 discount) + 300 + 200 = 2800 input equivalent, saves ~$0.005
 
 - [`patterns/multi-model-routing.md`](./multi-model-routing.md) — task-based routing without cost focus
 - [`patterns/prompting-discipline.md`](./prompting-discipline.md) — prompt structure that reduces iterations
-- [`standards/session-budget.md`](../standards/session-budget.md) — cost governance for long-running sessions
+- `standards/session-budget.md` — cost governance for long-running sessions (user-local file)
