@@ -1,5 +1,7 @@
 ---
----
+
+> **Tradução pendente** — conteúdo em inglês, aguardando tradução para pt-BR. Contribute to [ai-dev-toolkit-pt-br](https://github.com/LucasSantana-Dev/ai-dev-toolkit-pt-br/issues).
+
 name: secure
 description: Shortcut for security review on current change set. Runs layered checks (secret-scan, dep-audit, semgrep, OWASP patterns, prompt-injection review).
 triggers:
@@ -8,9 +10,6 @@ triggers:
   - "scan for vulns"
   - "run security review"
 ---
-
-> **Tradução pendente** — conteúdo em inglês, aguardando tradução para pt-BR. Contribute to [ai-dev-toolkit-pt-br](https://github.com/LucasSantana-Dev/ai-dev-toolkit-pt-br/issues).
-
 
 # Secure
 
