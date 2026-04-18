@@ -1,53 +1,114 @@
 # Mapa de Backlog do ai-dev-toolkit
 
-_Última atualização: 2026-04-03_
+_Última atualização: 2026-04-18_
 
 ## Snapshot
 
-- Branch inspecionada: `release/v0.11.0`
+- Branch inspecionado: `main`
 - Branch padrão: `main`
-- PRs abertas: `0`
-- Issues abertas: `0`
-- Fonte principal do backlog: `backlog.json`
-- Fonte do roadmap estratégico: `.claude/plans/universal-toolkit-installer.md`
+- Última versão lançada: `v0.16.0`
+- PRs abertos: `0`
+- Issues abertos: `0`
+- Fonte primária de backlog: `backlog.json`
+- Fonte de roadmap estratégico: `docs/roadmap.md` (regenerado a partir de `docs/specs/`)
 
-## Resumo das Evidências
+## Resumo de Evidências
 
-### Sinais urgentes confirmados
+### Envios recentes confirmados
 
-- A release mais recente no GitHub agora é **`v0.11.0`**.
-- O trabalho de maior valor no curto prazo deixou de ser a execução da release e passou a ser o endurecimento da governança pós-release.
-- `backlog.json` é a fila operacional principal e precisa continuar alinhado com PRs mergeadas e com o estado das releases.
-- Os maiores ganhos de qualidade no curto prazo vêm de schemas, parity entre adapters e higiene recorrente de backlog.
+- `v0.16.0` lançado (PR #79).
+- Skill de backup de workspace dev-assets-sync enviada (PR #81).
+- Padrão de adoção `SKILL.md` agnóstico de vendor enviado (PR #80).
+- Skills de roteamento autônomo (`loop`, `route`, `orchestrate`, `dispatch`, `fallback`, `add`, `secure`) enviadas (PR #78).
+- Lazy-loading de ferramentas MCP + padrões de agent-evals-como-CI enviados (PR #76).
+- Padrão de lacuna realidade-benchmark enviado (PR #77).
+- Skill EN→PT sync enviada (PR #72).
+- Onda 1 de AI Guides — primitivos, pacote de hooks, governança, benchmarks, playbook de adoção, migração de agentes, índice — enviado (PR #61).
+- Kit RAG + kit specs enviado.
+- Manifesto portável de hooks (`kit/core/hooks.json`) + schema enviado.
+- Registro de ferramentas MCP (`kit/core/mcp.json`) enviado com 10 servidores em 3 perfis.
+- `parity-audit-script` (`scripts/parity-audit.js`) enviado.
+- `memory-skill`, `dispatch-skill`, `schedule-skill` enviados.
+- Schemas JSON formais para todos os configs de kit/core enviados.
 
-### Superfícies de implementação ausentes confirmadas
+### Lacunas remanescentes confirmadas
 
-- `kit/core/schedules.json` está ausente.
-- `kit/plugins/` está ausente.
-- `implementations/antigravity/` está ausente.
-- `implementations/windsurf/README.md` está ausente.
-
-### Superfícies existentes confirmadas
-
-- `kit/core/mcp.json` existe.
-- `kit/core/agents.json` existe.
-- `kit/core/routing.json` existe.
-- `kit/schema/` existe com 9 JSON schemas.
-- `implementations/cursor/README.md` existe.
-- `companies/fullstack-forge/` existe, mas nenhum template adicional de company foi encontrado.
+- `kit/plugins/` ausente (apenas fase de design — não enfileirado para curto prazo).
+- Templates de empresa adicionais além de `fullstack-forge` (adiado até a paridade de core se estabilizar).
 
 ---
 
 ## Agora
 
-### 1. Stabilize post-release backlog governance
+### 1. Cortar `v0.17.0`
 
-**Why now**
+**Por que agora**
 
-- `v0.11.0` is already published, so the remaining risk is backlog/process drift rather than release execution.
-- The repo now depends on `backlog.json` as an operational control surface for follow-on work.
+- Skill de resume, teste de tier-governance de agentes e reconciliação de estado estão prontos para envio.
+- PRs #80 (padrão de adoção SKILL.md) e #81 (dev-assets-sync) estão sem lançamento desde v0.16.0.
 
-**Evidence**
+**Primeira ação**
+
+- Promover `CHANGELOG.md [Não lançado]` → `[0.17.0]`; fazer bump de `package.json`; taggear e lançar.
+
+---
+
+## Próximo
+
+_(nenhum — todos os itens Now/Next entram em v0.17.0)_
+
+---
+
+## Depois
+
+### 2. Design do sistema de plugins
+
+**Por que depois**
+
+- Superfície de arquitetura ampla; depende de paridade + maturidade de config de core estar estável.
+- `backlog.json → plugin-system` é `low+backlog`, gated em `hooks-manifest` (agora concluído).
+
+**Primeira ação**
+
+- Escrever uma nota de arquitetura curta esclarecendo limites de plugin: skills, hooks, config de MCP, providers.
+
+### 3. Amplitude de template de empresa
+
+Expandir além de `companies/fullstack-forge` para cobrir caminhos de adoção `solopreneur` e `startup-mvp` uma vez que a superfície core está estável.
+
+---
+
+## Limpeza / Mitigação de Risco
+
+### A. Detecção de drift
+
+Action GitHub semanal `backlog-triage` executa `npm run backlog:check`. Qualquer drift entre `backlog.json` e artefatos enviados deve ser reconciliado no mesmo ciclo.
+
+### B. Guarda de release-gate
+
+Pipeline de release já falha se:
+
+- nome da branch implica em versão mais alta do que `package.json`
+- conteúdo não lançado em `CHANGELOG.md` existe para branch de release com tag
+- estado de release/tag do GitHub não corresponde à versão pretendida
+
+### C. Manter ruído de instalação local fora do planejamento
+
+Manter trabalho de planejamento e backlog em uma worktree limpa para evitar ruído de `node_modules/`.
+
+---
+
+## Ordem de execução recomendada
+
+1. Cortar `v0.17.0` (envia skill de resume, governança de tier, reconciliação de estado)
+2. Nota de design do sistema de plugins
+3. Templates de empresa adicionais
+
+---
+
+## Próxima tarefa recomendada imediata
+
+Promover `CHANGELOG.md [Não lançado]` para `[0.17.0]` e cortar o lançamento — trabalho enfileirado está verde e testes passam em 25/25.
 
 - GitHub latest release → `v0.11.0`
 - `backlog.json` still carries multiple governance and parity items as the active next work

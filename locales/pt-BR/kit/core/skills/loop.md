@@ -82,8 +82,6 @@ Quality: lint ✓ | types ✓ | tests ✓ (N passed) | build ✓
 
 ## Resume
 
-Se o loop foi interrompido:
-1. Verifique se há um arquivo de plano em `.agents/plans/`
-2. Encontre a última fase concluída
-3. Continue da próxima fase incompleta
-4. Não reexecute fases já concluídas
+Se o loop foi interrompido, delegue para a skill `resume` — ela detecta o
+handoff, estado do plano, estado do git e PRs abertos, depois re-entra no loop na
+última fase incompleta sem repetir trabalho.

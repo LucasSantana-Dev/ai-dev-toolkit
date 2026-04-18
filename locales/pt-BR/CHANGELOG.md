@@ -6,9 +6,26 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Não lançado]
 
+## [0.17.0] — 2026-04-18
+
 ### Adicionado
 
-- 4 new portable skills and patterns from AI engineering curriculum (Phases 13, 16, 17):
+- **Skill `resume`** (`kit/core/skills/resume.md`) — recuperação de sessão de primeira classe que detecta estado a partir de arquivos de handoff, `.agents/plans/*.json`, git e PRs abertos, depois re-entra no loop na última fase incompleta sem repetir trabalho. Fecha a lacuna do README onde `resume` foi listado mas não tinha arquivo dedicado.
+- **Padrão de adoção `SKILL.md`** (#80) — padrão de descoberta de skill agnóstico de vendor que permite múltiplas ferramentas de IA encontrar o mesmo arquivo de skill sem duplicar conteúdo.
+- **Skill de backup de workspace `dev-assets-sync`** (#81) — rsync sob demanda de configs do Claude/Codex, memories, standards, hooks, skills-index e arquivos dev por projeto para um repo privado `dev-assets`.
+- **Teste de governança baseada em tier** — novo invariante de CI que agentes haiku não podem ter ferramentas de acesso write e apenas agentes opus podem ter ferramentas de acesso delegate (Agent spawn).
+
+### Alterado
+
+- **Seção `Resume` da skill `loop`** agora delega para a nova skill `resume` em vez de carregar passos de recuperação inline.
+- **`BACKLOG.md` + `docs/roadmap.md` reconciliados** — 7 specs de AI-guides (PR #61) promovidos de `proposed` para `archived/shipped`; entradas de `backlog.json` para `hooks-manifest`, `dispatch-skill`, `schedule-skill`, `memory-skill`, `parity-audit-script`, `mcp-tool-registry`, `agent-tool-access` e `cost-tracking` marcados como `done` para corresponder com artefatos enviados no repo.
+- **Cabeçalho de snapshot de `BACKLOG.md`** atualizado de `v0.11.0` (2026-04-03) para `v0.16.0` + lacunas remanescentes atuais.
+
+## [Não lançado Anterior]
+
+### Adicionado
+
+- 4 novas skills portáveis e padrões do currículo de engenharia de IA (Fases 13, 16, 17):
   - `kit/core/skills/mcp-patterns.md` — MCP server implementation: tool schema design,
     stateful tools, async/streaming patterns, error handling, security (input sanitization,
     rate limiting, authorization), and testing strategy
