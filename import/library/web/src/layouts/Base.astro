@@ -1,0 +1,140 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Curated library of Skills + MCP servers for AI-assisted development." } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} · ai-dev-toolkit-library</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <style is:global>
+      :root {
+        --bg: #0b0d10;
+        --fg: #e7ecef;
+        --muted: #8996a1;
+        --accent: #6ab0ff;
+        --border: #1f262d;
+        --code-bg: #14181d;
+        --chip-bg: #172028;
+        --chip-fg: #a9c6e6;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.55;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      header {
+        border-bottom: 1px solid var(--border);
+        padding: 1.25rem 2rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      header a.brand { font-weight: 700; color: var(--fg); font-size: 1.05rem; }
+      header nav { display: flex; gap: 1.5rem; font-size: 0.95rem; }
+      main { max-width: 1120px; margin: 0 auto; padding: 2rem; }
+      h1, h2, h3 { color: var(--fg); }
+      h1 { font-size: 1.9rem; margin: 0 0 0.5rem; }
+      h2 { font-size: 1.35rem; margin: 2rem 0 0.75rem; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem 1.1rem;
+        background: #0f1216;
+        transition: border-color 0.15s;
+      }
+      .card:hover { border-color: #2d3a46; }
+      .card h3 { margin: 0 0 0.3rem; font-size: 1.05rem; }
+      .card p { margin: 0.3rem 0 0.6rem; color: var(--muted); font-size: 0.92rem; }
+      .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+      .tag {
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--chip-bg);
+        color: var(--chip-fg);
+      }
+      pre, code {
+        font-family: "SF Mono", Menlo, Consolas, monospace;
+        font-size: 0.88rem;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.9rem 1.1rem;
+        overflow-x: auto;
+      }
+      code { background: var(--code-bg); padding: 2px 5px; border-radius: 4px; }
+      pre code { background: transparent; padding: 0; }
+      .kind {
+        display: inline-block;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+      }
+      .kind-skill { background: #0e2638; color: #6ab0ff; }
+      .kind-server { background: #2a1639; color: #c091ff; }
+      .kind-collection { background: #3a2d14; color: #f0c169; }
+      .kind-doc { background: #133124; color: #75d8a8; }
+      .install {
+        display: block;
+        margin-top: 0.75rem;
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.6rem 0.85rem;
+        font-family: "SF Mono", Menlo, Consolas, monospace;
+        font-size: 0.85rem;
+        color: var(--fg);
+      }
+      footer {
+        border-top: 1px solid var(--border);
+        margin-top: 4rem;
+        padding: 1.5rem 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href={base}>ai-dev-toolkit-library</a>
+      <nav>
+        <a href={`${base}skills/`}>Skills</a>
+        <a href={`${base}servers/`}>Servers</a>
+        <a href={`${base}collections/`}>Collections</a>
+        <a href={`${base}docs/`}>Docs</a>
+        <a href="https://github.com/LucasSantana-Dev/ai-dev-toolkit-library">GitHub</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      Built with Astro · <a href="https://github.com/LucasSantana-Dev/ai-dev-toolkit-library">source</a>
+    </footer>
+  </body>
+</html>

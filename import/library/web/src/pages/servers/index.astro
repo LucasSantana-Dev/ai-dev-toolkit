@@ -1,0 +1,26 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getServers } from "../../lib/catalog.ts";
+
+const servers = await getServers();
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Servers">
+  <h1>Servers <span style="color: var(--muted); font-weight: 400; font-size: 1rem;">({servers.length})</span></h1>
+  <p style="color: var(--muted); max-width: 640px;">
+    MCP servers registered with your local gateway. Register with <code>npx @lucassantana/adtl add-server &lt;id&gt;</code>.
+  </p>
+  <div class="grid" style="margin-top: 1.5rem;">
+    {servers.map((s) => (
+      <a class="card" href={`${base}servers/${s.id}/`}>
+        <span class="kind kind-server">server</span>
+        <h3 style="display: inline;">{s.name}</h3>
+        <p>{s.description}</p>
+        <div class="tags">
+          <span class="tag">{s.transport}</span>
+          {s.tags.slice(0, 5).map((t) => <span class="tag">{t}</span>)}
+        </div>
+      </a>
+    ))}
+  </div>
+</Base>

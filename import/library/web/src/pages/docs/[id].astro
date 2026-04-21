@@ -1,0 +1,25 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getDocs } from "../../lib/catalog.ts";
+
+export async function getStaticPaths() {
+  const docs = await getDocs();
+  return docs.map((d) => ({ params: { id: d.id }, props: { doc: d } }));
+}
+const { doc } = Astro.props;
+---
+<Base title={doc.title} description={doc.description}>
+  <p><a href="../">← all docs</a></p>
+  <span class="kind kind-doc">doc</span>
+  <h1 style="display: inline;">{doc.title}</h1>
+  <div class="tags" style="margin: 0.75rem 0 1.25rem;">
+    {doc.tags.map((t) => <span class="tag">{t}</span>)}
+  </div>
+  <pre><code>{doc.body}</code></pre>
+  {doc.source?.path && (
+    <p style="color: var(--muted); font-size: 0.85rem; margin-top: 1.5rem;">
+      Source: <code>{doc.source.path}</code>
+      {doc.source.license && <> · {doc.source.license}</>}
+    </p>
+  )}
+</Base>

@@ -1,0 +1,50 @@
+---
+import Base from "../layouts/Base.astro";
+import { getSkills, getServers, getCollections, getDocs } from "../lib/catalog.ts";
+
+const [skills, servers, collections, docs] = await Promise.all([
+  getSkills(),
+  getServers(),
+  getCollections(),
+  getDocs(),
+]);
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Library">
+  <h1>ai-dev-toolkit-library</h1>
+  <p style="color: var(--muted); max-width: 640px;">
+    A curated catalog of <strong>Skills</strong> and <strong>MCP servers</strong> for AI-assisted
+    development. Fronted by a single local <code>mcp-context-forge</code> gateway. Free, inspired by
+    <a href="https://skills.sh">skills.sh</a> and <a href="https://app.mcpmarket.com">mcpmarket.com</a>.
+  </p>
+
+  <h2>Quickstart</h2>
+  <pre><code>git clone https://github.com/LucasSantana-Dev/ai-dev-toolkit-library
+cd ai-dev-toolkit-library/gateway
+# create gateway/.env per README
+docker compose up -d
+python seeds/seed.py
+
+npx @lucassantana/adtl setup-claude
+npx @lucassantana/adtl install &lt;skill-id&gt;</code></pre>
+
+  <h2>Browse</h2>
+  <div class="grid">
+    <a class="card" href={`${base}skills/`}>
+      <h3>{skills.length} Skills</h3>
+      <p>Actionable procedures installable into <code>~/.claude/skills/</code>.</p>
+    </a>
+    <a class="card" href={`${base}servers/`}>
+      <h3>{servers.length} Servers</h3>
+      <p>MCP servers you can register with your local gateway in one command.</p>
+    </a>
+    <a class="card" href={`${base}collections/`}>
+      <h3>{collections.length} Collections</h3>
+      <p>Opinionated bundles — starting points for specific workflows.</p>
+    </a>
+    <a class="card" href={`${base}docs/`}>
+      <h3>{docs.length} Reference docs</h3>
+      <p>Reading material — RAG, observability, cost routing, evaluation, and more.</p>
+    </a>
+  </div>
+</Base>
