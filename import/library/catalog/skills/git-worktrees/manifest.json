@@ -1,0 +1,14 @@
+{
+  "id": "git-worktrees",
+  "name": "Git Worktrees for AI Sessions",
+  "description": "When to use `git worktree` instead of branch switching for AI-assisted work: parallel sessions, risky changes, release isolation. Includes cleanup recipes.",
+  "version": "0.1.0",
+  "tags": ["git", "workflow", "worktree", "skill-md"],
+  "editors": ["claude-code", "codex", "cursor"],
+  "source": {
+    "type": "local",
+    "path": "ai-dev-toolkit/patterns/git-worktrees.md"
+  },
+  "license": "MIT",
+  "author": "Lucas Santana"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "agent-gotchas",
+  "name": "Agent Gotchas",
+  "description": "Catalog of non-obvious failure modes in AI coding agents and how to avoid them: stale tools, context compaction surprises, parallel-session branch churn, hook pitfalls.",
+  "version": "0.1.0",
+  "tags": ["claude", "workflow", "reliability", "skill-md"],
+  "editors": ["claude-code", "codex"],
+  "source": {
+    "type": "local",
+    "path": "ai-dev-toolkit/patterns/agent-gotchas.md"
+  },
+  "license": "MIT",
+  "author": "Lucas Santana"
+}

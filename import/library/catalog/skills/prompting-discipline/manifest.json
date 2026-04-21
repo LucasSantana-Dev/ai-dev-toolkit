@@ -1,0 +1,14 @@
+{
+  "id": "prompting-discipline",
+  "name": "Prompting Discipline",
+  "description": "Four-block prompt structure (Goal / Method / Constraints / Validation) for non-trivial AI requests. Reduces rework from under-specified prompts.",
+  "version": "0.1.0",
+  "tags": ["prompting", "claude", "workflow", "skill-md"],
+  "editors": ["claude-code", "codex", "cursor"],
+  "source": {
+    "type": "local",
+    "path": "ai-dev-toolkit/patterns/prompting-discipline.md"
+  },
+  "license": "MIT",
+  "author": "Lucas Santana"
+}

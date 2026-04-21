@@ -1,0 +1,24 @@
+{
+  "name": "@ai-dev-toolkit-library/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "tsx validate-catalog.ts",
+    "index": "tsx generate-index.ts",
+    "import:patterns": "tsx import-patterns.ts",
+    "import:dev-assets": "tsx import-dev-assets.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^4.1.0",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
