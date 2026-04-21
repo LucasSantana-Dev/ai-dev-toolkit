@@ -15,7 +15,6 @@ export interface IndexEntry {
 
 export interface CatalogIndex {
   version: number;
-  generatedAt: string;
   entries: IndexEntry[];
 }
 

@@ -39,7 +39,8 @@ async function main() {
   ].sort((a, b) => a.kind.localeCompare(b.kind) || a.id.localeCompare(b.id));
 
   const outPath = path.join(CATALOG_ROOT, "index.json");
-  await writeFile(outPath, JSON.stringify({ version: 1, generatedAt: new Date().toISOString(), entries: index }, null, 2) + "\n");
+  // Deterministic output — no timestamps — so CI can detect real drift.
+  await writeFile(outPath, JSON.stringify({ version: 1, entries: index }, null, 2) + "\n");
   console.log(`✅ wrote ${outPath} (${index.length} entries)`);
 }
 
