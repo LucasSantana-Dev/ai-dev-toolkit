@@ -33,6 +33,10 @@ jobs:
         env:
           NODE_ENV: production
       - uses: actions/configure-pages@v5
+        with:
+          # Auto-enable Pages on first successful run after repo flip to public.
+          # On private repos without the required plan this step fails (expected).
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist
