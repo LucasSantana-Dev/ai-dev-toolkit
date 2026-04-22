@@ -1,0 +1,24 @@
+{
+  "name": "ai-dev-toolkit-library",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Curated catalog of AI-dev Skills and MCP servers fronted by a single MCP gateway. Inspired by skills.sh and mcpmarket.com.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LucasSantana-Dev/ai-dev-toolkit-library.git"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "validate": "pnpm --filter scripts run validate",
+    "index": "pnpm --filter scripts run index",
+    "import:patterns": "pnpm --filter scripts run import:patterns",
+    "import:dev-assets": "pnpm --filter scripts run import:dev-assets",
+    "cli": "pnpm --filter adtl run start",
+    "web:dev": "pnpm --filter web run dev",
+    "web:build": "pnpm --filter web run build"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  }
+}
