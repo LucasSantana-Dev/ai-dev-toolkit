@@ -12,6 +12,7 @@
 import { readFile, writeFile, mkdir, readdir, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { CATALOG_ROOT } from "./lib/catalog.ts";
 import { scanText, formatFindings } from "./lib/secrets.ts";
@@ -33,10 +34,27 @@ interface AgentSource {
   license: string;
 }
 
+const WORKSPACE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
+
+function resolveLocalSourceDir(relativePath: string, envVars: string[] = []): string {
+  for (const envVar of envVars) {
+    const value = process.env[envVar];
+    if (!value) continue;
+
+    const resolved = path.resolve(value);
+    const direct = path.join(resolved, relativePath);
+    if (existsSync(direct)) return direct;
+    if (path.basename(resolved) === path.basename(relativePath)) return resolved;
+  }
+
+  const monorepoSibling = path.resolve(WORKSPACE_ROOT, "..", "dev-assets", relativePath);
+  return monorepoSibling;
+}
+
 const SOURCES: AgentSource[] = [
   {
     label: "dev-assets/global/claude/agents",
-    baseDir: "/Volumes/External HD/Desenvolvimento/dev-assets/global/claude/agents",
+    baseDir: resolveLocalSourceDir("global/claude/agents", ["FORGE_KIT_DEV_ASSETS_DIR", "DEV_ASSETS_DIR", "DEV_ASSETS_ROOT"]),
     layout: "flat",
     include: [
       "architect",
