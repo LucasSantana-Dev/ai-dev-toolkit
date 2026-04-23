@@ -184,7 +184,6 @@ const popularTags = [...tagCount.entries()]
       <section class="hero-surface" style="display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
           <div>
-            <div class="hero-surface-title">{t(`home.workflow.${item.key}.title`, locale)}</div>
             <h3 style="margin-top:0.15rem;">{t(`home.workflow.${item.key}.title`, locale)}</h3>
             <p class="lead-muted">{t(`home.workflow.${item.key}.lede`, locale)}</p>
           </div>
@@ -194,8 +193,8 @@ const popularTags = [...tagCount.entries()]
           <Card
             kind={item.primary.kind}
             id={item.primary.id}
-            name={t(`home.workflow.${item.key}.title`, locale)}
-            description={t(`home.workflow.${item.key}.lede`, locale)}
+            name={displayEntryName(item.primary.name)}
+            description={item.primary.description}
             tags={item.related.slice(0, 4).map((entry) => displayEntryName(entry.name))}
             href={item.primary.href}
             extraTag={item.primary.kind}

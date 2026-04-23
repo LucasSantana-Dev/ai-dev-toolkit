@@ -51,10 +51,10 @@ const cmd = installCommand("tool", tool.id)!;
   <h2>Script</h2>
   <pre><code>{tool.script}</code></pre>
 
-  {tool.source?.path && (
+  {(tool.source?.path || tool.license) && (
     <p style="color: var(--fg-subtle); font-size: 0.82rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1rem;">
-      Fonte: <code>{tool.source.path}</code>
-      {tool.license && <> · {tool.license}</>}
+      {tool.source?.path && <>Fonte: <code>{tool.source.path}</code></>}
+      {tool.license && <>{tool.source?.path ? " · " : "Licença: "}{tool.license}</>}
     </p>
   )}
 </Base>

@@ -36,10 +36,10 @@ const cmd = installCommand("hook", hook.id)!;
   <h2>Script</h2>
   <pre><code>{hook.script}</code></pre>
 
-  {hook.source?.path && (
+  {(hook.source?.path || hook.license) && (
     <p style="color: var(--fg-subtle); font-size: 0.82rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1rem;">
-      Fonte: <code>{hook.source.path}</code>
-      {hook.license && <> · {hook.license}</>}
+      {hook.source?.path && <>Fonte: <code>{hook.source.path}</code></>}
+      {hook.license && <>{hook.source?.path ? " · " : "Licença: "}{hook.license}</>}
     </p>
   )}
 </Base>

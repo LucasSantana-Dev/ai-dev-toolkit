@@ -152,8 +152,12 @@ function pickCurated(items: HomepageItem[], ids: readonly string[]): HomepageIte
   return picked.slice(0, 3);
 }
 
+function indexKey(kind: HomepageItem["kind"], id: string): string {
+  return `${kind}:${id}`;
+}
+
 function buildIndex(items: HomepageItem[]): Map<string, HomepageItem> {
-  return new Map(items.map((item) => [item.id, item]));
+  return new Map(items.map((item) => [indexKey(item.kind, item.id), item]));
 }
 
 function resolveTheme(
@@ -162,17 +166,22 @@ function resolveTheme(
   locale: Locale,
   theme: (typeof WORKFLOW_THEMES)[number],
 ): WorkflowTheme {
+  const lookup = (id: string) =>
+    ["skill", "server", "agent", "hook", "tool"]
+      .map((kind) => index.get(indexKey(kind as HomepageItem["kind"], id)))
+      .find((item): item is HomepageItem => Boolean(item));
+
   const primary =
     theme.primaryIds
-      .map((id) => index.get(id))
+      .map(lookup)
       .find((item): item is HomepageItem => Boolean(item))
     ?? theme.relatedIds
-      .map((id) => index.get(id))
+      .map(lookup)
       .find((item): item is HomepageItem => Boolean(item))
     ?? null;
 
   const related = theme.relatedIds
-    .map((id) => index.get(id))
+    .map(lookup)
     .filter((item): item is HomepageItem => Boolean(item) && item.id !== primary?.id);
 
   return {
