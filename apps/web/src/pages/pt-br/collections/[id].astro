@@ -1,7 +1,12 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import Card from "../../../components/Card.astro";
-import { collectionItemPath, getCatalogData, getCollections, type CollectionItem } from "../../../lib/catalog.ts";
+import {
+  buildCollectionItemResolver,
+  collectionItemPath,
+  getCatalogData,
+  getCollections,
+} from "../../../lib/catalog.ts";
 import { localizeEntries, localizedUrl, type Locale } from "../../../lib/i18n.ts";
 
 const locale: Locale = "pt-br";
@@ -17,40 +22,17 @@ const { collection } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const url = (p: string) => localizedUrl(base, p, locale);
 
-type EntryLike = { name?: string; title?: string; description: string };
+const localizedCatalog = {
+  skills: localizeEntries(catalog.skills, locale),
+  servers: localizeEntries(catalog.servers, locale),
+  docs: localizeEntries(catalog.docs, locale),
+  agents: localizeEntries(catalog.agents, locale),
+  hooks: localizeEntries(catalog.hooks, locale),
+  commands: localizeEntries(catalog.commands, locale),
+  tools: localizeEntries(catalog.tools, locale),
+};
 
-const skills = localizeEntries(catalog.skills, locale);
-const servers = localizeEntries(catalog.servers, locale);
-const docs = localizeEntries(catalog.docs, locale);
-const agents = localizeEntries(catalog.agents, locale);
-const hooks = localizeEntries(catalog.hooks, locale);
-const commands = localizeEntries(catalog.commands, locale);
-const tools = localizeEntries(catalog.tools, locale);
-
-const entriesByKind = {
-  skill: new Map(skills.map((entry) => [entry.id, entry as EntryLike])),
-  server: new Map(servers.map((entry) => [entry.id, entry as EntryLike])),
-  doc: new Map(docs.map((entry) => [entry.id, entry as EntryLike])),
-  agent: new Map(agents.map((entry) => [entry.id, entry as EntryLike])),
-  hook: new Map(hooks.map((entry) => [entry.id, entry as EntryLike])),
-  command: new Map(commands.map((entry) => [entry.id, entry as EntryLike])),
-  tool: new Map(tools.map((entry) => [entry.id, entry as EntryLike])),
-} satisfies Record<CollectionItem["kind"], Map<string, EntryLike>>;
-
-function entryName(entry: { name?: string; title?: string }, fallback: string) {
-  return entry.name ?? entry.title ?? fallback;
-}
-
-function resolveItem(item: CollectionItem) {
-  const entry = entriesByKind[item.kind].get(item.id);
-  return {
-    kind: item.kind,
-    id: item.id,
-    name: entry ? entryName(entry, item.id) : item.id,
-    description: entry?.description ?? "",
-    href: url(collectionItemPath(item)),
-  };
-}
+const resolveItem = buildCollectionItemResolver(localizedCatalog, (item) => url(collectionItemPath(item)));
 ---
 <Base title={collection.name} description={collection.description} locale={locale}>
   <p style="margin-bottom: 1.5rem;"><a href="../">← todas as coleções</a></p>

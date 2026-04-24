@@ -11,7 +11,7 @@ const path = Astro.url.pathname;
 const suffix = `${Astro.url.search}${Astro.url.hash}`;
 const hrefFor = (target: Locale) => `${switchLocalePath(path, target)}${suffix}`;
 ---
-<div class="lang" aria-label={t("language.label", locale)}>
+<div class="lang" role="group" aria-label={t("language.label", locale)}>
   <a
     class:list={["lang-option", locale === "en" && "active"]}
     href={hrefFor("en")}

@@ -1,7 +1,12 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Card from "../../components/Card.astro";
-import { collectionItemPath, getCatalogData, getCollections, type CollectionItem } from "../../lib/catalog.ts";
+import {
+  buildCollectionItemResolver,
+  collectionItemPath,
+  getCatalogData,
+  getCollections,
+} from "../../lib/catalog.ts";
 
 export async function getStaticPaths() {
   const collections = await getCollections();
@@ -12,32 +17,7 @@ const catalog = await getCatalogData();
 const { collection } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
-type EntryLike = { name?: string; title?: string; description: string };
-
-const entriesByKind = {
-  skill: new Map(catalog.skills.map((entry) => [entry.id, entry as EntryLike])),
-  server: new Map(catalog.servers.map((entry) => [entry.id, entry as EntryLike])),
-  doc: new Map(catalog.docs.map((entry) => [entry.id, entry as EntryLike])),
-  agent: new Map(catalog.agents.map((entry) => [entry.id, entry as EntryLike])),
-  hook: new Map(catalog.hooks.map((entry) => [entry.id, entry as EntryLike])),
-  command: new Map(catalog.commands.map((entry) => [entry.id, entry as EntryLike])),
-  tool: new Map(catalog.tools.map((entry) => [entry.id, entry as EntryLike])),
-} satisfies Record<CollectionItem["kind"], Map<string, EntryLike>>;
-
-function entryName(entry: { name?: string; title?: string }, fallback: string) {
-  return entry.name ?? entry.title ?? fallback;
-}
-
-function resolveItem(item: CollectionItem) {
-  const entry = entriesByKind[item.kind].get(item.id);
-  return {
-    kind: item.kind,
-    id: item.id,
-    name: entry ? entryName(entry, item.id) : item.id,
-    description: entry?.description ?? "",
-    href: `${base}${collectionItemPath(item)}`,
-  };
-}
+const resolveItem = buildCollectionItemResolver(catalog, (item) => `${base}${collectionItemPath(item)}`);
 ---
 <Base title={collection.name} description={collection.description}>
   <p style="margin-bottom: 1.5rem;"><a href="../">← all collections</a></p>

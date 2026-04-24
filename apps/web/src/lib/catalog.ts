@@ -66,7 +66,7 @@ export const COLLECTION_ITEM_ROUTES: Record<CollectionItemKind, string> = {
 };
 
 export function collectionItemPath(item: CollectionItem): string {
-  return `${COLLECTION_ITEM_ROUTES[item.kind]}/${item.id}/`;
+  return `${COLLECTION_ITEM_ROUTES[item.kind]}/${encodeURIComponent(item.id)}/`;
 }
 
 export interface CatalogData {
@@ -150,17 +150,67 @@ export async function getDocs(): Promise<Doc[]> {
   return out;
 }
 
+let catalogDataPromise: Promise<CatalogData> | null = null;
+
 export async function getCatalogData(): Promise<CatalogData> {
-  const [skills, servers, docs, agents, hooks, commands, tools] = await Promise.all([
-    getSkills(),
-    getServers(),
-    getDocs(),
-    getAgents(),
-    getHooks(),
-    getCommands(),
-    getTools(),
-  ]);
-  return { skills, servers, docs, agents, hooks, commands, tools };
+  catalogDataPromise ??= (async () => {
+    const [skills, servers, docs, agents, hooks, commands, tools] = await Promise.all([
+      getSkills(),
+      getServers(),
+      getDocs(),
+      getAgents(),
+      getHooks(),
+      getCommands(),
+      getTools(),
+    ]);
+    return { skills, servers, docs, agents, hooks, commands, tools };
+  })();
+  return catalogDataPromise;
+}
+
+export interface ResolvedCollectionItem {
+  kind: CollectionItemKind;
+  id: string;
+  name: string;
+  description: string;
+  href: string;
+}
+
+type NamedEntry = { id: string; name?: string; title?: string; description: string };
+
+interface CatalogLike {
+  skills: NamedEntry[];
+  servers: NamedEntry[];
+  docs: NamedEntry[];
+  agents: NamedEntry[];
+  hooks: NamedEntry[];
+  commands: NamedEntry[];
+  tools: NamedEntry[];
+}
+
+export function buildCollectionItemResolver(
+  catalog: CatalogLike,
+  hrefFor: (item: CollectionItem) => string,
+): (item: CollectionItem) => ResolvedCollectionItem {
+  const maps: Record<CollectionItemKind, Map<string, NamedEntry>> = {
+    skill: new Map(catalog.skills.map((e) => [e.id, e])),
+    server: new Map(catalog.servers.map((e) => [e.id, e])),
+    doc: new Map(catalog.docs.map((e) => [e.id, e])),
+    agent: new Map(catalog.agents.map((e) => [e.id, e])),
+    hook: new Map(catalog.hooks.map((e) => [e.id, e])),
+    command: new Map(catalog.commands.map((e) => [e.id, e])),
+    tool: new Map(catalog.tools.map((e) => [e.id, e])),
+  };
+  return (item) => {
+    const entry = maps[item.kind].get(item.id);
+    return {
+      kind: item.kind,
+      id: item.id,
+      name: entry?.name ?? entry?.title ?? item.id,
+      description: entry?.description ?? "",
+      href: hrefFor(item),
+    };
+  };
 }
 
 export interface Agent {

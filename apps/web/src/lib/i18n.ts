@@ -302,6 +302,11 @@ export function localePrefix(locale: Locale): string {
   return locale === "en" ? "" : `${locale}/`;
 }
 
+export function pluralizeItems(count: number, locale: Locale): string {
+  if (locale === "pt-br") return count === 1 ? `${count} item` : `${count} itens`;
+  return count === 1 ? `${count} item` : `${count} items`;
+}
+
 export function switchLocalePath(pathname: string, target: Locale): string {
   const stripped = pathname.replace(/^\/pt-br(\/|$)/, "/");
   if (target === "en") return stripped;

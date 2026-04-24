@@ -1,50 +1,20 @@
 ---
 import Base from "../../layouts/Base.astro";
-import Card from "../../components/Card.astro";
+import CollectionsFeaturedGrid from "../../components/CollectionsFeaturedGrid.astro";
 import { getCollections } from "../../lib/catalog.ts";
 import { t, type Locale } from "../../lib/i18n.ts";
 
 const locale: Locale = "en";
 const collections = await getCollections();
 const base = import.meta.env.BASE_URL;
-const featuredCollections = collections.slice(0, 3);
-const remainingCollections = collections.slice(3);
 ---
 <Base title={t("list.collections.title", locale)} description={t("list.collections.description", locale, { count: collections.length })}>
   <h1>{t("list.collections.title", locale)}</h1>
-  <p class="lead-muted">{t("list.collections.introLede", locale)}</p>
-  <section class="hero-surface" style="margin: 1.25rem 0 1rem; display: grid; gap: 1rem;">
-    <div>
-      <div class="hero-surface-title">{t("list.collections.intro", locale)}</div>
-      <p class="lead-muted">{t("list.collections.introLede", locale)}</p>
-    </div>
-    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
-      {featuredCollections.map((c) => (
-        <Card
-          kind="collection"
-          id={c.id}
-          name={c.name}
-          description={c.description}
-          tags={c.tags ?? []}
-          href={`${base}collections/${c.id}/`}
-          extraTag={`${c.items.length} items`}
-        />
-      ))}
-    </div>
-  </section>
-  {remainingCollections.length > 0 && (
-    <div class="grid">
-      {remainingCollections.map((c) => (
-        <Card
-          kind="collection"
-          id={c.id}
-          name={c.name}
-          description={c.description}
-          tags={c.tags ?? []}
-          href={`${base}collections/${c.id}/`}
-          extraTag={`${c.items.length} items`}
-        />
-      ))}
-    </div>
-  )}
+  <CollectionsFeaturedGrid
+    collections={collections}
+    locale={locale}
+    hrefFor={(id) => `${base}collections/${id}/`}
+    heading={t("list.collections.intro", locale)}
+    lede={t("list.collections.introLede", locale)}
+  />
 </Base>
